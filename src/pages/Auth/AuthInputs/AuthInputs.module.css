@@ -1,0 +1,21 @@
+.authInput input {
+  background: transparent !important;
+  color: var(--color-primary);
+}
+
+.authInput input::placeholder {
+  color: var(--color-placeholder) !important;
+}
+
+.authInput :global(.ant-input-show-count-suffix) {
+  color: var(--color-primary);
+}
+
+.authInput {
+  background: transparent !important;
+  color: var(--color-primary);
+}
+
+.authInput::placeholder {
+  color: var(--color-placeholder) !important;
+}

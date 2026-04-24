@@ -3,6 +3,7 @@ import Header from "../../../components/Header/Header";
 import s from "./SignUp.module.css";
 import { supabase } from "../../../supabase/supabaseClient";
 import { useNavigate } from "react-router-dom";
+import AuthInputs from "../AuthInputs/AuthInputs";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -43,17 +44,11 @@ const SignUp = () => {
       <Header title="Sign Up" />
       <div className={s.content}>
         <div className={s.inputs}>
-          <input
-            type="text"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+          <AuthInputs
+            email={email}
+            setEmail={setEmail}
+            password={password}
+            setPassword={setPassword}
           />
         </div>
         <button className={s.button} onClick={handleSignUp} disabled={loading}>
