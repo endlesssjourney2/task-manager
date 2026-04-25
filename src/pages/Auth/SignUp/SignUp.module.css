@@ -30,11 +30,31 @@
 }
 
 .button {
-  padding: 10px 16px;
+  padding: 12px 24px;
   border: none;
   border-radius: 8px;
-  background-color: var(--text-primary);
+  background-color: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
   font-size: 1rem;
   cursor: pointer;
-  margin: 10px 0 20px 0;
+  margin: 10px 0 5px 0;
+  transition: background-color 0.2s ease;
+}
+
+.button:hover {
+  background-color: var(--btn-primary-hover);
+}
+
+.footer {
+  margin-bottom: 5px;
+  display: flex;
+  gap: 10px;
+}
+
+.text {
+  color: var(--text-secondary);
+}
+
+.link {
+  color: var(--color-accent-blue);
 }

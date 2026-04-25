@@ -2,7 +2,7 @@ import { useState } from "react";
 import Header from "../../../components/Header/Header";
 import s from "./SignIn.module.css";
 import { supabase } from "../../../supabase/supabaseClient";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AuthInputs from "../AuthInputs/AuthInputs";
 
 const SignIn = () => {
@@ -52,6 +52,12 @@ const SignIn = () => {
         <button className={s.button} onClick={handleSignIn}>
           Sign In
         </button>
+        <div className={s.footer}>
+          <span className={s.text}>Don't have an account? </span>
+          <Link className={s.link} to={"/signup"}>
+            Sign Up
+          </Link>
+        </div>
       </div>
     </div>
   );

@@ -2,7 +2,7 @@ import { useState } from "react";
 import Header from "../../../components/Header/Header";
 import s from "./SignUp.module.css";
 import { supabase } from "../../../supabase/supabaseClient";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AuthInputs from "../AuthInputs/AuthInputs";
 
 const SignUp = () => {
@@ -56,6 +56,12 @@ const SignUp = () => {
         <button className={s.button} onClick={handleSignUp} disabled={loading}>
           Sign Up
         </button>
+        <div className={s.footer}>
+          <span className={s.text}>Already have an account? </span>
+          <Link className={s.link} to={"/signin"}>
+            Sign In
+          </Link>
+        </div>
       </div>
     </div>
   );
