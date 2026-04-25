@@ -1,5 +1,54 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Quicksand:wght@300..700&display=swap");
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+body {
+  min-height: 100vh;
+  background-color: #020408;
+}
+
+:root {
+  /* Background */
+  --bg-color-primary: #0c1117;
+  --bg-color-secondary: #262c36;
+  --bg-card: #21262d;
+  --bg-card-hover: #30363d;
+
+  /* Color */
+  --text-primary: #f0f6fc;
+  --text-secondary: #c9d1d9;
+  --text-muted: #8b949e;
+  --text-placeholder: #9298a1;
+  --text-disabled: #484f58;
+  --text-hover-primary: #15191e;
+  /* Borders */
+  --border-color-primary: #3e444d;
+  --border-bottom-color: #f0f6fc;
+
+  /* Buttons */
+  --btn-primary-bg: #21262d;
+  --btn-primary-hover: #30363d;
+  --btn-primary-active: #373e47;
+  --btn-primary-text: #c9d1d9;
+
+  /* Accent */
+  --color-accent-blue: #2f81f7;
+
+  /* Shadows */
+  --shadow-card: 0 8px 24px rgba(1, 4, 9, 0.4);
 }

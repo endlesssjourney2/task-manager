@@ -1,0 +1,14 @@
+.navbarBtn {
+  background: transparent;
+  border: 1px solid var(--border-color-primary);
+  color: var(--text-primary);
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s background-color ease;
+  font-family: "Montserrat", sans-serif;
+}
+
+.navbarBtn:hover {
+  background-color: var(--text-hover-primary);
+}
