@@ -37,8 +37,10 @@ const SignIn = () => {
 
   return (
     <div className={s.signIn}>
-      <Header title="Sign In" />
       <div className={s.content}>
+        <div className={s.header}>
+          <Header title="Sign In" />
+        </div>
         <div className={s.inputs}>
           <AuthInputs
             email={email}
