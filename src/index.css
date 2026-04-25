@@ -26,11 +26,20 @@ body {
   /* Background */
   --bg-color-primary: #0c1117;
   --bg-color-secondary: #262c36;
+  --bg-card: #21262d;
+  --bg-card-hover: #30363d;
+
   /* Color */
-  --color-primary: #f0f6fc;
-  --color-placeholder: #9298a1;
-  --color-hover-primary: #15191e;
+  --text-primary: #f0f6fc;
+  --text-secondary: #c9d1d9;
+  --text-muted: #8b949e;
+  --text-placeholder: #9298a1;
+  --text-disabled: #484f58;
+  --text-hover-primary: #15191e;
   /* Borders */
   --border-color-primary: #3e444d;
   --border-bottom-color: #f0f6fc;
+
+  /* Shadows */
+  --shadow-card: 0 8px 24px rgba(1, 4, 9, 0.4);
 }
