@@ -1,9 +1,9 @@
 import { useState } from "react";
-import Header from "../../../components/Header/Header";
 import s from "./SignIn.module.css";
 import { supabase } from "../../../supabase/supabaseClient";
 import { Link, useNavigate } from "react-router-dom";
 import AuthInputs from "../AuthInputs/AuthInputs";
+import CustomHeader from "../../../components/CustomHeader/CustomHeader";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
@@ -39,7 +39,7 @@ const SignIn = () => {
     <div className={s.signIn}>
       <div className={s.content}>
         <div className={s.header}>
-          <Header title="Sign In" />
+          <CustomHeader title="Sign In" />
         </div>
         <div className={s.inputs}>
           <AuthInputs
