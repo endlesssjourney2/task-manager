@@ -22,3 +22,12 @@
   font-weight: 600;
   color: var(--text-primary);
 }
+
+.content {
+  margin-top: 20px;
+  width: 90%;
+}
+
+.loading {
+  margin-top: 300px;
+}

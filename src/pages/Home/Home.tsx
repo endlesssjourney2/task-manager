@@ -2,19 +2,19 @@ import { useState } from "react";
 import CustomHeader from "../../components/CustomHeader/CustomHeader";
 import useProjects from "../../hooks/useProjects";
 import s from "./Home.module.css";
-import { Button, Modal } from "antd";
-import { PlusOutlined } from "@ant-design/icons";
+import { Button, Spin } from "antd";
+import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
+import ProjectList from "./components/ProjectList/ProjectList";
+import CustomModal from "./components/CustomModal/CustomModal";
 
 const Home = () => {
-  const { addProject } = useProjects();
-  const [title, setTitle] = useState("");
-  const [color, setColor] = useState("#000000");
+  const { projects, addProject, removeProject, initialLoading, actionLoading } =
+    useProjects();
+
   const [modalOpen, setModalOpen] = useState(false);
 
-  const handleCreateProject = async () => {
+  const handleCreateProject = async (title: string, color: string) => {
     await addProject(title, color);
-    setTitle("");
-    setColor("#000000");
     setModalOpen(false);
   };
 
@@ -24,9 +24,16 @@ const Home = () => {
 
   const handleCloseModal = () => {
     setModalOpen(false);
-    setTitle("");
-    setColor("#000000");
   };
+
+  if (initialLoading)
+    return (
+      <div className={s.home}>
+        <div className={s.loading}>
+          <Spin indicator={<LoadingOutlined style={{ fontSize: 60 }} spin />} />
+        </div>
+      </div>
+    );
 
   return (
     <div className={s.home}>
@@ -40,29 +47,19 @@ const Home = () => {
             onClick={handleOpenModal}
             icon={<PlusOutlined />}
             type="primary"
-            shape="circle"
+            shape="round"
           />
         </div>
       </div>
-      <div className={s.content}></div>
-      {modalOpen && (
-        <Modal
-          title="Add new project"
-          closable={{ "aria-label": "Custom Close Button" }}
-          open={modalOpen}
-          onCancel={handleCloseModal}
-          onOk={handleCreateProject}
-        >
-          <div className={s.modalContent}>
-            <input
-              type="text"
-              placeholder="Project title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-            />
-          </div>
-        </Modal>
-      )}
+      <div className={s.content}>
+        <ProjectList projects={projects} removeProject={removeProject} />
+      </div>
+      <CustomModal
+        modalOpen={modalOpen}
+        handleCloseModal={handleCloseModal}
+        handleCreateProject={handleCreateProject}
+        loading={actionLoading}
+      />
     </div>
   );
 };
