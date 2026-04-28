@@ -5,22 +5,23 @@ import { useAuth } from "../context/AuthContext";
 
 const useProjects = () => {
   const [projects, setProjects] = useState<Project[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [initialLoading, setInitialLoading] = useState(false);
+  const [actionLoading, setActionLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const { user } = useAuth();
 
   useEffect(() => {
     if (!user) return;
     const fetchProjects = async () => {
-      setLoading(true);
+      setInitialLoading(true);
       const [data, error] = await getProjects(user.id);
       if (error) {
         setError("Failed to load projects");
-        setLoading(false);
+        setInitialLoading(false);
         return;
       }
       setProjects(data as Project[]);
-      setLoading(false);
+      setInitialLoading(false);
     };
     fetchProjects();
   }, [user]);
@@ -32,15 +33,15 @@ const useProjects = () => {
 
     if (!cleanTitle) return setError("Project title cannot be empty");
 
-    setLoading(true);
+    setActionLoading(true);
     const [data, error] = await createProject(cleanTitle, color, user.id);
     if (error) {
       setError("Failed to create project");
-      setLoading(false);
+      setActionLoading(false);
       return;
     }
     setProjects((prev) => [data as Project, ...prev]);
-    setLoading(false);
+    setActionLoading(false);
   };
 
   const removeProject = async (id: string) => {
@@ -52,7 +53,14 @@ const useProjects = () => {
     setProjects((prev) => prev.filter((project) => project.id !== id));
   };
 
-  return { projects, loading, error, addProject, removeProject };
+  return {
+    projects,
+    actionLoading,
+    initialLoading,
+    error,
+    addProject,
+    removeProject,
+  };
 };
 
 export default useProjects;
