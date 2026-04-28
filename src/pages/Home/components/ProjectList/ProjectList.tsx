@@ -1,6 +1,6 @@
+import type { Project } from "../../../../types/project";
 import s from "./ProjectList.module.css";
 import type { FC } from "react";
-import type { Project } from "../../../types/project";
 
 type Props = {
   projects: Project[];
