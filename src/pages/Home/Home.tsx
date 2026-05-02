@@ -6,10 +6,18 @@ import { Button, Spin } from "antd";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import ProjectList from "./components/ProjectList/ProjectList";
 import CustomModal from "./components/CustomModal/CustomModal";
+import CustomPagination from "../../components/CustomPagination/CustomPagination";
+import usePaginate from "../../hooks/usePaginate";
 
 const Home = () => {
   const { projects, addProject, removeProject, initialLoading, actionLoading } =
     useProjects();
+
+  const { page, paginatedItems, setPage, safeItemsPerPage, pageCount } =
+    usePaginate({
+      items: projects,
+      itemsPerPage: 12,
+    });
 
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -52,7 +60,16 @@ const Home = () => {
         </div>
       </div>
       <div className={s.content}>
-        <ProjectList projects={projects} removeProject={removeProject} />
+        {pageCount > 1 && (
+          <CustomPagination
+            current={page}
+            total={projects.length}
+            pageSize={safeItemsPerPage}
+            onChange={(newPage) => setPage(newPage)}
+          />
+        )}
+
+        <ProjectList projects={paginatedItems} removeProject={removeProject} />
       </div>
       <CustomModal
         modalOpen={modalOpen}
