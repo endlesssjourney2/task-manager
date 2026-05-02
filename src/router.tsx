@@ -3,6 +3,7 @@ import RootLayout from "./layout/RootLayout.tsx";
 import Home from "./pages/Home/Home.tsx";
 import SignIn from "./pages/Auth/SignIn/SignIn.tsx";
 import SignUp from "./pages/Auth/SignUp/SignUp.tsx";
+import Project from "./pages/Project/Project.tsx";
 
 export const router = createBrowserRouter(
   [
@@ -11,8 +12,9 @@ export const router = createBrowserRouter(
       element: <RootLayout />,
       children: [
         { index: true, element: <Home /> },
-        { path: "/signin", element: <SignIn /> },
-        { path: "/signup", element: <SignUp /> },
+        { path: "signin", element: <SignIn /> },
+        { path: "signup", element: <SignUp /> },
+        { path: "project/:id", element: <Project /> },
       ],
     },
   ],
