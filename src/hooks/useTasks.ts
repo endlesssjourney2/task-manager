@@ -51,10 +51,11 @@ const useTasks = (projectId: string) => {
     if (error) {
       setError("Failed to create task");
       setActionLoading(false);
-      return;
+      return false;
     }
     setTasks((prev) => [data as Task, ...prev]);
     setActionLoading(false);
+    return true;
   };
 
   const removeTask = async (id: string) => {

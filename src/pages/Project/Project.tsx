@@ -1,41 +1,35 @@
 import { useParams } from "react-router";
 import s from "./Project.module.css";
 import CustomHeader from "../../components/CustomHeader/CustomHeader";
-import { useState } from "react";
 import useTasks from "../../hooks/useTasks";
+import TasksInputs from "./components/TasksInputs/TasksInputs";
 
 const Project = () => {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-
   const { id } = useParams();
-  const { tasks, addTask } = useTasks(id);
+  const { tasks, addTask, removeTask } = useTasks(id);
 
-  const handleAddTask = async () => {
-    await addTask(title, description, "medium", null);
+  const handleAddTask = async (
+    title: string,
+    description: string,
+    priority: string,
+    date: string,
+  ) => {
+    const result = await addTask(title, description, priority, date);
+    return result;
   };
 
   return (
     <div className={s.project}>
       <CustomHeader title="Your tasks" />
       <div className={s.content}>
-        <input
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        <input
-          type="text"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-        <button onClick={handleAddTask}>Add</button>
+        <TasksInputs handleCreateTask={handleAddTask} />
       </div>
       {tasks.map((t) => (
         <div className={s.test}>
           <div>{t.title}</div>
           <div>{t.description}</div>
           <div>{t.due_date}</div>
+          <button onClick={() => removeTask(t.id)}>Delete</button>
         </div>
       ))}
     </div>
