@@ -5,9 +5,9 @@ import s from "./Home.module.css";
 import { Button, Spin } from "antd";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import ProjectList from "./components/ProjectList/ProjectList";
-import CustomModal from "./components/CustomModal/CustomModal";
 import CustomPagination from "../../components/CustomPagination/CustomPagination";
 import usePaginate from "../../hooks/usePaginate";
+import HomeModal from "./components/HomeModal/HomeModal";
 
 const Home = () => {
   const { projects, addProject, removeProject, initialLoading, actionLoading } =
@@ -71,7 +71,7 @@ const Home = () => {
 
         <ProjectList projects={paginatedItems} removeProject={removeProject} />
       </div>
-      <CustomModal
+      <HomeModal
         modalOpen={modalOpen}
         handleCloseModal={handleCloseModal}
         handleCreateProject={handleCreateProject}
