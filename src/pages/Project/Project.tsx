@@ -3,6 +3,7 @@ import s from "./Project.module.css";
 import CustomHeader from "../../components/CustomHeader/CustomHeader";
 import useTasks from "../../hooks/useTasks";
 import TasksInputs from "./components/TasksInputs/TasksInputs";
+import type { Priority } from "../../types/task";
 
 const Project = () => {
   const { id } = useParams();
@@ -11,7 +12,7 @@ const Project = () => {
   const handleAddTask = async (
     title: string,
     description: string,
-    priority: string,
+    priority: Priority,
     date: string,
   ) => {
     const result = await addTask(title, description, priority, date);

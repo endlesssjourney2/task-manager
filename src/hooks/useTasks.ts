@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import type { Task } from "../types/task";
+import type { Priority, Task } from "../types/task";
 import { useAuth } from "../context/AuthContext";
 import { createTask, deleteTask, getTasks } from "../api/task";
 
@@ -29,7 +29,7 @@ const useTasks = (projectId: string) => {
   const addTask = async (
     title: string,
     description: string | null,
-    priority: string,
+    priority: Priority,
     dueDate: string | null,
   ) => {
     if (!user) return;

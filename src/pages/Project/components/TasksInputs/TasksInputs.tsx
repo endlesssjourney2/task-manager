@@ -22,7 +22,7 @@ const TasksInputs: FC<Props> = ({ handleCreateTask }) => {
     const result = await handleCreateTask(
       title,
       description,
-      "medium",
+      "low",
       date ? date.format("YYYY-MM-DD") : null,
     );
     if (result) {
