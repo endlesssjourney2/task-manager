@@ -51,6 +51,8 @@ body {
   --color-error: #ef4444;
   --color-error-hover: #dc2626;
 
-  /* Shadows */
-  --shadow-card: 0 8px 24px rgba(1, 4, 9, 0.4);
+  /* Priority colors */
+  --priority-low: #22c55e;
+  --priority-medium: #f59e0b;
+  --priority-high: #ef4444;
 }
