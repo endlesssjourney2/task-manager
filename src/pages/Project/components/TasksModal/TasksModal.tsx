@@ -62,17 +62,19 @@ const TasksModal: FC<Props> = ({
       rootClassName="task-modal"
       open={modalOpen}
       onCancel={handleCloseModal}
-      onOk={handleOk}
-      confirmLoading={loading}
       style={{ top: "150px" }}
       footer={[
         <div className={s.footerModalContainer}>
           <div className={s.left}>
-            <Button onClick={handleCloseModal}>Cancel</Button>
-            <Button onClick={handleClear}>Clear</Button>
+            <Button onClick={handleCloseModal} disabled={loading}>
+              Cancel
+            </Button>
+            <Button onClick={handleClear} disabled={loading}>
+              Clear
+            </Button>
           </div>
           <div className={s.right}>
-            <Button type="primary" onClick={handleOk}>
+            <Button type="primary" onClick={handleOk} loading={loading}>
               Add
             </Button>
           </div>
