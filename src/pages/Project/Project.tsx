@@ -5,6 +5,9 @@ import useTasks from "../../hooks/useTasks";
 import { useState } from "react";
 import TasksModal from "./components/TasksModal/TasksModal";
 import type { Priority } from "../../types/task";
+import TasksList from "./components/TasksList/TasksList";
+import { Button } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
 
 const Project = () => {
   const { id } = useParams();
@@ -33,25 +36,24 @@ const Project = () => {
   return (
     <div className={s.project}>
       <CustomHeader title="Your tasks" />
-      <div className={s.content}>
-        <div className={s.addNew}>Add a new task for your project here</div>
-        <button onClick={handleOpenModal}>OPEN</button>
+      <div className={s.header}>
+        <span className={s.headerTitle}>Add new task for your project</span>
+        <Button
+          onClick={handleOpenModal}
+          icon={<PlusOutlined />}
+          type="primary"
+          shape="round"
+        />
       </div>
-      {tasks.map((t) => (
-        <div className={s.test}>
-          <div>{t.title}</div>
-          <div>{t.description}</div>
-          <div>{t.due_date}</div>
-          <div>{t.priority}</div>
-          <button onClick={() => removeTask(t.id)}>Delete</button>
-        </div>
-      ))}
-      <TasksModal
-        modalOpen={modalOpen}
-        handleCloseModal={handleCloseModal}
-        handleCreateTask={handleAddTask}
-        loading={actionLoading}
-      />
+      <div className={s.content}>
+        <TasksList tasks={tasks} removeTask={removeTask} />
+        <TasksModal
+          modalOpen={modalOpen}
+          handleCloseModal={handleCloseModal}
+          handleCreateTask={handleAddTask}
+          loading={actionLoading}
+        />
+      </div>
     </div>
   );
 };
