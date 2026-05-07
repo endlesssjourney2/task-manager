@@ -22,6 +22,10 @@ body {
   background-color: #020408;
 }
 
+li {
+  list-style: none;
+}
+
 :root {
   /* Background */
   --bg-color-primary: #0c1117;
