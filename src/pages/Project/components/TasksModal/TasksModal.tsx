@@ -1,6 +1,6 @@
 import { useState, type FC } from "react";
 import s from "./TasksModal.module.css";
-import { DatePicker, Input, Modal, Select } from "antd";
+import { Button, DatePicker, Input, Modal, Select } from "antd";
 import type { Dayjs } from "dayjs";
 import dayjs from "dayjs";
 import type { Priority } from "../../../../types/task";
@@ -44,6 +44,13 @@ const TasksModal: FC<Props> = ({
     }
   };
 
+  const handleClear = () => {
+    setPriority("medium");
+    setTitle("");
+    setDescription("");
+    setDate(null);
+  };
+
   const handleSelect = (value: Priority) => {
     setPriority(value);
   };
@@ -58,6 +65,19 @@ const TasksModal: FC<Props> = ({
       onOk={handleOk}
       confirmLoading={loading}
       style={{ top: "150px" }}
+      footer={[
+        <div className={s.footerModalContainer}>
+          <div className={s.left}>
+            <Button onClick={handleCloseModal}>Cancel</Button>
+            <Button onClick={handleClear}>Clear</Button>
+          </div>
+          <div className={s.right}>
+            <Button type="primary" onClick={handleOk}>
+              Add
+            </Button>
+          </div>
+        </div>,
+      ]}
     >
       <div className={s.modalContent}>
         <div className={s.inputs}>
@@ -81,7 +101,16 @@ const TasksModal: FC<Props> = ({
             placeholder="Priority"
             value={priority}
             defaultValue={"medium"}
-            options={PRIORITY_OPTIONS}
+            options={[
+              {
+                label: (
+                  <div className={s.labelContainer}>
+                    <span className={s.selectLabel}>Priority</span>
+                  </div>
+                ),
+                options: PRIORITY_OPTIONS,
+              },
+            ]}
             onChange={handleSelect}
             className={s.select}
           />
