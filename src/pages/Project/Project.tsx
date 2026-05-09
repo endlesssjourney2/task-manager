@@ -11,7 +11,7 @@ import { PlusOutlined } from "@ant-design/icons";
 
 const Project = () => {
   const { id } = useParams();
-  const { tasks, addTask, removeTask, actionLoading } = useTasks(id);
+  const { tasks, addTask, removeTask, actionLoading, editTask } = useTasks(id);
   const [modalOpen, setModalOpen] = useState(false);
 
   const handleOpenModal = () => {
@@ -46,7 +46,7 @@ const Project = () => {
         />
       </div>
       <div className={s.content}>
-        <TasksList tasks={tasks} removeTask={removeTask} />
+        <TasksList tasks={tasks} removeTask={removeTask} editTask={editTask} />
         <TasksModal
           modalOpen={modalOpen}
           handleCloseModal={handleCloseModal}

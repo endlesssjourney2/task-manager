@@ -1,19 +1,28 @@
 import type { FC } from "react";
-import type { Task } from "../../../../types/task";
+import type { Task, UpdateTaskPayload } from "../../../../types/task";
 import s from "./TasksList.module.css";
-import { capitalizeFirst } from "../../../../helpers/capitalizeFirst";
+import CustomStatus from "../CustomStatus/CustomStatus";
+
 type Props = {
   tasks: Task[];
   removeTask: (id: string) => void;
+  editTask: (
+    id: string,
+    fields: Omit<UpdateTaskPayload, "id">,
+  ) => Promise<void>;
 };
 
-const TasksList: FC<Props> = ({ tasks, removeTask }) => {
+const TasksList: FC<Props> = ({ tasks, removeTask, editTask }) => {
   return (
     <ul className={s.list}>
       {tasks.map((t) => (
         <li key={t.id} className={s.item}>
           <div className={s.header}>
-            <span className={s.status}>{capitalizeFirst(t.status)}</span>
+            <CustomStatus
+              status={t.status}
+              id={t.id}
+              updateStatus={(id, status) => editTask(id, { status })}
+            />
           </div>
           <div className={s.body}>
             <span className={s.title}>{t.title}</span>
