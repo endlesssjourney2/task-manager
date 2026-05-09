@@ -1,5 +1,5 @@
 import { supabase } from "../supabase/supabaseClient";
-import type { CreateTaskPayload } from "../types/task";
+import type { CreateTaskPayload, UpdateTaskPayload } from "../types/task";
 
 export const getTasks = async (projectId: string) => {
   const { data, error } = await supabase
@@ -44,4 +44,20 @@ export const deleteTask = async (id: string) => {
     return error;
   }
   return null;
+};
+
+export const updateTask = async (payload: UpdateTaskPayload) => {
+  const { id, dueDate, ...rest } = payload;
+
+  const { error } = await supabase
+    .from("tasks")
+    .update({ ...rest, due_date: dueDate })
+    .eq("id", id)
+    .select()
+    .single();
+
+  if (error) {
+    console.error("Error updating task", error.message);
+    return null;
+  }
 };
