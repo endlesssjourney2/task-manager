@@ -82,7 +82,7 @@ const useTasks = (projectId: string) => {
     if (error) {
       setError("Failed to update task");
       setActionLoading(false);
-      return;
+      return false;
     }
     setTasks((prev) =>
       prev.map((task) =>
@@ -92,6 +92,7 @@ const useTasks = (projectId: string) => {
       ),
     );
     setActionLoading(false);
+    return true;
   };
 
   return {
