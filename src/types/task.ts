@@ -22,3 +22,12 @@ export type CreateTaskPayload = {
   priority: Priority;
   dueDate: string | null;
 };
+
+export type UpdateTaskPayload = {
+  id: string;
+  title?: string;
+  description?: string | null;
+  status?: Status;
+  priority?: Priority;
+  dueDate?: string | null;
+};
