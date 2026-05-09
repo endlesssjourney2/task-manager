@@ -1,3 +1,4 @@
 export const capitalizeFirst = (str: string) => {
-  return str.charAt(0).toUpperCase() + str.slice(1);
+  const formatted = str.replace(/_/g, " ");
+  return formatted.charAt(0).toUpperCase() + formatted.slice(1);
 };
