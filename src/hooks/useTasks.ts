@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import type { Priority, Task } from "../types/task";
+import type { Priority, Task, UpdateTaskPayload } from "../types/task";
 import { useAuth } from "../context/AuthContext";
-import { createTask, deleteTask, getTasks } from "../api/task";
+import { createTask, deleteTask, getTasks, updateTask } from "../api/task";
 
 const useTasks = (projectId: string) => {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -70,11 +70,36 @@ const useTasks = (projectId: string) => {
     setActionLoading(false);
   };
 
+  const editTask = async (
+    id: string,
+    fields: Omit<UpdateTaskPayload, "id">,
+  ) => {
+    setActionLoading(true);
+    const error = await updateTask({
+      id,
+      ...fields,
+    });
+    if (error) {
+      setError("Failed to update task");
+      setActionLoading(false);
+      return;
+    }
+    setTasks((prev) =>
+      prev.map((task) =>
+        task.id === id
+          ? { ...task, ...fields, due_date: fields.dueDate }
+          : task,
+      ),
+    );
+    setActionLoading(false);
+  };
+
   return {
     tasks,
     setTasks,
     addTask,
     removeTask,
+    editTask,
     initialLoading,
     actionLoading,
     error,
