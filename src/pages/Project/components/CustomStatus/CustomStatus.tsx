@@ -8,7 +8,7 @@ import { DownOutlined } from "@ant-design/icons";
 type Props = {
   status: Status;
   id: string;
-  updateStatus: (id: string, status: Status) => Promise<void>;
+  updateStatus: (id: string, status: Status) => Promise<boolean>;
 };
 
 const CustomStatus: FC<Props> = ({ status, updateStatus, id }) => {
