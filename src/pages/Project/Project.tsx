@@ -4,22 +4,35 @@ import CustomHeader from "../../components/CustomHeader/CustomHeader";
 import useTasks from "../../hooks/useTasks";
 import { useState } from "react";
 import TasksModal from "./components/TasksModal/TasksModal";
-import type { Priority } from "../../types/task";
+import type { Priority, Task, UpdateTaskPayload } from "../../types/task";
 import TasksList from "./components/TasksList/TasksList";
 import { Button } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
+import EditModal from "./components/EditModal/EditModal";
 
 const Project = () => {
   const { id } = useParams();
   const { tasks, addTask, removeTask, actionLoading, editTask } = useTasks(id);
-  const [modalOpen, setModalOpen] = useState(false);
+  const [addModalOpen, setAddModalOpen] = useState(false);
+  const [editModalOpen, setEditModalOpen] = useState(false);
+  const [selectedTask, setSelectedTask] = useState<Task | null>(null);
 
-  const handleOpenModal = () => {
-    setModalOpen(true);
+  const handleOpenEditModal = (task: Task) => {
+    setEditModalOpen(true);
+    setSelectedTask(task);
   };
 
-  const handleCloseModal = () => {
-    setModalOpen(false);
+  const handleCloseEditModal = () => {
+    setEditModalOpen(false);
+    setTimeout(() => setSelectedTask(null), 300);
+  };
+
+  const handleOpenAddModal = () => {
+    setAddModalOpen(true);
+  };
+
+  const handleCloseAddModal = () => {
+    setAddModalOpen(false);
   };
 
   const handleAddTask = async (
@@ -29,7 +42,19 @@ const Project = () => {
     date: string | null,
   ) => {
     const result = await addTask(title, description, priority, date);
-    if (result) setModalOpen(false);
+    if (result) setAddModalOpen(false);
+    return result;
+  };
+
+  const handleEditTask = async (
+    id: string,
+    fields: Omit<UpdateTaskPayload, "id">,
+  ) => {
+    const result = await editTask(id, fields);
+    if (result) {
+      setEditModalOpen(false);
+      setTimeout(() => setSelectedTask(null), 300);
+    }
     return result;
   };
 
@@ -39,20 +64,33 @@ const Project = () => {
       <div className={s.header}>
         <span className={s.headerTitle}>Add new task for your project</span>
         <Button
-          onClick={handleOpenModal}
+          onClick={handleOpenAddModal}
           icon={<PlusOutlined />}
           type="primary"
           shape="round"
         />
       </div>
       <div className={s.content}>
-        <TasksList tasks={tasks} removeTask={removeTask} editTask={editTask} />
+        <TasksList
+          tasks={tasks}
+          removeTask={removeTask}
+          editTask={editTask}
+          handleOpenModal={handleOpenEditModal}
+        />
         <TasksModal
-          modalOpen={modalOpen}
-          handleCloseModal={handleCloseModal}
+          modalOpen={addModalOpen}
+          handleCloseModal={handleCloseAddModal}
           handleCreateTask={handleAddTask}
           loading={actionLoading}
         />
+        {selectedTask && (
+          <EditModal
+            modalOpen={editModalOpen}
+            selectedTask={selectedTask}
+            handleCloseModal={handleCloseEditModal}
+            handleEditTask={handleEditTask}
+          />
+        )}
       </div>
     </div>
   );
