@@ -106,6 +106,7 @@ const Project = () => {
             selectedTask={selectedTask}
             handleCloseModal={handleCloseEditModal}
             handleEditTask={handleEditTask}
+            loading={actionLoading}
           />
         )}
       </div>
