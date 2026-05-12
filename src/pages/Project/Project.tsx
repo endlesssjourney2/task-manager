@@ -6,13 +6,20 @@ import { useState } from "react";
 import TasksModal from "./components/TasksModal/TasksModal";
 import type { Priority, Task, UpdateTaskPayload } from "../../types/task";
 import TasksList from "./components/TasksList/TasksList";
-import { Button } from "antd";
-import { PlusOutlined } from "@ant-design/icons";
+import { Button, Spin } from "antd";
+import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import EditModal from "./components/EditModal/EditModal";
 
 const Project = () => {
   const { id } = useParams();
-  const { tasks, addTask, removeTask, actionLoading, editTask } = useTasks(id);
+  const {
+    tasks,
+    addTask,
+    removeTask,
+    actionLoading,
+    editTask,
+    initialLoading,
+  } = useTasks(id);
   const [addModalOpen, setAddModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
@@ -57,6 +64,16 @@ const Project = () => {
     }
     return result;
   };
+
+  if (initialLoading) {
+    return (
+      <div className={s.project}>
+        <div className={s.loading}>
+          <Spin indicator={<LoadingOutlined style={{ fontSize: 60 }} spin />} />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={s.project}>
