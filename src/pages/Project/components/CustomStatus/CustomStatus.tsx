@@ -19,8 +19,28 @@ const CustomStatus: FC<Props> = ({ status, updateStatus, id }) => {
   ];
 
   return (
-    <div className={s.status}>
-      <span>{capitalizeFirst(status)}</span>
+    <div
+      className={`${s.status} 
+      ${
+        status === "todo"
+          ? s.todoBg
+          : status === "in_progress"
+            ? s.inProgressBg
+            : s.doneBg
+      }`}
+    >
+      <span
+        className={`${s.statusText} 
+        ${
+          status === "todo"
+            ? s.todo
+            : status === "in_progress"
+              ? s.inProgress
+              : s.done
+        }`}
+      >
+        {capitalizeFirst(status)}
+      </span>
       <Dropdown
         menu={{ items, onClick: ({ key }) => updateStatus(id, key as Status) }}
         trigger={["click"]}
