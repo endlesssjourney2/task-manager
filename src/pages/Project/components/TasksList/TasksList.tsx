@@ -31,21 +31,32 @@ const TasksList: FC<Props> = ({
                 updateStatus={(id, status) => editTask(id, { status })}
               />
             </div>
-
-            <div className={s.body}>
-              <span className={s.title}>{t.title}</span>
-              <span>{t.description}</span>
+            <div className={s.mainContent}>
+              <div className={s.body}>
+                <span className={s.title}>{t.title}</span>
+                <span className={s.description}>{t.description}</span>
+              </div>
+              <div className={s.footer}>
+                <span className={s.dueDateLabel}>End Date: </span>
+                <span className={s.dueDate}>
+                  {t.due_date ? t.due_date : "Not set"}
+                </span>
+              </div>
             </div>
-            <div className={s.footer}>
-              <span>{t.priority}</span>
-              <span>{t.due_date}</span>
+            <div className={s.buttons}>
+              <button
+                className={`${s.btn} ${s.removeBtn}`}
+                onClick={() => removeTask(t.id)}
+              >
+                REMOVE
+              </button>
+              <button
+                className={`${s.btn} ${s.editBtn}`}
+                onClick={() => handleOpenModal(t)}
+              >
+                EDIT
+              </button>
             </div>
-            <button className={s.btn} onClick={() => removeTask(t.id)}>
-              REMOVE
-            </button>
-            <button className={s.btn} onClick={() => handleOpenModal(t)}>
-              EDIT
-            </button>
           </li>
         ))}
       </ul>
