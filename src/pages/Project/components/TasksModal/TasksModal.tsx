@@ -1,10 +1,11 @@
 import { useState, type FC } from "react";
 import s from "./TasksModal.module.css";
-import { Button, DatePicker, Input, Modal, Select } from "antd";
+import { DatePicker, Input, Modal, Select } from "antd";
 import type { Dayjs } from "dayjs";
 import dayjs from "dayjs";
 import type { Priority } from "../../../../types/task";
 import { PRIORITY_OPTIONS } from "../../../../constants/priority";
+import CustomModalFooter from "../../../../components/CustomModalFooter/CustomModalFooter";
 
 type Props = {
   modalOpen: boolean;
@@ -64,21 +65,12 @@ const TasksModal: FC<Props> = ({
       onCancel={handleCloseModal}
       style={{ top: "150px" }}
       footer={[
-        <div className={s.footerModalContainer}>
-          <div className={s.left}>
-            <Button onClick={handleCloseModal} disabled={loading}>
-              Cancel
-            </Button>
-            <Button onClick={handleClear} disabled={loading}>
-              Clear
-            </Button>
-          </div>
-          <div className={s.right}>
-            <Button type="primary" onClick={handleOk} loading={loading}>
-              Add
-            </Button>
-          </div>
-        </div>,
+        <CustomModalFooter
+          handleAction={handleClear}
+          handleCloseModal={handleCloseModal}
+          handleOk={handleOk}
+          loading={loading}
+        />,
       ]}
     >
       <div className={s.modalContent}>

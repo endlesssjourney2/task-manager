@@ -35,20 +35,6 @@
   color: var(--color-accent-blue);
 }
 
-.footerModalContainer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 20px;
-}
-
-.left {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-}
-
 /* Header */
 :global(.task-modal .ant-modal-header) {
   border-bottom: 1px solid var(--border-color-primary);
