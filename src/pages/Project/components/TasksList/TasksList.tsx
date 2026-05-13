@@ -2,6 +2,8 @@ import type { FC } from "react";
 import type { Task, UpdateTaskPayload } from "../../../../types/task";
 import s from "./TasksList.module.css";
 import CustomStatus from "../CustomStatus/CustomStatus";
+import CustomPriority from "../CustomPriority/CustomPriority";
+import CustomDate from "../CustomDate/CustomDate";
 
 type Props = {
   tasks: Task[];
@@ -30,6 +32,7 @@ const TasksList: FC<Props> = ({
                 id={t.id}
                 updateStatus={(id, status) => editTask(id, { status })}
               />
+              <CustomPriority priority={t.priority} />
             </div>
             <div className={s.mainContent}>
               <div className={s.body}>
@@ -37,10 +40,7 @@ const TasksList: FC<Props> = ({
                 <span className={s.description}>{t.description}</span>
               </div>
               <div className={s.footer}>
-                <span className={s.dueDateLabel}>End Date: </span>
-                <span className={s.dueDate}>
-                  {t.due_date ? t.due_date : "Not set"}
-                </span>
+                <CustomDate due_date={t.due_date} />
               </div>
             </div>
             <div className={s.buttons}>
