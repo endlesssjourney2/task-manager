@@ -9,6 +9,8 @@ import TasksList from "./components/TasksList/TasksList";
 import { Button, Spin } from "antd";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import EditModal from "./components/EditModal/EditModal";
+import usePaginate from "../../hooks/usePaginate";
+import CustomPagination from "../../components/CustomPagination/CustomPagination";
 
 const Project = () => {
   const { id } = useParams();
@@ -20,6 +22,13 @@ const Project = () => {
     editTask,
     initialLoading,
   } = useTasks(id);
+
+  const { paginatedItems, page, setPage, safeItemsPerPage, pageCount } =
+    usePaginate({
+      items: tasks,
+      itemsPerPage: 10,
+    });
+
   const [addModalOpen, setAddModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
@@ -88,8 +97,16 @@ const Project = () => {
         />
       </div>
       <div className={s.content}>
+        {pageCount > 1 && (
+          <CustomPagination
+            current={page}
+            total={tasks.length}
+            pageSize={safeItemsPerPage}
+            onChange={(newPage) => setPage(newPage)}
+          />
+        )}
         <TasksList
-          tasks={tasks}
+          tasks={paginatedItems}
           removeTask={removeTask}
           editTask={editTask}
           handleOpenModal={handleOpenEditModal}
