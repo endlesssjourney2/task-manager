@@ -1,0 +1,46 @@
+.date {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.dueDateContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 10px;
+}
+
+.dueDateLabel {
+  font-size: 0.975rem;
+  color: var(--text-muted);
+}
+
+.dueDate {
+  font-size: 1rem;
+  color: var(--text-muted);
+}
+
+.dataInfo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dataInfoText {
+  font-size: 1rem;
+  color: var(--text-muted);
+}
+
+.outOfDate {
+  color: var(--priority-high);
+}
+
+.soonOutOfDate {
+  color: var(--priority-medium);
+}
+
+.upcoming {
+  color: var(--priority-low);
+}
