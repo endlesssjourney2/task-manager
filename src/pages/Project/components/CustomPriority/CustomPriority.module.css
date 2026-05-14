@@ -1,0 +1,47 @@
+.priority {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  border-radius: 18px;
+  min-width: 90px;
+  background-color: transparent;
+  border: 1px solid currentColor;
+}
+
+.lowBg {
+  border-color: var(--priority-low);
+}
+
+.mediumBg {
+  border-color: var(--priority-medium);
+}
+
+.highBg {
+  border-color: var(--priority-high);
+}
+
+.priorityInfo {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.priorityText {
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: "Montserrat", sans-serif;
+}
+
+.low {
+  color: var(--priority-low);
+}
+
+.medium {
+  color: var(--priority-medium);
+}
+
+.high {
+  color: var(--priority-high);
+}

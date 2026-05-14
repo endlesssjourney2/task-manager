@@ -1,0 +1,40 @@
+.status {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-primary);
+  padding: 10px 12px;
+  border-radius: 18px;
+  min-width: 150px;
+}
+
+.todoBg {
+  background-color: var(--status-todo-bg);
+}
+
+.inProgressBg {
+  background-color: var(--status-in-progress-bg);
+}
+
+.doneBg {
+  background-color: var(--status-done-bg);
+}
+
+.statusText {
+  font-size: 1.125rem;
+  font-weight: 600;
+  font-family: "Montserrat", sans-serif;
+}
+
+.todo {
+  color: var(--status-todo);
+}
+
+.inProgress {
+  color: var(--status-in-progress);
+}
+
+.done {
+  color: var(--status-done);
+}

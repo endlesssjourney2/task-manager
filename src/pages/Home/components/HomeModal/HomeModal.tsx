@@ -1,5 +1,5 @@
 import { ColorPicker, Input, Modal } from "antd";
-import s from "./CustomModal.module.css";
+import s from "./HomeModal.module.css";
 import { useState, type FC } from "react";
 
 type Props = {
@@ -9,7 +9,7 @@ type Props = {
   loading: boolean;
 };
 
-const CustomModal: FC<Props> = ({
+const HomeModal: FC<Props> = ({
   modalOpen,
   handleCloseModal,
   handleCreateProject,
@@ -52,4 +52,4 @@ const CustomModal: FC<Props> = ({
   );
 };
 
-export default CustomModal;
+export default HomeModal;
