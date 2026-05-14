@@ -87,7 +87,12 @@ const useTasks = (projectId: string) => {
     setTasks((prev) =>
       prev.map((task) =>
         task.id === id
-          ? { ...task, ...fields, due_date: fields.dueDate }
+          ? {
+              ...task,
+              ...fields,
+              due_date:
+                "dueDate" in fields ? (fields.dueDate ?? null) : task.due_date,
+            }
           : task,
       ),
     );
