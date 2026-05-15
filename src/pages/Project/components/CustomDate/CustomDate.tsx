@@ -1,6 +1,7 @@
 import type { FC } from "react";
 import s from "./CustomDate.module.css";
 import { dateChecker } from "../../../../helpers/dateChecker";
+import dayjs from "dayjs";
 
 type Props = {
   due_date: string;
@@ -13,7 +14,9 @@ const CustomDate: FC<Props> = ({ due_date }) => {
     <div className={s.date}>
       <div className={s.dueDateContainer}>
         <span className={s.dueDateLabel}>End Date: </span>
-        <span className={s.dueDate}>{due_date ? due_date : "Not set"}</span>
+        <span className={s.dueDate}>
+          {due_date ? dayjs(due_date).format("YY/MM/DD") : "Not set"}
+        </span>
       </div>
       {dateStatus && (
         <div className={s.dataInfo}>
