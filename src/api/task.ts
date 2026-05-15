@@ -25,7 +25,7 @@ export const createTask = async (payload: CreateTaskPayload) => {
       description: payload.description,
       status: payload.status,
       priority: payload.priority,
-      due_date: payload.dueDate,
+      due_date: payload.due_date,
     })
     .select()
     .single();
@@ -47,11 +47,11 @@ export const deleteTask = async (id: string) => {
 };
 
 export const updateTask = async (payload: UpdateTaskPayload) => {
-  const { id, dueDate, ...rest } = payload;
+  const { id, ...rest } = payload;
 
   const { error } = await supabase
     .from("tasks")
-    .update({ ...rest, due_date: dueDate })
+    .update({ ...rest })
     .eq("id", id)
     .select()
     .single();
