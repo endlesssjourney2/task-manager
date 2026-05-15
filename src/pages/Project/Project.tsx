@@ -26,7 +26,7 @@ const Project = () => {
   const { paginatedItems, page, setPage, safeItemsPerPage, pageCount } =
     usePaginate({
       items: tasks,
-      itemsPerPage: 10,
+      itemsPerPage: 5,
     });
 
   const [addModalOpen, setAddModalOpen] = useState(false);
