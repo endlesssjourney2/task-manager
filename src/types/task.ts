@@ -20,7 +20,7 @@ export type CreateTaskPayload = {
   description: string | null;
   status: Status;
   priority: Priority;
-  dueDate: string | null;
+  due_date: string | null;
 };
 
 export type UpdateTaskPayload = {
@@ -29,5 +29,5 @@ export type UpdateTaskPayload = {
   description?: string | null;
   status?: Status;
   priority?: Priority;
-  dueDate?: string | null;
+  due_date?: string | null;
 };
