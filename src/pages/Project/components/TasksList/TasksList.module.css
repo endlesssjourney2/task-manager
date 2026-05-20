@@ -5,11 +5,13 @@
   padding: 0;
   margin: 0;
   list-style: none;
+  align-items: start;
 }
 
 .item {
   display: flex;
-  justify-content: center;
+  min-height: 330px;
+  align-items: center;
   flex-direction: column;
   background-color: var(--bg-card);
   border: 1px solid transparent;
@@ -39,6 +41,7 @@
   border-radius: 12px;
   background-color: rgba(12, 17, 23, 0.35);
   margin: 20px 0 20px 0;
+  min-width: 90%;
 }
 
 .body {
@@ -52,12 +55,16 @@
   text-align: center;
   font-size: 1.375rem;
   color: var(--text-primary);
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .description {
   font-size: 1.2rem;
   color: var(--text-secondary);
   margin-top: 6px;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .footer {
@@ -78,6 +85,8 @@
   border: none;
   border-radius: 8px;
   transition: all 0.2s ease;
+  font-weight: 500;
+  font-size: 0.875rem;
 }
 
 .editBtn {

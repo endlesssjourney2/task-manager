@@ -5,7 +5,7 @@ import { createTask, deleteTask, getTasks, updateTask } from "../api/task";
 
 const useTasks = (projectId: string) => {
   const [tasks, setTasks] = useState<Task[]>([]);
-  const [initialLoading, setInitialLoading] = useState(false);
+  const [initialLoading, setInitialLoading] = useState(true);
   const [actionLoading, setActionLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const { user } = useAuth();
@@ -30,7 +30,7 @@ const useTasks = (projectId: string) => {
     title: string,
     description: string | null,
     priority: Priority,
-    dueDate: string | null,
+    due_date: string | null,
   ) => {
     if (!user) return;
 
@@ -46,7 +46,7 @@ const useTasks = (projectId: string) => {
       description: description,
       status: "todo",
       priority,
-      dueDate,
+      due_date: due_date,
     });
     if (error) {
       setError("Failed to create task");
@@ -91,7 +91,9 @@ const useTasks = (projectId: string) => {
               ...task,
               ...fields,
               due_date:
-                "dueDate" in fields ? (fields.dueDate ?? null) : task.due_date,
+                "due_date" in fields
+                  ? (fields.due_date ?? null)
+                  : task.due_date,
             }
           : task,
       ),

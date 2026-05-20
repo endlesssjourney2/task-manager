@@ -37,7 +37,7 @@ const EditModal: FC<Props> = ({
       title,
       description,
       priority,
-      dueDate: date ? date.format("YYYY-MM-DD") : null,
+      due_date: date ? date.format("YYYY-MM-DD") : null,
     });
   };
 
@@ -107,6 +107,7 @@ const EditModal: FC<Props> = ({
             onChange={(e) => setPriority(e)}
           />
           <DatePicker
+            disabledDate={(curr) => curr.isBefore(dayjs(), "day")}
             size="large"
             value={date}
             onChange={(e) => setDate(e)}

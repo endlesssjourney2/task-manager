@@ -48,7 +48,7 @@ const TasksList: FC<Props> = ({
                 className={`${s.btn} ${s.removeBtn}`}
                 onClick={() => removeTask(t.id)}
               >
-                REMOVE
+                DELETE
               </button>
               <button
                 className={`${s.btn} ${s.editBtn}`}
