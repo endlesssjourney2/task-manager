@@ -68,6 +68,7 @@ const useProjects = () => {
       console.error("Error deleting project:", error);
       return;
     }
+    notify.success("Project deleted successfully!", { duration: 1 });
     setProjects((prev) => prev.filter((project) => project.id !== id));
   };
 
