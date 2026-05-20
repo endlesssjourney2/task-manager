@@ -22,8 +22,11 @@ const Home = () => {
   const [modalOpen, setModalOpen] = useState(false);
 
   const handleCreateProject = async (title: string, color: string) => {
-    await addProject(title, color);
-    setModalOpen(false);
+    const result = await addProject(title, color);
+    if (result) {
+      setModalOpen(false);
+    }
+    return result;
   };
 
   const handleOpenModal = () => {
