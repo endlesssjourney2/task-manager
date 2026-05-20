@@ -15,7 +15,7 @@ const CustomDate: FC<Props> = ({ due_date }) => {
       <div className={s.dueDateContainer}>
         <span className={s.dueDateLabel}>End Date: </span>
         <span className={s.dueDate}>
-          {due_date ? dayjs(due_date).format("YY/MM/DD") : "Not set"}
+          {due_date ? dayjs(due_date).format("YYYY/MM/DD") : "Not set"}
         </span>
       </div>
       {dateStatus && (
