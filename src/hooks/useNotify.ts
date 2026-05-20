@@ -6,7 +6,7 @@ type NotifyOptions = {
 };
 
 const useNotify = () => {
-  const { message, notification } = App.useApp();
+  const { message, notification, modal } = App.useApp();
 
   return {
     success: (text: string, option?: NotifyOptions) =>
@@ -18,12 +18,30 @@ const useNotify = () => {
     notification: {
       error: (title: string, description?: string, key?: string) =>
         notification.error({
-          message: title,
+          title,
           duration: 0,
           description,
           key,
         }),
       close: (key: string) => notification.destroy(key),
+    },
+    modal: {
+      confirm: (
+        title: string,
+        content?: string,
+        onOk?: () => void,
+        width?: number | string,
+      ) =>
+        modal.confirm({
+          title,
+          content,
+          onOk,
+          okText: "Yes",
+          okButtonProps: { danger: true, type: "primary" },
+          cancelText: "No",
+          cancelButtonProps: { type: "primary" },
+          width: width || 400,
+        }),
     },
   };
 };
