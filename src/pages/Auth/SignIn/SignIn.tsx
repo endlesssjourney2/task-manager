@@ -4,8 +4,11 @@ import { supabase } from "../../../supabase/supabaseClient";
 import { Link, useNavigate } from "react-router-dom";
 import AuthInputs from "../AuthInputs/AuthInputs";
 import CustomHeader from "../../../components/CustomHeader/CustomHeader";
+import useNotify from "../../../hooks/useNotify";
+import { getAuthErrorSignInMessage } from "../helpers/authErrors";
 
 const SignIn = () => {
+  const notify = useNotify();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -23,6 +26,10 @@ const SignIn = () => {
     });
 
     if (error) {
+      notify.error(getAuthErrorSignInMessage(error), {
+        duration: 2.5,
+        key: "signin-error",
+      });
       console.error("Sign in error:", error.message);
       setLoading(false);
       return;
@@ -31,6 +38,7 @@ const SignIn = () => {
     setLoading(false);
 
     if (data.user) {
+      notify.success("Signed in successfully!", { duration: 2 });
       navigate("/");
     }
   };
