@@ -11,6 +11,7 @@ import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import EditModal from "./components/EditModal/EditModal";
 import usePaginate from "../../hooks/usePaginate";
 import CustomPagination from "../../components/CustomPagination/CustomPagination";
+import EmptyState from "../../components/EmptyState/EmptyState";
 
 const Project = () => {
   const { id } = useParams();
@@ -87,15 +88,24 @@ const Project = () => {
   return (
     <div className={s.project}>
       <CustomHeader title="Your tasks" />
-      <div className={s.header}>
-        <span className={s.headerTitle}>Add new task for your project</span>
-        <Button
-          onClick={handleOpenAddModal}
-          icon={<PlusOutlined />}
-          type="primary"
-          shape="round"
+      {tasks.length === 0 ? (
+        <EmptyState
+          handleOpenAddModal={handleOpenAddModal}
+          description="No tasks yet"
+          buttonText="Add your first task now"
         />
-      </div>
+      ) : (
+        <div className={s.header}>
+          <span className={s.headerTitle}>Add new task for your project</span>
+          <Button
+            onClick={handleOpenAddModal}
+            icon={<PlusOutlined />}
+            type="primary"
+            shape="round"
+          />
+        </div>
+      )}
+
       <div className={s.content}>
         {pageCount > 1 && (
           <CustomPagination
