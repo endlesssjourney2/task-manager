@@ -1,8 +1,8 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import CustomHeader from "../../components/CustomHeader/CustomHeader";
 import useProjects from "../../hooks/useProjects";
 import s from "./Home.module.css";
-import { Button, Spin } from "antd";
+import { Button, Input, Spin } from "antd";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import ProjectList from "./components/ProjectList/ProjectList";
 import CustomPagination from "../../components/CustomPagination/CustomPagination";
@@ -14,13 +14,25 @@ const Home = () => {
   const { projects, addProject, removeProject, initialLoading, actionLoading } =
     useProjects();
 
+  const [search, setSearch] = useState("");
+
+  const filteredProjects = search.length
+    ? projects.filter((p) =>
+        p.title.toLowerCase().includes(search.toLowerCase()),
+      )
+    : projects;
+
   const { page, paginatedItems, setPage, safeItemsPerPage, pageCount } =
     usePaginate({
-      items: projects,
-      itemsPerPage: 12,
+      items: filteredProjects,
+      itemsPerPage: 10,
     });
 
   const [modalOpen, setModalOpen] = useState(false);
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
+  };
 
   const handleCreateProject = async (title: string, color: string) => {
     const result = await addProject(title, color);
@@ -76,11 +88,13 @@ const Home = () => {
         {pageCount > 1 && (
           <CustomPagination
             current={page}
-            total={projects.length}
+            total={filteredProjects.length}
             pageSize={safeItemsPerPage}
             onChange={(newPage) => setPage(newPage)}
           />
         )}
+
+        <Input placeholder="Search" onChange={handleSearch} value={search} />
 
         <ProjectList projects={paginatedItems} removeProject={removeProject} />
       </div>
