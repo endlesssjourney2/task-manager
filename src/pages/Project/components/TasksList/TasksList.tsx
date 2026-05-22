@@ -4,6 +4,7 @@ import s from "./TasksList.module.css";
 import CustomStatus from "../CustomStatus/CustomStatus";
 import CustomPriority from "../CustomPriority/CustomPriority";
 import CustomDate from "../CustomDate/CustomDate";
+import useNotify from "../../../../hooks/useNotify";
 
 type Props = {
   tasks: Task[];
@@ -21,6 +22,8 @@ const TasksList: FC<Props> = ({
   editTask,
   handleOpenModal,
 }) => {
+  const notify = useNotify();
+
   return (
     <>
       <ul className={s.list}>
@@ -46,7 +49,13 @@ const TasksList: FC<Props> = ({
             <div className={s.buttons}>
               <button
                 className={`${s.btn} ${s.removeBtn}`}
-                onClick={() => removeTask(t.id)}
+                onClick={() => {
+                  notify.modal.confirm(
+                    "Are you sure you want delete this task?",
+                    "This action cannot be undone.",
+                    () => removeTask(t.id),
+                  );
+                }}
               >
                 DELETE
               </button>

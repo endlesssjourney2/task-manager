@@ -5,7 +5,7 @@ import { useState, type FC } from "react";
 type Props = {
   modalOpen: boolean;
   handleCloseModal: () => void;
-  handleCreateProject: (title: string, color: string) => Promise<void>;
+  handleCreateProject: (title: string, color: string) => Promise<boolean>;
   loading: boolean;
 };
 
@@ -19,9 +19,11 @@ const HomeModal: FC<Props> = ({
   const [color, setColor] = useState("#000000");
 
   const handleOk = async () => {
-    await handleCreateProject(title, color);
-    setColor("#000000");
-    setTitle("");
+    const result = await handleCreateProject(title, color);
+    if (result) {
+      setColor("#000000");
+      setTitle("");
+    }
   };
 
   return (

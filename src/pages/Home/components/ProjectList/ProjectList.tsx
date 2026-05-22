@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import type { Project } from "../../../../types/project";
 import s from "./ProjectList.module.css";
 import type { FC } from "react";
+import useNotify from "../../../../hooks/useNotify";
 
 type Props = {
   projects: Project[];
@@ -10,6 +11,7 @@ type Props = {
 
 const ProjectList: FC<Props> = ({ projects, removeProject }) => {
   const navigate = useNavigate();
+  const notify = useNotify();
 
   return (
     <ul className={s.list}>
@@ -28,7 +30,13 @@ const ProjectList: FC<Props> = ({ projects, removeProject }) => {
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                removeProject(p.id);
+                notify.modal.confirm(
+                  "Are you sure you want to delete this project?",
+                  `This will also delete all tasks associated with this project.
+                  This action cannot be undone.`,
+                  () => removeProject(p.id),
+                  450,
+                );
               }}
               className={s.btn}
             >

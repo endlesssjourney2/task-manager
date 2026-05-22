@@ -4,8 +4,12 @@ import { supabase } from "../../../supabase/supabaseClient";
 import { Link, useNavigate } from "react-router-dom";
 import AuthInputs from "../AuthInputs/AuthInputs";
 import CustomHeader from "../../../components/CustomHeader/CustomHeader";
+import useNotify from "../../../hooks/useNotify";
+import { getAuthErrorSignUpMessage } from "../helpers/authErrors";
 
 const SignUp = () => {
+  const notify = useNotify();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -16,6 +20,10 @@ const SignUp = () => {
     if (loading) return;
 
     if (password.length < 6) {
+      notify.error("Password must be at least 6 characters long", {
+        duration: 2.5,
+        key: "signup-error",
+      });
       console.error("Password must be at least 6 characters long");
       return;
     }
@@ -28,6 +36,10 @@ const SignUp = () => {
     });
 
     if (error) {
+      notify.error(getAuthErrorSignUpMessage(error), {
+        duration: 2.5,
+        key: "signup-error",
+      });
       console.error("Sign up error:", error.message);
       setLoading(false);
       return;
@@ -35,6 +47,9 @@ const SignUp = () => {
     setLoading(false);
 
     if (data.user) {
+      notify.success("Account created successfully!", {
+        duration: 2,
+      });
       navigate("/");
     }
   };

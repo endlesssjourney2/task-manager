@@ -1,9 +1,9 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
-import App from "./App.tsx";
+import AppComponent from "./AppComponent.tsx";
 import { AuthProvider } from "./context/AuthContext.tsx";
-import { ConfigProvider, theme } from "antd";
+import { App, ConfigProvider, theme } from "antd";
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <AuthProvider>
@@ -28,7 +28,9 @@ createRoot(document.getElementById("root")!).render(
           },
         }}
       >
-        <App />
+        <App>
+          <AppComponent />
+        </App>
       </ConfigProvider>
     </AuthProvider>
   </StrictMode>,
