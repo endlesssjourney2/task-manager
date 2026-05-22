@@ -8,6 +8,7 @@ import ProjectList from "./components/ProjectList/ProjectList";
 import CustomPagination from "../../components/CustomPagination/CustomPagination";
 import usePaginate from "../../hooks/usePaginate";
 import HomeModal from "./components/HomeModal/HomeModal";
+import EmptyState from "../../components/EmptyState/EmptyState";
 
 const Home = () => {
   const { projects, addProject, removeProject, initialLoading, actionLoading } =
@@ -49,19 +50,28 @@ const Home = () => {
   return (
     <div className={s.home}>
       <CustomHeader title="Home page" />
-      <div className={s.header}>
-        <div className={s.headerLeft}>
-          <span className={s.headerText}>Create a new project</span>
+      {projects.length === 0 ? (
+        <EmptyState
+          handleOpenAddModal={handleOpenModal}
+          description="No projects yet"
+          buttonText="Add your first project now"
+        />
+      ) : (
+        <div className={s.header}>
+          <div className={s.headerLeft}>
+            <span className={s.headerText}>Create a new project</span>
+          </div>
+          <div className={s.headerRight}>
+            <Button
+              onClick={handleOpenModal}
+              icon={<PlusOutlined />}
+              type="primary"
+              shape="round"
+            />
+          </div>
         </div>
-        <div className={s.headerRight}>
-          <Button
-            onClick={handleOpenModal}
-            icon={<PlusOutlined />}
-            type="primary"
-            shape="round"
-          />
-        </div>
-      </div>
+      )}
+
       <div className={s.content}>
         {pageCount > 1 && (
           <CustomPagination
