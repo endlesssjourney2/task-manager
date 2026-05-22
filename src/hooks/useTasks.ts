@@ -92,15 +92,17 @@ const useTasks = (projectId: string) => {
     id: string,
     fields: Omit<UpdateTaskPayload, "id">,
   ) => {
-    const cleanTitle = fields.title?.trim();
+    if ("title" in fields) {
+      const cleanTitle = fields.title.trim();
 
-    if (!cleanTitle) {
-      notify.notification.error(
-        "Task title cannot be empty",
-        "Please enter a valid title",
-        "empty-task-title-error",
-      );
-      return false;
+      if (!cleanTitle) {
+        notify.notification.error(
+          "Task title cannot be empty",
+          "Please enter a valid title",
+          "empty-task-title-error",
+        );
+        return false;
+      }
     }
 
     setActionLoading(true);
@@ -114,6 +116,7 @@ const useTasks = (projectId: string) => {
       setActionLoading(false);
       return false;
     }
+    notify.success("Task updated successfully!", { duration: 1 });
     setTasks((prev) =>
       prev.map((task) =>
         task.id === id
