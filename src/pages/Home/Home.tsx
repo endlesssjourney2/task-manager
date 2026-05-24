@@ -93,14 +93,15 @@ const Home = () => {
             onChange={(newPage) => setPage(newPage)}
           />
         )}
-
-        <div className={s.search}>
-          <CustomSearch
-            value={search}
-            handleSearch={handleSearch}
-            placeholder="Search projects..."
-          />
-        </div>
+        {projects.length > 0 && (
+          <div className={s.search}>
+            <CustomSearch
+              value={search}
+              handleSearch={handleSearch}
+              placeholder="Search projects..."
+            />
+          </div>
+        )}
 
         <ProjectList projects={paginatedItems} removeProject={removeProject} />
       </div>
