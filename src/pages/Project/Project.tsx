@@ -12,9 +12,14 @@ import EditModal from "./components/EditModal/EditModal";
 import usePaginate from "../../hooks/usePaginate";
 import CustomPagination from "../../components/CustomPagination/CustomPagination";
 import EmptyState from "../../components/EmptyState/EmptyState";
+import useSearch from "../../hooks/useSearch";
+import CustomSearch from "../../components/CustomSearch/CustomSearch";
+import useSelect from "../../hooks/useSelect";
+import CustomFiltration from "./components/CustomFiltration/CustomFiltration";
 
 const Project = () => {
   const { id } = useParams();
+
   const {
     tasks,
     addTask,
@@ -24,9 +29,31 @@ const Project = () => {
     initialLoading,
   } = useTasks(id);
 
+  const {
+    select: priority,
+    setSelect: setPriority,
+    filteredSelect: filteredTasksByPriority,
+  } = useSelect(tasks, "priority");
+
+  const {
+    select: status,
+    setSelect: setStatus,
+    filteredSelect: filteredTasksByStatus,
+  } = useSelect(filteredTasksByPriority, "status");
+
+  const {
+    search,
+    setSearch,
+    filteredItems: filteredTasks,
+  } = useSearch(filteredTasksByStatus, ["title", "description"]);
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
+  };
+
   const { paginatedItems, page, setPage, safeItemsPerPage, pageCount } =
     usePaginate({
-      items: tasks,
+      items: filteredTasks,
       itemsPerPage: 5,
     });
 
@@ -110,11 +137,28 @@ const Project = () => {
         {pageCount > 1 && (
           <CustomPagination
             current={page}
-            total={tasks.length}
+            total={filteredTasks.length}
             pageSize={safeItemsPerPage}
             onChange={(newPage) => setPage(newPage)}
           />
         )}
+
+        {tasks.length > 0 && (
+          <div className={s.search}>
+            <CustomFiltration
+              priority={priority}
+              setPriority={setPriority}
+              status={status}
+              setStatus={setStatus}
+            />
+            <CustomSearch
+              value={search}
+              handleSearch={handleSearch}
+              placeholder="Search tasks..."
+            />
+          </div>
+        )}
+
         <TasksList
           tasks={paginatedItems}
           removeTask={removeTask}
