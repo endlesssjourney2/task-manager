@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import CustomHeader from "../../components/CustomHeader/CustomHeader";
 import useProjects from "../../hooks/useProjects";
 import s from "./Home.module.css";
@@ -8,18 +8,31 @@ import ProjectList from "./components/ProjectList/ProjectList";
 import CustomPagination from "../../components/CustomPagination/CustomPagination";
 import usePaginate from "../../hooks/usePaginate";
 import HomeModal from "./components/HomeModal/HomeModal";
+import EmptyState from "../../components/EmptyState/EmptyState";
+import useSearch from "../../hooks/useSearch";
+import CustomSearch from "../../components/CustomSearch/CustomSearch";
 
 const Home = () => {
   const { projects, addProject, removeProject, initialLoading, actionLoading } =
     useProjects();
 
+  const {
+    filteredItems: filteredProjects,
+    search,
+    setSearch,
+  } = useSearch(projects, ["title"]);
+
   const { page, paginatedItems, setPage, safeItemsPerPage, pageCount } =
     usePaginate({
-      items: projects,
-      itemsPerPage: 12,
+      items: filteredProjects,
+      itemsPerPage: 10,
     });
 
   const [modalOpen, setModalOpen] = useState(false);
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
+  };
 
   const handleCreateProject = async (title: string, color: string) => {
     const result = await addProject(title, color);
@@ -49,27 +62,45 @@ const Home = () => {
   return (
     <div className={s.home}>
       <CustomHeader title="Home page" />
-      <div className={s.header}>
-        <div className={s.headerLeft}>
-          <span className={s.headerText}>Create a new project</span>
+      {projects.length === 0 ? (
+        <EmptyState
+          handleOpenAddModal={handleOpenModal}
+          description="No projects yet"
+          buttonText="Add your first project now"
+        />
+      ) : (
+        <div className={s.header}>
+          <div className={s.headerLeft}>
+            <span className={s.headerText}>Create a new project</span>
+          </div>
+          <div className={s.headerRight}>
+            <Button
+              onClick={handleOpenModal}
+              icon={<PlusOutlined />}
+              type="primary"
+              shape="round"
+            />
+          </div>
         </div>
-        <div className={s.headerRight}>
-          <Button
-            onClick={handleOpenModal}
-            icon={<PlusOutlined />}
-            type="primary"
-            shape="round"
-          />
-        </div>
-      </div>
+      )}
+
       <div className={s.content}>
         {pageCount > 1 && (
           <CustomPagination
             current={page}
-            total={projects.length}
+            total={filteredProjects.length}
             pageSize={safeItemsPerPage}
             onChange={(newPage) => setPage(newPage)}
           />
+        )}
+        {projects.length > 0 && (
+          <div className={s.search}>
+            <CustomSearch
+              value={search}
+              handleSearch={handleSearch}
+              placeholder="Search projects..."
+            />
+          </div>
         )}
 
         <ProjectList projects={paginatedItems} removeProject={removeProject} />
