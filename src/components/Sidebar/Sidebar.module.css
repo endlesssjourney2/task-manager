@@ -1,0 +1,19 @@
+.content {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.toggleBtn {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 1000;
+  transition: left 0.2s;
+}
+
+.toggleBtn:not(.toggleBtnCollapsed) {
+  left: 205px;
+}
