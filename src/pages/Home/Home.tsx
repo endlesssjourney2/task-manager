@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import CustomHeader from "../../components/CustomHeader/CustomHeader";
-import useProjects from "../../hooks/useProjects";
 import s from "./Home.module.css";
 import { Button, Spin } from "antd";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
@@ -11,10 +10,11 @@ import HomeModal from "./components/HomeModal/HomeModal";
 import EmptyState from "../../components/EmptyState/EmptyState";
 import useSearch from "../../hooks/useSearch";
 import CustomSearch from "../../components/CustomSearch/CustomSearch";
+import { useProjectsContext } from "../../context/ProjectsContext";
 
 const Home = () => {
   const { projects, addProject, removeProject, initialLoading, actionLoading } =
-    useProjects();
+    useProjectsContext();
 
   const {
     filteredItems: filteredProjects,
