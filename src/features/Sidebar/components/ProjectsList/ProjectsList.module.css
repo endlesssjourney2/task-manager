@@ -1,0 +1,41 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-left: 8px;
+}
+
+.item {
+  width: 100%;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  gap: 10px;
+  border-radius: 8px;
+}
+
+.item:hover {
+  background-color: #322f2a;
+}
+
+.left {
+  margin-left: 8px;
+}
+
+.desc {
+  font-weight: 400;
+  font-size: 18px;
+}
+
+.title {
+  font-weight: 300;
+  font-size: 18px;
+}
+
+.right {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
