@@ -6,7 +6,7 @@ import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import ProjectList from "./components/ProjectList/ProjectList";
 import CustomPagination from "../../components/CustomPagination/CustomPagination";
 import usePaginate from "../../hooks/usePaginate";
-import HomeModal from "./components/HomeModal/HomeModal";
+import AddModalProject from "../../features/Project/components/AddModalProject/AddModalProject";
 import EmptyState from "../../components/EmptyState/EmptyState";
 import useSearch from "../../hooks/useSearch";
 import CustomSearch from "../../components/CustomSearch/CustomSearch";
@@ -105,7 +105,7 @@ const Home = () => {
 
         <ProjectList projects={paginatedItems} removeProject={removeProject} />
       </div>
-      <HomeModal
+      <AddModalProject
         modalOpen={modalOpen}
         handleCloseModal={handleCloseModal}
         handleCreateProject={handleCreateProject}
