@@ -3,21 +3,26 @@ import { useState, type Dispatch, type FC, type SetStateAction } from "react";
 import { useNavigate } from "react-router-dom";
 import s from "./Sidebar.module.css";
 import {
-  ArrowDownOutlined,
+  ArrowRightOutlined,
   CloseOutlined,
   MenuOutlined,
+  PlusOutlined,
 } from "@ant-design/icons";
-import type { Project } from "../../types/project";
+import AddModalProject from "../Project/components/AddModalProject/AddModalProject";
+import { useProjectsContext } from "../../context/ProjectsContext";
+import ProjectsList from "./components/ProjectsList/ProjectsList";
 
 const { Sider } = Layout;
 
 type Props = {
   collapsed: boolean;
   setCollapsed: Dispatch<SetStateAction<boolean>>;
-  projects: Project[];
 };
 
-const Sidebar: FC<Props> = ({ collapsed, setCollapsed, projects }) => {
+const Sidebar: FC<Props> = ({ collapsed, setCollapsed }) => {
+  const { projects, addProject, actionLoading, removeProject } =
+    useProjectsContext();
+
   const navigate = useNavigate();
 
   const projectsLength = projects.length;
@@ -26,7 +31,27 @@ const Sidebar: FC<Props> = ({ collapsed, setCollapsed, projects }) => {
     navigate("/");
   };
 
+  const [modalOpen, setModalOpen] = useState(false);
   const [showProjects, setShowProjects] = useState(false);
+
+  const handleAddProject = async (
+    title: string,
+    color: string,
+  ): Promise<boolean> => {
+    const result = await addProject(title, color);
+    if (result) {
+      setModalOpen(false);
+    }
+    return result;
+  };
+
+  const handleOpenModal = () => {
+    setModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
 
   return (
     <>
@@ -53,32 +78,46 @@ const Sidebar: FC<Props> = ({ collapsed, setCollapsed, projects }) => {
               <h2 className={s.projectsTitle}>My projects</h2>
             </div>
             <div className={s.right}>
-              <Button
-                icon={<ArrowDownOutlined />}
-                type="default"
-                shape="default"
-                onClick={() => setShowProjects((prev) => !prev)}
-              />
+              <div className={s.actionButtons}>
+                <Button
+                  size="small"
+                  icon={
+                    <ArrowRightOutlined
+                      className={`${s.arrow} ${showProjects ? s.arrowOpen : ""}`}
+                    />
+                  }
+                  type="text"
+                  shape="default"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setShowProjects((prev) => !prev);
+                  }}
+                />
+                <Button
+                  size="small"
+                  type="text"
+                  icon={<PlusOutlined />}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleOpenModal();
+                  }}
+                />
+              </div>
               <span className={s.projectsInfo}>{projectsLength}</span>
             </div>
           </div>
           <div className={s.projects}>
             {showProjects && (
-              <ul>
-                {projects.map((p) => (
-                  <li
-                    style={{ cursor: "pointer" }}
-                    key={p.created_at}
-                    onClick={() => navigate(`/project/${p.id}`)}
-                  >
-                    <p>{p.title}</p>
-                    <div style={{ background: `${p.color}` }}></div>
-                  </li>
-                ))}
-              </ul>
+              <ProjectsList projects={projects} removeProject={removeProject} />
             )}
           </div>
         </div>
+        <AddModalProject
+          modalOpen={modalOpen}
+          handleCloseModal={handleCloseModal}
+          handleCreateProject={handleAddProject}
+          loading={actionLoading}
+        />
       </Sider>
     </>
   );
