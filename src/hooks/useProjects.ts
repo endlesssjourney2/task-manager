@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
-import type { Project } from "../types/project";
-import { createProject, deleteProject, getProjects } from "../api/project";
+import type { Project, UpdateProjectPayload } from "../types/project";
+import {
+  createProject,
+  deleteProject,
+  getProjects,
+  updateProject,
+} from "../api/project";
 import { useAuth } from "../context/AuthContext";
 import useNotify from "./useNotify";
 
@@ -72,12 +77,55 @@ const useProjects = () => {
     setProjects((prev) => prev.filter((project) => project.id !== id));
   };
 
+  const editProject = async (
+    id: string,
+    fields: Omit<UpdateProjectPayload, "id">,
+  ) => {
+    if ("title" in fields) {
+      const cleanTitle = fields.title.trim();
+
+      if (!cleanTitle) {
+        notify.notification.error(
+          "Project title cannot be empty",
+          "Please enter a valid title",
+          "empty-project-title-error",
+        );
+        return false;
+      }
+    }
+    setActionLoading(true);
+    const error = await updateProject({
+      id,
+      ...fields,
+    });
+    if (error) {
+      notify.error("Failed to update project", { duration: 2 });
+      console.error("Failed to update project: ", error);
+      setActionLoading(false);
+      return false;
+    }
+    notify.success("Project updated successfully", { duration: 1 });
+    setProjects((prev) =>
+      prev.map((project) =>
+        project.id === id
+          ? {
+              ...project,
+              ...fields,
+            }
+          : project,
+      ),
+    );
+    setActionLoading(false);
+    return true;
+  };
+
   return {
     projects,
     actionLoading,
     initialLoading,
     addProject,
     removeProject,
+    editProject,
   };
 };
 
