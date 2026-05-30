@@ -52,9 +52,7 @@ export const updateTask = async (payload: UpdateTaskPayload) => {
   const { error } = await supabase
     .from("tasks")
     .update({ ...rest })
-    .eq("id", id)
-    .select()
-    .single();
+    .eq("id", id);
 
   if (error) {
     console.error("Error updating task", error.message);
