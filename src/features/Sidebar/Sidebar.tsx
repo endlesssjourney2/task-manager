@@ -31,7 +31,7 @@ const Sidebar: FC<Props> = ({ collapsed, setCollapsed }) => {
     navigate("/");
   };
 
-  const [modalOpen, setModalOpen] = useState(false);
+  const [addModalOpen, setAddModalOpen] = useState(false);
   const [showProjects, setShowProjects] = useState(false);
 
   const handleAddProject = async (
@@ -40,17 +40,17 @@ const Sidebar: FC<Props> = ({ collapsed, setCollapsed }) => {
   ): Promise<boolean> => {
     const result = await addProject(title, color);
     if (result) {
-      setModalOpen(false);
+      setAddModalOpen(false);
     }
     return result;
   };
 
   const handleOpenModal = () => {
-    setModalOpen(true);
+    setAddModalOpen(true);
   };
 
   const handleCloseModal = () => {
-    setModalOpen(false);
+    setAddModalOpen(false);
   };
 
   return (
@@ -113,7 +113,7 @@ const Sidebar: FC<Props> = ({ collapsed, setCollapsed }) => {
           </div>
         </div>
         <AddModalProject
-          modalOpen={modalOpen}
+          modalOpen={addModalOpen}
           handleCloseModal={handleCloseModal}
           handleCreateProject={handleAddProject}
           loading={actionLoading}
