@@ -119,6 +119,10 @@ const useProjects = () => {
     return true;
   };
 
+  const getProjectById = (id: string) => {
+    return projects.find((project) => project.id === id) ?? null;
+  };
+
   return {
     projects,
     actionLoading,
@@ -126,6 +130,7 @@ const useProjects = () => {
     addProject,
     removeProject,
     editProject,
+    getProjectById,
   };
 };
 
