@@ -1,10 +1,10 @@
 import type { FC } from "react";
-import type { Task, UpdateTaskPayload } from "../../../../types/task";
 import s from "./TasksList.module.css";
 import CustomStatus from "../CustomStatus/CustomStatus";
 import CustomPriority from "../CustomPriority/CustomPriority";
 import CustomDate from "../CustomDate/CustomDate";
 import useNotify from "../../../../hooks/useNotify";
+import type { Task, UpdateTaskPayload } from "../../../../types/task";
 
 type Props = {
   tasks: Task[];

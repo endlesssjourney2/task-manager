@@ -3,8 +3,8 @@ import type { Project, UpdateProjectPayload } from "../../../../types/project";
 import s from "./ProjectsList.module.css";
 import { useNavigate } from "react-router-dom";
 import CustomDropdown from "../../../components/CustomDropdown/CustomDropdown";
-import EditModalProject from "../../../Project/components/EditModalProject/EditModalProject";
 import { useProjectsContext } from "../../../../context/ProjectsContext";
+import EditModalProject from "../../../project/components/EditModalProject/EditModalProject";
 
 type Props = {
   projects: Project[];

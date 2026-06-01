@@ -1,11 +1,12 @@
 import { useState } from "react";
 import s from "./SignIn.module.css";
-import { supabase } from "../../../supabase/supabaseClient";
 import { Link, useNavigate } from "react-router-dom";
-import AuthInputs from "../AuthInputs/AuthInputs";
-import CustomHeader from "../../../components/CustomHeader/CustomHeader";
-import useNotify from "../../../hooks/useNotify";
-import { getAuthErrorSignInMessage } from "../helpers/authErrors";
+import AuthInputs from "../../features/auth/AuthInputs/AuthInputs";
+
+import { getAuthErrorSignInMessage } from "../../features/auth/helpers/authErrors";
+import useNotify from "../../hooks/useNotify";
+import { supabase } from "../../supabase/supabaseClient";
+import CustomHeader from "../../components/CustomHeader/CustomHeader";
 
 const SignIn = () => {
   const notify = useNotify();

@@ -1,7 +1,7 @@
 import { ColorPicker, Input, Modal } from "antd";
 import s from "./AddModalProject.module.css";
 import { useState, type FC } from "react";
-import { getRandomColor } from "../../../../helpers/getRandomColor";
+import { getRandomColor } from "../../../helpers/getRandomColor";
 
 type Props = {
   modalOpen: boolean;

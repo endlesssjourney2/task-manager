@@ -1,7 +1,7 @@
 import type { FC } from "react";
-import type { Priority } from "../../../../types/task";
 import s from "./CustomPriority.module.css";
 import { capitalizeFirst } from "../../../../helpers/capitalizeFirst";
+import type { Priority } from "../../../../types/task";
 
 type Props = {
   priority: Priority;

@@ -1,9 +1,9 @@
 import { type FC } from "react";
-import type { Status } from "../../../../types/task";
 import s from "./CustomStatus.module.css";
-import { capitalizeFirst } from "../../../../helpers/capitalizeFirst";
 import { Dropdown, type MenuProps } from "antd";
 import { DownOutlined } from "@ant-design/icons";
+import type { Status } from "../../../../types/task";
+import { capitalizeFirst } from "../../../../helpers/capitalizeFirst";
 
 type Props = {
   status: Status;

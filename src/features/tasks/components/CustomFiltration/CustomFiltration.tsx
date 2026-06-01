@@ -1,9 +1,10 @@
 import { Select } from "antd";
 import s from "./CustomFiltration.module.css";
-import { PRIORITY_OPTIONS } from "../../../../constants/priority";
-import { STATUS_OPTIONS } from "../../../../constants/status";
+
 import type { Dispatch, FC, SetStateAction } from "react";
 import { DashOutlined } from "@ant-design/icons";
+import { PRIORITY_OPTIONS } from "../../../../constants/priority";
+import { STATUS_OPTIONS } from "../../../../constants/status";
 
 type Props = {
   priority: string;

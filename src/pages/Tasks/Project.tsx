@@ -1,21 +1,24 @@
 import { useParams } from "react-router";
 import s from "./Project.module.css";
-import CustomHeader from "../../components/CustomHeader/CustomHeader";
-import useTasks from "../../hooks/useTasks";
 import { useState } from "react";
-import TasksModal from "./components/TasksModal/TasksModal";
-import type { Priority, Task, UpdateTaskPayload } from "../../types/task";
-import TasksList from "./components/TasksList/TasksList";
+import TasksModal from "../../features/tasks/components/TasksModal/TasksModal";
+import TasksList from "../../features/tasks/components/TasksList/TasksList";
 import { Button, Spin } from "antd";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
-import EditModal from "./components/EditModal/EditModal";
-import usePaginate from "../../hooks/usePaginate";
-import CustomPagination from "../../components/CustomPagination/CustomPagination";
-import EmptyState from "../../components/EmptyState/EmptyState";
-import useSearch from "../../hooks/useSearch";
-import CustomSearch from "../../components/CustomSearch/CustomSearch";
+import EditModal from "../../features/tasks/components/EditModal/EditModal";
+
+import CustomFiltration from "../../features/tasks/components/CustomFiltration/CustomFiltration";
+
+import HeaderProject from "../../features/tasks/components/HeaderProject/HeaderProject";
+import useTasks from "../../hooks/useTasks";
+import { useProjectsContext } from "../../context/ProjectsContext";
 import useSelect from "../../hooks/useSelect";
-import CustomFiltration from "./components/CustomFiltration/CustomFiltration";
+import useSearch from "../../hooks/useSearch";
+import usePaginate from "../../hooks/usePaginate";
+import type { Priority, Task, UpdateTaskPayload } from "../../types/task";
+import EmptyState from "../../components/EmptyState/EmptyState";
+import CustomPagination from "../../components/CustomPagination/CustomPagination";
+import CustomSearch from "../../components/CustomSearch/CustomSearch";
 
 const Project = () => {
   const { id } = useParams();
@@ -28,6 +31,8 @@ const Project = () => {
     editTask,
     initialLoading,
   } = useTasks(id);
+
+  const { getProjectById, editProject } = useProjectsContext();
 
   const {
     select: priority,
@@ -102,6 +107,13 @@ const Project = () => {
     return result;
   };
 
+  const handleRenameProject = async (newTitle: string) => {
+    const project = getProjectById(id);
+    if (!project) return;
+    if (project.title === newTitle) return;
+    await editProject(id, { title: newTitle, color: project.color });
+  };
+
   if (initialLoading) {
     return (
       <div className={s.project}>
@@ -114,7 +126,10 @@ const Project = () => {
 
   return (
     <div className={s.project}>
-      <CustomHeader title="Your tasks" />
+      <HeaderProject
+        title={getProjectById(id).title}
+        renameProject={handleRenameProject}
+      />
       {tasks.length === 0 ? (
         <EmptyState
           handleOpenAddModal={handleOpenAddModal}

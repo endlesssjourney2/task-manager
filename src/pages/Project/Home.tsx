@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import CustomHeader from "../../components/CustomHeader/CustomHeader";
 import s from "./Home.module.css";
 import { Button, Spin } from "antd";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
-import ProjectList from "./components/ProjectList/ProjectList";
-import CustomPagination from "../../components/CustomPagination/CustomPagination";
-import usePaginate from "../../hooks/usePaginate";
-import AddModalProject from "../../features/Project/components/AddModalProject/AddModalProject";
-import EmptyState from "../../components/EmptyState/EmptyState";
-import useSearch from "../../hooks/useSearch";
-import CustomSearch from "../../components/CustomSearch/CustomSearch";
+import ProjectList from "../../features/project/components/ProjectList/ProjectList";
 import { useProjectsContext } from "../../context/ProjectsContext";
+import useSearch from "../../hooks/useSearch";
+import usePaginate from "../../hooks/usePaginate";
+import CustomHeader from "../../components/CustomHeader/CustomHeader";
+import EmptyState from "../../components/EmptyState/EmptyState";
+import CustomPagination from "../../components/CustomPagination/CustomPagination";
+import CustomSearch from "../../components/CustomSearch/CustomSearch";
+import AddModalProject from "../../features/components/AddModalProject/AddModalProject";
 
 const Home = () => {
   const { projects, addProject, removeProject, initialLoading, actionLoading } =

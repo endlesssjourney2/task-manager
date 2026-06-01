@@ -4,8 +4,8 @@ import { DatePicker, Input, Modal, Select } from "antd";
 import type { Dayjs } from "dayjs";
 import dayjs from "dayjs";
 import type { Priority } from "../../../../types/task";
-import { PRIORITY_OPTIONS } from "../../../../constants/priority";
 import CustomModalFooter from "../../../../components/CustomModalFooter/CustomModalFooter";
+import { PRIORITY_OPTIONS } from "../../../../constants/priority";
 
 type Props = {
   modalOpen: boolean;

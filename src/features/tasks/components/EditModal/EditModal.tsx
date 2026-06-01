@@ -1,11 +1,11 @@
 import { useState, type FC } from "react";
-import type { Priority, Task, UpdateTaskPayload } from "../../../../types/task";
 import type { Dayjs } from "dayjs";
 import dayjs from "dayjs";
 import { DatePicker, Input, Modal, Select } from "antd";
-import { PRIORITY_OPTIONS } from "../../../../constants/priority";
 import s from "./EditModal.module.css";
+import type { Priority, Task, UpdateTaskPayload } from "../../../../types/task";
 import CustomModalFooter from "../../../../components/CustomModalFooter/CustomModalFooter";
+import { PRIORITY_OPTIONS } from "../../../../constants/priority";
 
 type Props = {
   modalOpen: boolean;

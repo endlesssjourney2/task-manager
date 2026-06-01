@@ -1,7 +1,7 @@
 import type { FC } from "react";
 import s from "./CustomDate.module.css";
-import { dateChecker } from "../../../../helpers/dateChecker";
 import dayjs from "dayjs";
+import { dateChecker } from "../../../../helpers/dateChecker";
 
 type Props = {
   due_date: string;

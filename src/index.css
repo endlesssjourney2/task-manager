@@ -20,6 +20,7 @@ button {
 body {
   min-height: 100vh;
   background-color: #020408;
+  overflow: hidden;
 }
 
 li {
@@ -28,7 +29,7 @@ li {
 
 :root {
   /* Background */
-  --bg-color-primary: #0c1117;
+  --bg-color-primary: #1f1f1f;
   --bg-color-secondary: #262c36;
 
   /* Card */

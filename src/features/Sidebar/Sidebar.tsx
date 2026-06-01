@@ -8,9 +8,9 @@ import {
   MenuOutlined,
   PlusOutlined,
 } from "@ant-design/icons";
-import AddModalProject from "../Project/components/AddModalProject/AddModalProject";
 import { useProjectsContext } from "../../context/ProjectsContext";
 import ProjectsList from "./components/ProjectsList/ProjectsList";
+import AddModalProject from "../components/AddModalProject/AddModalProject";
 
 const { Sider } = Layout;
 
@@ -112,6 +112,7 @@ const Sidebar: FC<Props> = ({ collapsed, setCollapsed }) => {
             )}
           </div>
         </div>
+
         <AddModalProject
           modalOpen={addModalOpen}
           handleCloseModal={handleCloseModal}
