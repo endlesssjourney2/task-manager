@@ -1,14 +1,11 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import s from "./Home.module.css";
-import { Button, Spin } from "antd";
+import { Spin } from "antd";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import ProjectList from "../../features/project/components/ProjectList/ProjectList";
 import { useProjectsContext } from "../../context/ProjectsContext";
 import useSearch from "../../hooks/useSearch";
-import usePaginate from "../../hooks/usePaginate";
 import CustomHeader from "../../components/CustomHeader/CustomHeader";
-import EmptyState from "../../components/EmptyState/EmptyState";
-import CustomPagination from "../../components/CustomPagination/CustomPagination";
 import CustomSearch from "../../components/CustomSearch/CustomSearch";
 import AddModalProject from "../../features/components/AddModalProject/AddModalProject";
 
@@ -21,12 +18,6 @@ const Home = () => {
     search,
     setSearch,
   } = useSearch(projects, ["title"]);
-
-  const { page, paginatedItems, setPage, safeItemsPerPage, pageCount } =
-    usePaginate({
-      items: filteredProjects,
-      itemsPerPage: 10,
-    });
 
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -50,6 +41,10 @@ const Home = () => {
     setModalOpen(false);
   };
 
+  const projectsLength = useMemo(() => {
+    return projects.length === 1 ? "1 project" : `${projects.length} projects`;
+  }, [projects]);
+
   if (initialLoading)
     return (
       <div className={s.home}>
@@ -61,39 +56,9 @@ const Home = () => {
 
   return (
     <div className={s.home}>
-      <CustomHeader title="Home page" />
-      {projects.length === 0 ? (
-        <EmptyState
-          handleOpenAddModal={handleOpenModal}
-          description="No projects yet"
-          buttonText="Add your first project now"
-        />
-      ) : (
-        <div className={s.header}>
-          <div className={s.headerLeft}>
-            <span className={s.headerText}>Create a new project</span>
-          </div>
-          <div className={s.headerRight}>
-            <Button
-              onClick={handleOpenModal}
-              icon={<PlusOutlined />}
-              type="primary"
-              shape="round"
-            />
-          </div>
-        </div>
-      )}
-
-      <div className={s.content}>
-        {pageCount > 1 && (
-          <CustomPagination
-            current={page}
-            total={filteredProjects.length}
-            pageSize={safeItemsPerPage}
-            onChange={(newPage) => setPage(newPage)}
-          />
-        )}
-        {projects.length > 0 && (
+      <CustomHeader title="My Projects" />
+      <div className={s.header}>
+        <div className={s.headerLeft}>
           <div className={s.search}>
             <CustomSearch
               value={search}
@@ -101,9 +66,23 @@ const Home = () => {
               placeholder="Search projects..."
             />
           </div>
-        )}
+        </div>
+        <div className={s.headerRight} onClick={handleOpenModal}>
+          <span className={s.text}>Add</span>
+          <PlusOutlined />
+        </div>
+      </div>
 
-        <ProjectList projects={paginatedItems} removeProject={removeProject} />
+      <div className={s.content}>
+        <div className={s.top}>
+          <span className={s.length}>{projectsLength}</span>
+        </div>
+        <div className={s.bottom}>
+          <ProjectList
+            projects={filteredProjects}
+            removeProject={removeProject}
+          />
+        </div>
       </div>
       <AddModalProject
         modalOpen={modalOpen}
