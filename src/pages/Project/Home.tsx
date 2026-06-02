@@ -10,14 +10,14 @@ import CustomSearch from "../../components/CustomSearch/CustomSearch";
 import AddModalProject from "../../features/components/AddModalProject/AddModalProject";
 
 const Home = () => {
-  const { projects, addProject, removeProject, initialLoading, actionLoading } =
+  const { projects, addProject, initialLoading, actionLoading } =
     useProjectsContext();
 
   const {
     filteredItems: filteredProjects,
     search,
     setSearch,
-  } = useSearch(projects, ["title"]);
+  } = useSearch(projects, ["title"], 300);
 
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -78,10 +78,7 @@ const Home = () => {
           <span className={s.length}>{projectsLength}</span>
         </div>
         <div className={s.bottom}>
-          <ProjectList
-            projects={filteredProjects}
-            removeProject={removeProject}
-          />
+          <ProjectList projects={filteredProjects} />
         </div>
       </div>
       <AddModalProject

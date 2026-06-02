@@ -50,7 +50,7 @@ const Project = () => {
     search,
     setSearch,
     filteredItems: filteredTasks,
-  } = useSearch(filteredTasksByStatus, ["title", "description"]);
+  } = useSearch(filteredTasksByStatus, ["title", "description"], 300);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
