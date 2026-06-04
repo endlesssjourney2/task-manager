@@ -73,14 +73,17 @@ const Home = () => {
         </div>
       </div>
 
-      <div className={s.content}>
-        <div className={s.top}>
-          <span className={s.length}>{projectsLength}</span>
+      {projects.length > 0 && (
+        <div className={s.content}>
+          <div className={s.top}>
+            <span className={s.length}>{projectsLength}</span>
+          </div>
+          <div className={s.bottom}>
+            <ProjectList projects={filteredProjects} />
+          </div>
         </div>
-        <div className={s.bottom}>
-          <ProjectList projects={filteredProjects} />
-        </div>
-      </div>
+      )}
+
       <AddModalProject
         modalOpen={modalOpen}
         handleCloseModal={handleCloseModal}
