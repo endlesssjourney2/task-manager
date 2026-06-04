@@ -11,6 +11,7 @@ import {
 import { useProjectsContext } from "../../context/ProjectsContext";
 import ProjectsList from "./components/ProjectsList/ProjectsList";
 import AddModalProject from "../components/AddModalProject/AddModalProject";
+import SidebarProfile from "./components/SidebarProfile/SidebarProfile";
 
 const { Sider } = Layout;
 
@@ -45,11 +46,11 @@ const Sidebar: FC<Props> = ({ collapsed, setCollapsed }) => {
     return result;
   };
 
-  const handleOpenModal = () => {
+  const handleOpenAddModal = () => {
     setAddModalOpen(true);
   };
 
-  const handleCloseModal = () => {
+  const handleCloseAddModal = () => {
     setAddModalOpen(false);
   };
 
@@ -71,7 +72,7 @@ const Sidebar: FC<Props> = ({ collapsed, setCollapsed }) => {
       >
         <div className={`${s.content} ${collapsed ? s.contentHidden : ""}`}>
           <div className={s.header}>
-            <h1 className={s.heading}>heading</h1>
+            <SidebarProfile />
           </div>
           <div onClick={handleNavigateProjects} className={s.projectsHeader}>
             <div className={s.left}>
@@ -99,7 +100,7 @@ const Sidebar: FC<Props> = ({ collapsed, setCollapsed }) => {
                   icon={<PlusOutlined />}
                   onClick={(e) => {
                     e.stopPropagation();
-                    handleOpenModal();
+                    handleOpenAddModal();
                   }}
                 />
               </div>
@@ -115,7 +116,7 @@ const Sidebar: FC<Props> = ({ collapsed, setCollapsed }) => {
 
         <AddModalProject
           modalOpen={addModalOpen}
-          handleCloseModal={handleCloseModal}
+          handleCloseModal={handleCloseAddModal}
           handleCreateProject={handleAddProject}
           loading={actionLoading}
         />
