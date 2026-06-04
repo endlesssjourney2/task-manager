@@ -41,6 +41,10 @@ const Home = () => {
     setModalOpen(false);
   };
 
+  const handleClearSearch = () => {
+    setSearch("");
+  };
+
   const projectsLength = useMemo(() => {
     return projects.length === 1 ? "1 project" : `${projects.length} projects`;
   }, [projects]);
@@ -61,6 +65,7 @@ const Home = () => {
         <div className={s.headerLeft}>
           <div className={s.search}>
             <CustomSearch
+              handleClear={handleClearSearch}
               value={search}
               handleSearch={handleSearch}
               placeholder="Search projects..."
