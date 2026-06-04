@@ -49,10 +49,7 @@ export const deleteTask = async (id: string) => {
 export const updateTask = async (payload: UpdateTaskPayload) => {
   const { id, ...rest } = payload;
 
-  const { error } = await supabase
-    .from("tasks")
-    .update({ ...rest })
-    .eq("id", id);
+  const { error } = await supabase.from("tasks").update(rest).eq("id", id);
 
   if (error) {
     console.error("Error updating task", error.message);
