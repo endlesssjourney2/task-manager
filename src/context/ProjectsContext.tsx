@@ -1,14 +1,18 @@
 import { createContext, useContext, type ReactNode } from "react";
 import useProjects from "../hooks/useProjects";
 
-type ProjectsContentType = ReturnType<typeof useProjects>;
+type ProjectsContextType = ReturnType<typeof useProjects>;
 
-const ProjectsContext = createContext<ProjectsContentType | null>(null);
+const ProjectsContext = createContext<ProjectsContextType | null>(null);
 
 export const ProjectsProvider = ({ children }: { children: ReactNode }) => {
   const value = useProjects();
 
-  return <ProjectsContext value={value}>{children}</ProjectsContext>;
+  return (
+    <ProjectsContext.Provider value={value}>
+      {children}
+    </ProjectsContext.Provider>
+  );
 };
 
 export const useProjectsContext = () => {
