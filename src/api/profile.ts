@@ -22,6 +22,24 @@ export const updateProfile = async (payload: UpdateProfilePayload) => {
 
   if (error) {
     console.error("Error updating profile:", error);
-    return null;
+    return error;
   }
+  return null;
+};
+
+export const uploadAvatar = async (userId: string, file: File) => {
+  const path = `${userId}/avatar`;
+
+  const { error } = await supabase.storage
+    .from("avatars")
+    .upload(path, file, { upsert: true });
+
+  if (error) {
+    console.error("Error updating avatar", error);
+    return [null, error];
+  }
+
+  const { data } = await supabase.storage.from("avatars").getPublicUrl(path);
+
+  return [`${data.publicUrl}?t=${Date.now()}`, null];
 };
