@@ -57,6 +57,7 @@ export const updateProject = async (payload: UpdateProjectPayload) => {
 
   if (error) {
     console.error("Error updating project", error.message);
-    return null;
+    return error;
   }
+  return null;
 };

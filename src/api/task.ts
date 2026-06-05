@@ -53,6 +53,7 @@ export const updateTask = async (payload: UpdateTaskPayload) => {
 
   if (error) {
     console.error("Error updating task", error.message);
-    return null;
+    return error;
   }
+  return null;
 };
