@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import type { Profile, UpdateProfilePayload } from "../types/profile";
+import type { Profile } from "../types/profile";
 import { useAuth } from "../context/AuthContext";
-import { getProfile, updateProfile } from "../api/profile";
+import { getProfile, updateProfile, uploadAvatar } from "../api/profile";
 import useNotify from "./useNotify";
 
 const useProfile = () => {
@@ -34,24 +34,58 @@ const useProfile = () => {
     fetchProfile();
   }, [user]);
 
-  const editProfile = async (fields: Omit<UpdateProfilePayload, "id">) => {
+  const editProfile = async (username: string) => {
     if (!user) return;
 
     setActionLoading(true);
 
-    const error = await updateProfile({ id: user.id, ...fields });
+    const error = await updateProfile({ id: user.id, display_name: username });
     if (error) {
       notify.error("Failed to update profile", { duration: 2 });
       console.error("Error updating profile:", error);
       setActionLoading(false);
       return;
     }
-    setProfile((prev) => (prev ? { ...prev, ...fields } : prev));
+    notify.success("Username updated successfully", { duration: 1 });
+    setProfile((prev) => (prev ? { ...prev, display_name: username } : prev));
     setActionLoading(false);
     return;
   };
 
-  return { profile, initialLoading, actionLoading, editProfile };
+  const editAvatar = async (file: File) => {
+    if (!user) return;
+
+    setActionLoading(true);
+
+    const [url, uploadError] = await uploadAvatar(user.id, file);
+
+    if (uploadError) {
+      notify.error("Failed to upload avatar", { duration: 2 });
+      console.error("Error uploading avatar", uploadError);
+      setActionLoading(false);
+      return;
+    }
+
+    const updateError = await updateProfile({
+      id: user.id,
+      avatar_url: url as string,
+    });
+
+    if (updateError) {
+      notify.error("Failed to update avatar", { duration: 2 });
+      console.error("Error updating avatar", updateError);
+      setActionLoading(false);
+      return;
+    }
+
+    notify.success("Avatar updated successfully", { duration: 1 });
+    setProfile((prev) =>
+      prev ? { ...prev, avatar_url: url as string } : prev,
+    );
+    setActionLoading(false);
+  };
+
+  return { profile, initialLoading, actionLoading, editProfile, editAvatar };
 };
 
 export default useProfile;
