@@ -127,7 +127,7 @@ const Project = () => {
   return (
     <div className={s.project}>
       <HeaderProject
-        title={getProjectById(id).title}
+        title={getProjectById(id)?.title}
         renameProject={handleRenameProject}
       />
       {tasks.length === 0 ? (
