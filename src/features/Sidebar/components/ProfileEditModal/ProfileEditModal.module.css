@@ -1,0 +1,83 @@
+.content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.subtitle {
+  font-size: 16px;
+  color: #8b949e;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.avatarInfo {
+  display: flex;
+  justify-content: left;
+  margin-bottom: 15px;
+  gap: 20px;
+}
+
+.changeAvatar {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  max-width: 220px;
+}
+
+.avatar {
+  height: 90px;
+  width: 90px;
+  border-radius: 50%;
+}
+
+.noAvatar {
+  height: 90px;
+  width: 90px;
+  border-radius: 50%;
+  background-color: red;
+}
+
+.buttons {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+
+.btnUpload {
+  padding: 6px 12px;
+  border-radius: 8px;
+  background-color: #30363d;
+  color: #f0f6fc;
+  border: 1px solid #444c56;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s;
+}
+
+.btnUpload:hover {
+  background-color: #3c444d;
+}
+
+.aboutInfo {
+  font-size: 14px;
+  color: #8b949e;
+  margin-top: 8px;
+  line-height: 1.4;
+}
+
+.input {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background-color: #161b22;
+  border: 1px solid #30363d;
+  color: #f0f6fc;
+  font-size: 14px;
+  outline: none;
+}
+
+.input:focus {
+  border-color: #58a6ff;
+}
