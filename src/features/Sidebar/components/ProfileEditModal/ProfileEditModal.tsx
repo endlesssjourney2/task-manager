@@ -1,36 +1,89 @@
 import { Modal } from "antd";
-import { useState, type FC } from "react";
-import type { UpdateProfilePayload } from "../../../../types/profile";
+import React, { useRef, useState, type FC } from "react";
+import { getFirstLetter } from "../../../../helpers/getFirstLetter";
+import s from "./ProfileEditModal.module.css";
+import { useProfileContext } from "../../../../context/ProfileContext";
 
 type Props = {
-  profileName: string;
   modalOpen: boolean;
-  handleEditProfile: (
-    fields: Omit<UpdateProfilePayload, "id">,
-  ) => Promise<void>;
+
   handleCloseModal: () => void;
 };
 
-const ProfileEditModal: FC<Props> = ({
-  profileName,
-  modalOpen,
-  handleCloseModal,
-  handleEditProfile,
-}) => {
-  const [name, setName] = useState(profileName);
+const ProfileEditModal: FC<Props> = ({ modalOpen, handleCloseModal }) => {
+  const { profile, editProfile, editAvatar, actionLoading } =
+    useProfileContext();
+  const [name, setName] = useState(profile?.display_name ?? "");
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleOk = async () => {
-    await handleEditProfile({ display_name: name });
+    await editProfile(name);
     handleCloseModal();
   };
 
+  const handleAvatarClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    await editAvatar(file);
+  };
+
   return (
-    <Modal open={modalOpen} onCancel={handleCloseModal} onOk={handleOk}>
-      <input
-        type="text"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
+    <Modal
+      open={modalOpen}
+      onCancel={handleCloseModal}
+      onOk={handleOk}
+      confirmLoading={actionLoading}
+    >
+      <div className={s.content}>
+        <span className={s.subtitle}>Photo</span>
+        <div className={s.avatarInfo}>
+          {profile.avatar_url ? (
+            <img className={s.avatar} src={profile.avatar_url} alt="avatar" />
+          ) : (
+            <div className={s.noAvatar}>
+              {getFirstLetter(profile.display_name)}
+            </div>
+          )}
+          <div className={s.changeAvatar}>
+            <div className={s.buttons}>
+              <button
+                className={s.btnUpload}
+                onClick={handleAvatarClick}
+                disabled={actionLoading}
+              >
+                Change photo
+              </button>
+              {/* <button> 
+                Delete photo(work in progress)
+              </button> */}
+              <input
+                ref={fileInputRef}
+                style={{ display: "none" }}
+                type="file"
+                accept=".jpeg, .jpg, .png"
+                onChange={handleFileChange}
+              />
+            </div>
+            <span className={s.aboutInfo}>
+              Do not take a photo that is too big, it will shrink and will not
+              be beautiful
+            </span>
+          </div>
+        </div>
+        <span className={s.subtitle}>Name</span>
+        <div className={s.changeUsername}>
+          <input
+            className={s.input}
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </div>
+      </div>
     </Modal>
   );
 };
