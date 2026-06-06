@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { useProfileContext } from "../../../../context/ProfileContext";
-import type { UpdateProfilePayload } from "../../../../types/profile";
 import ProfileEditModal from "../ProfileEditModal/ProfileEditModal";
+import s from "./SidebarProfile.module.css";
+import { getFirstLetter } from "../../../../helpers/getFirstLetter";
 
 const SidebarProfile = () => {
-  const { profile, editProfile } = useProfileContext();
+  const { profile, initialLoading } = useProfileContext();
 
   const [editProfileModalOpen, setEditProfileModalOpen] = useState(false);
 
@@ -16,21 +17,23 @@ const SidebarProfile = () => {
     setEditProfileModalOpen(false);
   };
 
-  const handleEditProfile = async (
-    fields: Omit<UpdateProfilePayload, "id">,
-  ) => {
-    await editProfile({ display_name: fields.display_name });
-  };
+  if (initialLoading || !profile) return null;
 
   return (
-    <div>
-      <h2>{profile?.display_name}</h2>
-      <button onClick={handleOpenModal}>EDIT</button>
+    <div className={s.profile}>
+      <div className={s.profileContent} onClick={handleOpenModal}>
+        {profile.avatar_url ? (
+          <img className={s.avatar} src={profile.avatar_url} alt="avatar" />
+        ) : (
+          <div className={s.noAvatar}>
+            {getFirstLetter(profile.display_name)}
+          </div>
+        )}
+        <span className={s.username}>{profile?.display_name ?? null}</span>
+      </div>
       <ProfileEditModal
         modalOpen={editProfileModalOpen}
         handleCloseModal={handleCloseModal}
-        handleEditProfile={handleEditProfile}
-        profileName={profile.display_name}
       />
     </div>
   );
