@@ -17,8 +17,12 @@ const ProfileEditModal: FC<Props> = ({ modalOpen, handleCloseModal }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleOk = async () => {
-    await editProfile(name);
-    handleCloseModal();
+    if (name === profile?.display_name) {
+      handleCloseModal();
+      return;
+    }
+    const result = await editProfile(name);
+    if (result) handleCloseModal();
   };
 
   const handleAvatarClick = () => {
