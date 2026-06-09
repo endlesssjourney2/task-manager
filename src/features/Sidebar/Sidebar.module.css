@@ -51,6 +51,7 @@
   align-items: center;
   transition: all 0.2s ease;
   border-radius: 8px;
+  height: 35px;
 }
 
 .projectsInfo {
