@@ -1,7 +1,7 @@
 import { Input } from "antd";
 import s from "./CustomSearch.module.css";
 import type { FC } from "react";
-import { ClearOutlined } from "@ant-design/icons";
+import { CloseOutlined } from "@ant-design/icons";
 
 type Props = {
   value: string;
@@ -20,7 +20,7 @@ const CustomSearch: FC<Props> = ({
     <div className={s.searchContainer}>
       <Input
         suffix={
-          <ClearOutlined
+          <CloseOutlined
             onClick={handleClear}
             style={{ visibility: value ? "visible" : "hidden" }}
           />
