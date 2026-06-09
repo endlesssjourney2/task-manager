@@ -50,33 +50,40 @@ const SignUp = () => {
       notify.success("Account created successfully!", {
         duration: 2,
       });
-      navigate("/");
+      navigate("/app");
     }
   };
 
   return (
     <div className={s.signUp}>
       <div className={s.content}>
-        <div className={s.header}>
-          <CustomHeader title="Sign Up" />
+        <div className={s.left}>
+          <div className={s.header}>
+            <CustomHeader title="Sign Up" />
+          </div>
+          <div className={s.inputs}>
+            <AuthInputs
+              email={email}
+              setEmail={setEmail}
+              password={password}
+              setPassword={setPassword}
+            />
+          </div>
+          <button
+            className={s.button}
+            onClick={handleSignUp}
+            disabled={loading}
+          >
+            Sign Up
+          </button>
+          <div className={s.footer}>
+            <span className={s.text}>Already have an account? </span>
+            <Link className={s.link} to={"/"}>
+              Sign In
+            </Link>
+          </div>
         </div>
-        <div className={s.inputs}>
-          <AuthInputs
-            email={email}
-            setEmail={setEmail}
-            password={password}
-            setPassword={setPassword}
-          />
-        </div>
-        <button className={s.button} onClick={handleSignUp} disabled={loading}>
-          Sign Up
-        </button>
-        <div className={s.footer}>
-          <span className={s.text}>Already have an account? </span>
-          <Link className={s.link} to={"/signin"}>
-            Sign In
-          </Link>
-        </div>
+        <div className={s.right}>CONTENT</div>
       </div>
     </div>
   );
