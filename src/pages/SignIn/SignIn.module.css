@@ -3,20 +3,38 @@
   flex-direction: column;
   align-items: center;
   height: 100vh;
-  background-color: var(--bg-color-primary);
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(47, 129, 247, 0.18),
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at bottom right,
+      rgba(139, 92, 246, 0.14),
+      transparent 35%
+    ),
+    #020408;
+  overflow: hidden;
 }
 
 .content {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.left {
+  margin-top: 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 20px;
-  margin-top: 40px;
   padding: 10px 12px;
   border: 1px solid var(--border-color-primary);
   border-radius: 12px;
   background-color: var(--bg-color-secondary);
-  margin-top: 60px;
 }
 
 .header {
@@ -58,4 +76,8 @@
 
 .link {
   color: var(--color-accent-blue);
+}
+
+.right {
+  margin-top: 50px;
 }
