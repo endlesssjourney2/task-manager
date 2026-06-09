@@ -46,7 +46,7 @@ const ProjectList: FC<Props> = ({ projects }) => {
           <li
             key={p.id}
             className={s.item}
-            onClick={() => navigate(`/project/${p.id}`)}
+            onClick={() => navigate(`/app/project/${p.id}`)}
           >
             <div className={s.colorBar}>
               <span style={{ color: p.color }}>#</span>
