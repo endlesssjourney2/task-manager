@@ -35,7 +35,7 @@ const useProfile = () => {
   }, [user]);
 
   const editProfile = async (username: string) => {
-    if (!user) return;
+    if (!user) return false;
 
     setActionLoading(true);
 
@@ -44,16 +44,16 @@ const useProfile = () => {
       notify.error("Failed to update profile", { duration: 2 });
       console.error("Error updating profile:", error);
       setActionLoading(false);
-      return;
+      return false;
     }
     notify.success("Username updated successfully", { duration: 1 });
     setProfile((prev) => (prev ? { ...prev, display_name: username } : prev));
     setActionLoading(false);
-    return;
+    return true;
   };
 
   const editAvatar = async (file: File) => {
-    if (!user) return;
+    if (!user) return false;
 
     setActionLoading(true);
 
@@ -63,7 +63,7 @@ const useProfile = () => {
       notify.error("Failed to upload avatar", { duration: 2 });
       console.error("Error uploading avatar", uploadError);
       setActionLoading(false);
-      return;
+      return false;
     }
 
     const updateError = await updateProfile({
@@ -75,7 +75,7 @@ const useProfile = () => {
       notify.error("Failed to update avatar", { duration: 2 });
       console.error("Error updating avatar", updateError);
       setActionLoading(false);
-      return;
+      return false;
     }
 
     notify.success("Avatar updated successfully", { duration: 1 });
@@ -83,6 +83,7 @@ const useProfile = () => {
       prev ? { ...prev, avatar_url: url as string } : prev,
     );
     setActionLoading(false);
+    return true;
   };
 
   return { profile, initialLoading, actionLoading, editProfile, editAvatar };
