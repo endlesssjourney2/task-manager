@@ -4,16 +4,24 @@ import SignIn from "./pages/SignIn/SignIn.tsx";
 import SignUp from "./pages/SignUp/SignUp.tsx";
 import Home from "./pages/Project/Home.tsx";
 import Project from "./pages/Tasks/Project.tsx";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.tsx";
 
 export const router = createBrowserRouter(
   [
     {
       path: "/",
-      element: <RootLayout />,
+      element: <SignIn />,
+    },
+    { path: "signup", element: <SignUp /> },
+    {
+      path: "/app",
+      element: (
+        <ProtectedRoute>
+          <RootLayout />
+        </ProtectedRoute>
+      ),
       children: [
         { index: true, element: <Home /> },
-        { path: "signin", element: <SignIn /> },
-        { path: "signup", element: <SignUp /> },
         { path: "project/:id", element: <Project /> },
       ],
     },
