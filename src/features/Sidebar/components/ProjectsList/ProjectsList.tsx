@@ -47,7 +47,7 @@ const ProjectsList: FC<Props> = ({ projects }) => {
           <li
             className={s.item}
             key={p.created_at}
-            onClick={() => navigate(`/project/${p.id}`)}
+            onClick={() => navigate(`/app/project/${p.id}`)}
           >
             <div className={s.left}>
               <span className={s.desc} style={{ color: `${p.color}` }}>
