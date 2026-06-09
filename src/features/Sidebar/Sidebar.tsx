@@ -29,7 +29,7 @@ const Sidebar: FC<Props> = ({ collapsed, setCollapsed }) => {
   const projectsLength = projects.length;
 
   const handleNavigateProjects = () => {
-    navigate("/");
+    navigate("/app");
   };
 
   const [addModalOpen, setAddModalOpen] = useState(false);
@@ -107,11 +107,11 @@ const Sidebar: FC<Props> = ({ collapsed, setCollapsed }) => {
               <span className={s.projectsInfo}>{projectsLength}</span>
             </div>
           </div>
-          <div className={s.projects}>
-            {showProjects && (
+          {showProjects && (
+            <div className={s.projects}>
               <ProjectsList projects={projects} removeProject={removeProject} />
-            )}
-          </div>
+            </div>
+          )}
         </div>
 
         <AddModalProject
