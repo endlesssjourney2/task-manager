@@ -25,10 +25,17 @@ const EditModalProject: FC<Props> = ({
   const [color, setColor] = useState(selectedProject.color);
 
   const handleOk = async () => {
-    await handleEditProject(selectedProject.id, {
+    if (title === selectedProject.title && color === selectedProject.color) {
+      handleCloseModal();
+      return;
+    }
+    const result = await handleEditProject(selectedProject.id, {
       title,
       color,
     });
+    if (result) {
+      handleCloseModal();
+    }
   };
 
   return (
