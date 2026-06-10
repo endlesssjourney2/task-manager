@@ -12,7 +12,7 @@ type Props = {
 
 const AuthInputs: FC<Props> = ({ email, setEmail, password, setPassword }) => {
   return (
-    <>
+    <div className={s.inputs}>
       <Input
         className={s.authInput}
         size="large"
@@ -38,7 +38,7 @@ const AuthInputs: FC<Props> = ({ email, setEmail, password, setPassword }) => {
           )
         }
       />
-    </>
+    </div>
   );
 };
 
