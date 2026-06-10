@@ -21,47 +21,49 @@
 .content {
   width: 100%;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
 }
 
 .left {
-  margin-top: 50px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 20px;
-  padding: 10px 12px;
-  border: 1px solid var(--border-color-primary);
-  border-radius: 12px;
-  background-color: var(--bg-color-secondary);
 }
 
-.header {
-  margin-bottom: 20px;
-}
-
-.inputs {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  width: 300px;
+.title {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.8rem;
+  color: var(--text-primary);
 }
 
 .button {
+  width: 50%;
   padding: 12px 24px;
   border: none;
+  border: 1px solid var(--btn-register-border);
   border-radius: 8px;
-  background-color: var(--btn-primary-bg);
-  color: var(--btn-primary-text);
+  background-color: var(--btn-register-bg);
+  color: var(--btn-register-text);
   font-size: 1rem;
   cursor: pointer;
   margin: 10px 0 5px 0;
-  transition: background-color 0.2s ease;
+  box-shadow: 0 10px 30px var(--btn-register-shadow);
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
 }
 
 .button:hover {
-  background-color: var(--btn-primary-hover);
+  background-color: var(--btn-register-hover);
+}
+
+.button:active {
+  background-color: var(--btn-register-active);
+  transform: translateY(2px);
 }
 
 .footer {
@@ -78,6 +80,11 @@
   color: var(--color-accent-blue);
 }
 
-.left {
-  margin-top: 50px;
+.right {
+  width: 100%;
+}
+
+.img {
+  width: 100%;
+  height: 100vh;
 }
