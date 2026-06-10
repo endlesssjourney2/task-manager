@@ -5,7 +5,7 @@ import AuthInputs from "../../features/auth/AuthInputs/AuthInputs";
 import { getAuthErrorSignUpMessage } from "../../features/auth/helpers/authErrors";
 import useNotify from "../../hooks/useNotify";
 import { supabase } from "../../supabase/supabaseClient";
-import CustomHeader from "../../components/CustomHeader/CustomHeader";
+import image from "../../../images/signup.jpeg";
 
 const SignUp = () => {
   const notify = useNotify();
@@ -25,6 +25,10 @@ const SignUp = () => {
         key: "signup-error",
       });
       console.error("Password must be at least 6 characters long");
+      return;
+    }
+
+    if (email.length === 0) {
       return;
     }
 
@@ -59,16 +63,14 @@ const SignUp = () => {
       <div className={s.content}>
         <div className={s.left}>
           <div className={s.header}>
-            <CustomHeader title="Sign Up" />
+            <h2 className={s.title}>Sign Up</h2>
           </div>
-          <div className={s.inputs}>
-            <AuthInputs
-              email={email}
-              setEmail={setEmail}
-              password={password}
-              setPassword={setPassword}
-            />
-          </div>
+          <AuthInputs
+            email={email}
+            setEmail={setEmail}
+            password={password}
+            setPassword={setPassword}
+          />
           <button
             className={s.button}
             onClick={handleSignUp}
@@ -83,7 +85,9 @@ const SignUp = () => {
             </Link>
           </div>
         </div>
-        <div className={s.right}>CONTENT</div>
+        <div className={s.right}>
+          <img src={image} alt="" className={s.img} />
+        </div>
       </div>
     </div>
   );
