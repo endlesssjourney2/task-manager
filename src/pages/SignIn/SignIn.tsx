@@ -2,11 +2,10 @@ import { useState } from "react";
 import s from "./SignIn.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import AuthInputs from "../../features/auth/AuthInputs/AuthInputs";
-
+import image from "../../../images/signin.jpeg";
 import { getAuthErrorSignInMessage } from "../../features/auth/helpers/authErrors";
 import useNotify from "../../hooks/useNotify";
 import { supabase } from "../../supabase/supabaseClient";
-import CustomHeader from "../../components/CustomHeader/CustomHeader";
 
 const SignIn = () => {
   const notify = useNotify();
@@ -18,6 +17,14 @@ const SignIn = () => {
 
   const handleSignIn = async () => {
     if (loading) return;
+
+    if (email.length === 0) {
+      return;
+    }
+
+    if (password.length === 0) {
+      return;
+    }
 
     setLoading(true);
 
@@ -49,16 +56,14 @@ const SignIn = () => {
       <div className={s.content}>
         <div className={s.left}>
           <div className={s.header}>
-            <CustomHeader title="Sign In" />
+            <h2 className={s.title}>Sign In</h2>
           </div>
-          <div className={s.inputs}>
-            <AuthInputs
-              email={email}
-              setEmail={setEmail}
-              password={password}
-              setPassword={setPassword}
-            />
-          </div>
+          <AuthInputs
+            email={email}
+            setEmail={setEmail}
+            password={password}
+            setPassword={setPassword}
+          />
           <button className={s.button} onClick={handleSignIn}>
             Sign In
           </button>
@@ -69,7 +74,9 @@ const SignIn = () => {
             </Link>
           </div>
         </div>
-        <div className={s.right}>CONTENT</div>
+        <div className={s.right}>
+          <img src={image} alt="" className={s.img} />
+        </div>
       </div>
     </div>
   );
