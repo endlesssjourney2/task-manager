@@ -50,3 +50,22 @@
 .loading {
   margin-top: 300px;
 }
+
+.addInline {
+  width: 90%;
+  margin-top: 10px;
+}
+
+.inlineInput {
+  color: #f0f6fc;
+  font-size: 20px;
+  padding: 5px 10px;
+  width: 90%;
+  border: none;
+  border-bottom: 1px solid #555555;
+  background-color: transparent;
+}
+
+.inlineInput:focus {
+  outline: none;
+}
