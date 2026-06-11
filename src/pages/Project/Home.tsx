@@ -9,6 +9,7 @@ import CustomHeader from "../../components/CustomHeader/CustomHeader";
 import CustomSearch from "../../components/CustomSearch/CustomSearch";
 import AddModalProject from "../../features/components/AddModalProject/AddModalProject";
 import { getRandomColor } from "../../helpers/getRandomColor";
+import AddInlineProject from "../../features/project/components/AddInlineProject/AddInlineProject";
 
 const Home = () => {
   const { projects, addProject, initialLoading, actionLoading } =
@@ -103,15 +104,11 @@ const Home = () => {
           </div>
         </div>
       )}
-      <div className={s.addInline}>
-        <input
-          className={s.inlineInput}
-          value={inlineTitle}
-          onChange={(e) => setInlineTitle(e.target.value)}
-          onKeyDown={handleInlineCreateProject}
-          placeholder="Project name..."
-        />
-      </div>
+      <AddInlineProject
+        value={inlineTitle}
+        setValue={setInlineTitle}
+        handleInlineCreateProject={handleInlineCreateProject}
+      />
 
       <AddModalProject
         modalOpen={modalOpen}
