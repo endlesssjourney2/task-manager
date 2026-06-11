@@ -33,6 +33,10 @@
 }
 
 .noAvatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 32px;
   height: 90px;
   width: 90px;
   border-radius: 50%;
