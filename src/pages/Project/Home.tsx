@@ -8,6 +8,7 @@ import useSearch from "../../hooks/useSearch";
 import CustomHeader from "../../components/CustomHeader/CustomHeader";
 import CustomSearch from "../../components/CustomSearch/CustomSearch";
 import AddModalProject from "../../features/components/AddModalProject/AddModalProject";
+import { getRandomColor } from "../../helpers/getRandomColor";
 
 const Home = () => {
   const { projects, addProject, initialLoading, actionLoading } =
@@ -33,6 +34,18 @@ const Home = () => {
     return result;
   };
 
+  const [inlineTitle, setInlineTitle] = useState("");
+
+  const handleInlineCreateProject = async (
+    e: React.KeyboardEvent<HTMLInputElement>,
+  ) => {
+    if (e.key === "Enter") {
+      if (!inlineTitle.trim()) return;
+      await addProject(inlineTitle, getRandomColor());
+      setInlineTitle("");
+    }
+  };
+
   const handleOpenModal = () => {
     setModalOpen(true);
   };
@@ -46,8 +59,10 @@ const Home = () => {
   };
 
   const projectsLength = useMemo(() => {
-    return projects.length === 1 ? "1 project" : `${projects.length} projects`;
-  }, [projects]);
+    return filteredProjects.length === 1
+      ? "1 project"
+      : `${filteredProjects.length} projects`;
+  }, [filteredProjects]);
 
   if (initialLoading)
     return (
@@ -88,6 +103,15 @@ const Home = () => {
           </div>
         </div>
       )}
+      <div className={s.addInline}>
+        <input
+          className={s.inlineInput}
+          value={inlineTitle}
+          onChange={(e) => setInlineTitle(e.target.value)}
+          onKeyDown={handleInlineCreateProject}
+          placeholder="Project name..."
+        />
+      </div>
 
       <AddModalProject
         modalOpen={modalOpen}
