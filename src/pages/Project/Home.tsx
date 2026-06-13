@@ -67,10 +67,8 @@ const Home = () => {
 
   if (initialLoading)
     return (
-      <div className={s.home}>
-        <div className={s.loading}>
-          <Spin indicator={<LoadingOutlined style={{ fontSize: 60 }} spin />} />
-        </div>
+      <div className={s.loading}>
+        <Spin indicator={<LoadingOutlined style={{ fontSize: 60 }} spin />} />
       </div>
     );
 
