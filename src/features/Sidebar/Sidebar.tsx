@@ -33,6 +33,14 @@ const Sidebar: FC<Props> = ({ collapsed, setCollapsed }) => {
     navigate("/app");
   };
 
+  const toggleSidebar = () => {
+    setCollapsed((prev) => {
+      const next = !prev;
+      localStorage.setItem("collapsed", String(next));
+      return next;
+    });
+  };
+
   const [addModalOpen, setAddModalOpen] = useState(false);
   const [showProjects, setShowProjects] = useState(() => {
     return localStorage.getItem("showProjects") === "true";
@@ -69,14 +77,13 @@ const Sidebar: FC<Props> = ({ collapsed, setCollapsed }) => {
     <>
       <Button
         className={`${s.toggleBtn} ${collapsed ? s.toggleBtnCollapsed : ""}`}
-        onClick={() => setCollapsed((prev) => !prev)}
+        onClick={toggleSidebar}
         icon={collapsed ? <MenuOutlined /> : <CloseOutlined />}
       />
       <Sider
         className={s.sider}
         collapsible
         collapsed={collapsed}
-        onCollapse={setCollapsed}
         width={250}
         collapsedWidth={0}
         trigger={null}
