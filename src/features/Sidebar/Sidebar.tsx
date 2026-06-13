@@ -12,6 +12,7 @@ import { useProjectsContext } from "../../context/ProjectsContext";
 import ProjectsList from "./components/ProjectsList/ProjectsList";
 import AddModalProject from "../components/AddModalProject/AddModalProject";
 import SidebarProfile from "./components/SidebarProfile/SidebarProfile";
+import SidebarSkeleton from "./components/SidebarSkeleton/SidebarSkeleton";
 
 const { Sider } = Layout;
 
@@ -21,7 +22,7 @@ type Props = {
 };
 
 const Sidebar: FC<Props> = ({ collapsed, setCollapsed }) => {
-  const { projects, addProject, actionLoading, removeProject } =
+  const { projects, addProject, actionLoading, removeProject, initialLoading } =
     useProjectsContext();
 
   const navigate = useNavigate();
@@ -33,7 +34,17 @@ const Sidebar: FC<Props> = ({ collapsed, setCollapsed }) => {
   };
 
   const [addModalOpen, setAddModalOpen] = useState(false);
-  const [showProjects, setShowProjects] = useState(false);
+  const [showProjects, setShowProjects] = useState(() => {
+    return localStorage.getItem("showProjects") === "true";
+  });
+
+  const toggleProjects = () => {
+    setShowProjects((prev) => {
+      const next = !prev;
+      localStorage.setItem("showProjects", String(next));
+      return next;
+    });
+  };
 
   const handleAddProject = async (
     title: string,
@@ -71,42 +82,52 @@ const Sidebar: FC<Props> = ({ collapsed, setCollapsed }) => {
         trigger={null}
       >
         <div className={`${s.content} ${collapsed ? s.contentHidden : ""}`}>
-          <div className={s.header}>
-            <SidebarProfile />
-          </div>
-          <div onClick={handleNavigateProjects} className={s.projectsHeader}>
-            <div className={s.left}>
-              <h2 className={s.projectsTitle}>My projects</h2>
-            </div>
-            <div className={s.right}>
-              <div className={s.actionButtons}>
-                <Button
-                  size="small"
-                  icon={
-                    <ArrowRightOutlined
-                      className={`${s.arrow} ${showProjects ? s.arrowOpen : ""}`}
-                    />
-                  }
-                  type="text"
-                  shape="default"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setShowProjects((prev) => !prev);
-                  }}
-                />
-                <Button
-                  size="small"
-                  type="text"
-                  icon={<PlusOutlined />}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleOpenAddModal();
-                  }}
-                />
+          {initialLoading ? (
+            <SidebarSkeleton />
+          ) : (
+            <>
+              <div className={s.header}>
+                <SidebarProfile />
               </div>
-              <span className={s.projectsInfo}>{projectsLength}</span>
-            </div>
-          </div>
+              <div
+                onClick={handleNavigateProjects}
+                className={s.projectsHeader}
+              >
+                <div className={s.left}>
+                  <h2 className={s.projectsTitle}>My projects</h2>
+                </div>
+                <div className={s.right}>
+                  <div className={s.actionButtons}>
+                    <Button
+                      size="small"
+                      icon={
+                        <ArrowRightOutlined
+                          className={`${s.arrow} ${showProjects ? s.arrowOpen : ""}`}
+                        />
+                      }
+                      type="text"
+                      shape="default"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleProjects();
+                      }}
+                    />
+                    <Button
+                      size="small"
+                      type="text"
+                      icon={<PlusOutlined />}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleOpenAddModal();
+                      }}
+                    />
+                  </div>
+                  <span className={s.projectsInfo}>{projectsLength}</span>
+                </div>
+              </div>
+            </>
+          )}
+
           {showProjects && (
             <div className={s.projects}>
               <ProjectsList projects={projects} removeProject={removeProject} />
