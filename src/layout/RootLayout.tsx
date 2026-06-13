@@ -6,7 +6,9 @@ import { Layout } from "antd";
 const { Content } = Layout;
 
 const RootLayout = () => {
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(() => {
+    return localStorage.getItem("collapsed") === "true";
+  });
 
   return (
     <Layout>
