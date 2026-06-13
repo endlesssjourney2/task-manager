@@ -6,12 +6,11 @@ import { useProfileContext } from "../../../../context/ProfileContext";
 
 type Props = {
   modalOpen: boolean;
-
   handleCloseModal: () => void;
 };
 
 const ProfileEditModal: FC<Props> = ({ modalOpen, handleCloseModal }) => {
-  const { profile, editProfile, editAvatar, actionLoading } =
+  const { profile, editProfile, editAvatar, actionLoading, removeAvatar } =
     useProfileContext();
   const [name, setName] = useState(profile?.display_name ?? "");
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -61,9 +60,13 @@ const ProfileEditModal: FC<Props> = ({ modalOpen, handleCloseModal }) => {
               >
                 Change photo
               </button>
-              {/* <button> 
-                Delete photo(work in progress)
-              </button> */}
+              <button
+                className={s.btnDelete}
+                disabled={actionLoading || !profile.avatar_url}
+                onClick={removeAvatar}
+              >
+                Delete photo
+              </button>
               <input
                 ref={fileInputRef}
                 style={{ display: "none" }}
