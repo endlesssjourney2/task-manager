@@ -43,3 +43,15 @@ export const uploadAvatar = async (userId: string, file: File) => {
 
   return [`${data.publicUrl}?t=${Date.now()}`, null];
 };
+
+export const deleteAvatar = async (userId: string) => {
+  const { error } = await supabase.storage
+    .from("avatars")
+    .remove([`${userId}/avatar`]);
+
+  if (error) {
+    console.error("Error deleting avatar", error);
+    return error;
+  }
+  return null;
+};
