@@ -44,9 +44,11 @@
 }
 
 .buttons {
+  width: 380px;
   display: flex;
   justify-content: left;
   align-items: center;
+  gap: 10px;
 }
 
 .btnUpload {
@@ -57,11 +59,44 @@
   border: 1px solid #444c56;
   cursor: pointer;
   font-size: 14px;
-  transition: background-color 0.2s;
+  transition:
+    background-color 0.2s ease,
+    transform 0.1s ease;
 }
 
 .btnUpload:hover {
   background-color: #3c444d;
+}
+
+.btnUpload:active {
+  transform: scale(0.97);
+}
+
+.btnDelete {
+  padding: 6px 12px;
+  border-radius: 8px;
+  background-color: var(--btn-remove-bg);
+  color: var(--btn-remove-text);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  cursor: pointer;
+  font-size: 14px;
+  transition:
+    background-color 0.2s ease,
+    transform 0.1s ease;
+}
+
+.btnDelete:hover {
+  background-color: var(--btn-remove-hover-bg);
+}
+
+.btnDelete:active {
+  transform: scale(0.97);
+}
+
+.btnDelete:disabled {
+  background-color: rgba(175, 47, 47, 0.06);
+  color: var(--text-disabled);
+  cursor: not-allowed;
 }
 
 .aboutInfo {
