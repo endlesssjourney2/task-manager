@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 import type { Profile } from "../types/profile";
 import { useAuth } from "../context/AuthContext";
-import { getProfile, updateProfile, uploadAvatar } from "../api/profile";
+import {
+  deleteAvatar,
+  getProfile,
+  updateProfile,
+  uploadAvatar,
+} from "../api/profile";
 import useNotify from "./useNotify";
 
 const useProfile = () => {
@@ -73,7 +78,7 @@ const useProfile = () => {
 
     if (updateError) {
       notify.error("Failed to update avatar", { duration: 2 });
-      console.error("Error updating avatar", updateError);
+      console.error("Error updating avatar", updateError.message);
       setActionLoading(false);
       return false;
     }
@@ -86,7 +91,44 @@ const useProfile = () => {
     return true;
   };
 
-  return { profile, initialLoading, actionLoading, editProfile, editAvatar };
+  const removeAvatar = async () => {
+    if (!user) return;
+
+    setActionLoading(true);
+
+    const removeError = await deleteAvatar(user.id);
+    if (removeError) {
+      notify.error("Failed to remove avatar", { duration: 2 });
+      console.error("Error deleting avatar", removeError.message);
+      setActionLoading(false);
+      return;
+    }
+
+    const updateError = await updateProfile({
+      id: user.id,
+      avatar_url: null,
+    });
+
+    if (updateError) {
+      notify.error("Failed to update avatar", { duration: 2 });
+      console.error("Error updating avatar", updateError.message);
+      setActionLoading(false);
+      return;
+    }
+
+    notify.success("Avatar updated successfully", { duration: 1 });
+    setProfile((prev) => (prev ? { ...prev, avatar_url: null } : prev));
+    setActionLoading(false);
+  };
+
+  return {
+    profile,
+    initialLoading,
+    actionLoading,
+    editProfile,
+    editAvatar,
+    removeAvatar,
+  };
 };
 
 export default useProfile;
