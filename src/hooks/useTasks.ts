@@ -4,7 +4,7 @@ import { useAuth } from "../context/AuthContext";
 import { createTask, deleteTask, getTasks, updateTask } from "../api/task";
 import useNotify from "./useNotify";
 
-const useTasks = (projectId: string) => {
+const useTasks = (projectId?: string) => {
   const notify = useNotify();
 
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -13,7 +13,7 @@ const useTasks = (projectId: string) => {
   const { user } = useAuth();
 
   useEffect(() => {
-    if (!user) return;
+    if (!user || !projectId) return;
     const fetchTasks = async () => {
       setInitialLoading(true);
       const [data, error] = await getTasks(projectId);
@@ -34,6 +34,7 @@ const useTasks = (projectId: string) => {
   }, [user, projectId]);
 
   const addTask = async (
+    projectId: string,
     title: string,
     description: string | null,
     priority: Priority,
