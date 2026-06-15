@@ -13,6 +13,7 @@ import ProjectsList from "./components/ProjectsList/ProjectsList";
 import AddModalProject from "../components/AddModalProject/AddModalProject";
 import SidebarProfile from "./components/SidebarProfile/SidebarProfile";
 import SidebarSkeleton from "./components/SidebarSkeleton/SidebarSkeleton";
+import AddModalTask from "../components/AddModalTask/AddModalTask";
 
 const { Sider } = Layout;
 
@@ -73,6 +74,16 @@ const Sidebar: FC<Props> = ({ collapsed, setCollapsed }) => {
     setAddModalOpen(false);
   };
 
+  const [addTaskModalOpen, setAddTaskModalOpen] = useState(false);
+
+  const handleOpenAddTaskModal = () => {
+    setAddTaskModalOpen(true);
+  };
+
+  const handleCloseAddTaskModal = () => {
+    setAddTaskModalOpen(false);
+  };
+
   return (
     <>
       <Button
@@ -95,6 +106,9 @@ const Sidebar: FC<Props> = ({ collapsed, setCollapsed }) => {
             <>
               <div className={s.header}>
                 <SidebarProfile />
+              </div>
+              <div className={s.addTask} onClick={handleOpenAddTaskModal}>
+                Add task
               </div>
               <div
                 onClick={handleNavigateProjects}
@@ -142,6 +156,10 @@ const Sidebar: FC<Props> = ({ collapsed, setCollapsed }) => {
           )}
         </div>
 
+        <AddModalTask
+          modalOpen={addTaskModalOpen}
+          handleClose={handleCloseAddTaskModal}
+        />
         <AddModalProject
           modalOpen={addModalOpen}
           handleCloseModal={handleCloseAddModal}
