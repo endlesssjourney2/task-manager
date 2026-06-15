@@ -90,7 +90,7 @@ const Project = () => {
     priority: Priority,
     date: string | null,
   ) => {
-    const result = await addTask(title, description, priority, date);
+    const result = await addTask(id, title, description, priority, date);
     if (result) setAddModalOpen(false);
     return result;
   };
