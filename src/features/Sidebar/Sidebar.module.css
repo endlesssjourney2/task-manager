@@ -34,14 +34,31 @@
   margin-bottom: 20px;
 }
 
-.heading {
-  font-size: 20px;
+.addTask {
+  cursor: pointer;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  border-radius: 8px;
+  height: 35px;
+  gap: 10px;
+  margin-bottom: 5px;
+  transition: all 0.2s ease;
 }
 
-.navigation {
-  display: flex;
-  flex-direction: column;
-  justify-content: left;
+.addTask:hover {
+  background-color: #4f4941;
+}
+
+.addTask:active {
+  transform: scale(0.95);
+}
+
+.addTaskTitle {
+  margin-left: 8px;
+  font-size: 20px;
+  font-weight: 500;
+  color: #fdad1c;
 }
 
 .projectsHeader {
