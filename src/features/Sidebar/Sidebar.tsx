@@ -108,7 +108,14 @@ const Sidebar: FC<Props> = ({ collapsed, setCollapsed }) => {
                 <SidebarProfile />
               </div>
               <div className={s.addTask} onClick={handleOpenAddTaskModal}>
-                Add task
+                <span className={s.addTaskTitle}>Add task</span>
+                <PlusOutlined
+                  style={{
+                    color: "#fdad1c",
+                    fontSize: "16px",
+                    fontWeight: 800,
+                  }}
+                />
               </div>
               <div
                 onClick={handleNavigateProjects}
