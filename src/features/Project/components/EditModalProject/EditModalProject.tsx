@@ -1,4 +1,4 @@
-import { ColorPicker, Input, Modal } from "antd";
+import { Button, ColorPicker, Input, Modal } from "antd";
 import s from "./EditModalProject.module.css";
 import { useState, type FC } from "react";
 import type { Project, UpdateProjectPayload } from "../../../../types/project";
@@ -45,8 +45,17 @@ const EditModalProject: FC<Props> = ({
       title={`Edit your project ${selectedProject.title}`}
       open={modalOpen}
       onCancel={handleCloseModal}
-      onOk={handleOk}
       confirmLoading={loading}
+      footer={[
+        <div className={s.footer}>
+          <Button type="default" onClick={handleCloseModal}>
+            Cancel
+          </Button>
+          <Button type="primary" onClick={handleOk} loading={loading}>
+            Edit Project
+          </Button>
+        </div>,
+      ]}
     >
       <div className={s.modalContainer}>
         <Input
@@ -55,11 +64,18 @@ const EditModalProject: FC<Props> = ({
           className={s.input}
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-        />
-        <ColorPicker
-          className={s.datePicker}
-          value={color}
-          onChange={(e) => setColor(e.toHexString())}
+          suffix={[
+            <ColorPicker
+              className={s.datePicker}
+              value={color}
+              onChange={(e) => setColor(e.toHexString())}
+            >
+              <div
+                className={s.colorSwatch}
+                style={{ backgroundColor: color }}
+              />
+            </ColorPicker>,
+          ]}
         />
       </div>
     </Modal>
