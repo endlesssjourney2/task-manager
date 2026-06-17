@@ -15,14 +15,11 @@
   border-radius: 8px;
   cursor: pointer;
   height: 35px;
+  padding-left: 8px;
 }
 
 .item:hover {
   background-color: #322f2a;
-}
-
-.left {
-  margin-left: 8px;
 }
 
 .desc {
