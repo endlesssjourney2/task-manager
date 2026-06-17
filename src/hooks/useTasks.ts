@@ -136,6 +136,10 @@ const useTasks = (projectId?: string) => {
     return true;
   };
 
+  const getTaskById = (id: string) => {
+    return tasks.find((task) => task.id === id) ?? null;
+  };
+
   return {
     tasks,
     setTasks,
@@ -144,6 +148,7 @@ const useTasks = (projectId?: string) => {
     editTask,
     initialLoading,
     actionLoading,
+    getTaskById,
   };
 };
 
