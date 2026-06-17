@@ -1,15 +1,20 @@
 import { createContext, useContext, type ReactNode } from "react";
 import useTasks from "../hooks/useTasks";
 
-type TasksContextType = ReturnType<typeof useTasks>;
+type TasksContextType = {
+  addTask: ReturnType<typeof useTasks>["addTask"];
+  actionLoading: ReturnType<typeof useTasks>["actionLoading"];
+};
 
 const TasksContext = createContext<TasksContextType | null>(null);
 
 export const TasksProvider = ({ children }: { children: ReactNode }) => {
-  const value = useTasks();
+  const { addTask, actionLoading } = useTasks();
 
   return (
-    <TasksContext.Provider value={value}>{children}</TasksContext.Provider>
+    <TasksContext.Provider value={{ actionLoading, addTask }}>
+      {children}
+    </TasksContext.Provider>
   );
 };
 
