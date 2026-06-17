@@ -30,7 +30,7 @@ const AddModalTask: FC<Props> = ({ modalOpen, handleClose }) => {
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [priority, setPriority] = useState<Priority>("medium");
+  const [priority, setPriority] = useState<Priority>("low");
 
   const options = projects.map((p) => ({
     value: p.id,
@@ -54,8 +54,10 @@ const AddModalTask: FC<Props> = ({ modalOpen, handleClose }) => {
 
   return (
     <Modal
+      style={{ top: "200px" }}
       open={modalOpen}
       onCancel={handleClose}
+      title="Add new task"
       footer={[
         <div className={s.footer}>
           <div className={s.priorityIndicator}>
