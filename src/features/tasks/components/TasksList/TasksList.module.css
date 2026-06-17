@@ -1,110 +1,65 @@
 .list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 16px;
-  padding: 0;
-  margin: 0;
-  list-style: none;
-  align-items: start;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 10px;
 }
 
 .item {
+  width: 90%;
+  justify-content: space-between;
   display: flex;
-  min-height: 330px;
   align-items: center;
-  flex-direction: column;
-  background-color: var(--bg-card);
-  border: 1px solid transparent;
-  border-radius: 20px;
-  padding: 12px;
-  box-shadow: 0 10px 24px var(--card-shadow);
-  transition: all 0.2s ease;
+  border-bottom: 1px solid #000;
+  padding: 5px 10px;
+  border-radius: 8px;
 }
 
 .item:hover {
-  background-color: var(--bg-card-hover);
-  border-color: var(--border-color-primary);
-  transform: translateY(-2px);
+  background-color: #333;
 }
 
-.header {
+.left {
+  width: 50%;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
-.mainContent {
-  padding: 10px 12px;
-  border: 1px solid var(--border-color-primary);
-  border-radius: 12px;
-  background-color: rgba(12, 17, 23, 0.35);
-  margin: 20px 0 20px 0;
-  min-width: 90%;
-}
-
-.body {
+.itemInfo {
+  width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  margin-bottom: 10px;
+  justify-content: flex-start;
 }
 
 .title {
-  text-align: center;
-  font-size: 1.375rem;
-  color: var(--text-primary);
-  word-break: break-word;
-  overflow-wrap: break-word;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  margin: 0 !important;
 }
 
-.description {
-  font-size: 1.2rem;
-  color: var(--text-secondary);
-  margin-top: 6px;
-  word-break: break-word;
-  overflow-wrap: break-word;
+.subtitle {
+  font-size: 14px !important;
+  color: var(--text-muted) !important;
+  margin: 0 !important;
 }
 
-.footer {
+.right {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.buttons {
-  display: flex;
-  gap: 8px;
   justify-content: center;
   align-items: center;
+  gap: 10px;
 }
 
-.btn {
-  padding: 8px 12px;
-  border: none;
-  border-radius: 8px;
-  transition: all 0.2s ease;
-  font-weight: 500;
-  font-size: 0.875rem;
+.date {
+  font-size: 16px;
 }
 
-.editBtn {
-  background-color: var(--btn-edit-bg);
-  color: var(--btn-edit-text);
-  border-color: rgba(88, 166, 255, 0.3);
-}
-
-.editBtn:hover {
-  background-color: var(--btn-edit-hover-bg);
-}
-
-.removeBtn {
-  background-color: var(--btn-remove-bg);
-  color: var(--btn-remove-text);
-  border-color: rgba(239, 68, 68, 0.3);
-}
-
-.removeBtn:hover {
-  background-color: var(--btn-remove-hover-bg);
+.priority {
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
 }
