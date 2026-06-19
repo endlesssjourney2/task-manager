@@ -5,16 +5,10 @@ import TasksList from "../../features/tasks/components/TasksList/TasksList";
 import { Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 import EditModal from "../../features/tasks/components/EditModal/EditModal";
-import CustomFiltration from "../../features/tasks/components/CustomFiltration/CustomFiltration";
 import HeaderProject from "../../features/tasks/components/HeaderProject/HeaderProject";
 import { useProjectsContext } from "../../context/ProjectsContext";
-import useSelect from "../../hooks/useSelect";
-import useSearch from "../../hooks/useSearch";
-import usePaginate from "../../hooks/usePaginate";
 import type { Priority, Task, UpdateTaskPayload } from "../../types/task";
 import EmptyState from "../../components/EmptyState/EmptyState";
-import CustomPagination from "../../components/CustomPagination/CustomPagination";
-import CustomSearch from "../../components/CustomSearch/CustomSearch";
 import { useProjectTasksContext } from "../../context/ProjectTasksContext";
 
 type Props = {
@@ -22,44 +16,10 @@ type Props = {
 };
 
 const ProjectContent: FC<Props> = ({ projectId }) => {
-  const {
-    tasks,
-    addTask,
-    removeTask,
-    actionLoading,
-    editTask,
-    initialLoading,
-  } = useProjectTasksContext();
+  const { tasks, addTask, actionLoading, editTask, initialLoading } =
+    useProjectTasksContext();
 
   const { getProjectById, editProject } = useProjectsContext();
-
-  const {
-    select: priority,
-    setSelect: setPriority,
-    filteredSelect: filteredTasksByPriority,
-  } = useSelect(tasks, "priority");
-
-  const {
-    select: status,
-    setSelect: setStatus,
-    filteredSelect: filteredTasksByStatus,
-  } = useSelect(filteredTasksByPriority, "status");
-
-  const {
-    search,
-    setSearch,
-    filteredItems: filteredTasks,
-  } = useSearch(filteredTasksByStatus, ["title", "description"], 300);
-
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearch(e.target.value);
-  };
-
-  const { paginatedItems, page, setPage, safeItemsPerPage, pageCount } =
-    usePaginate({
-      items: filteredTasks,
-      itemsPerPage: 5,
-    });
 
   const [addModalOpen, setAddModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
@@ -138,37 +98,7 @@ const ProjectContent: FC<Props> = ({ projectId }) => {
       )}
 
       <div className={s.content}>
-        {pageCount > 1 && (
-          <CustomPagination
-            current={page}
-            total={filteredTasks.length}
-            pageSize={safeItemsPerPage}
-            onChange={(newPage) => setPage(newPage)}
-          />
-        )}
-
-        {tasks.length > 0 && (
-          <div className={s.search}>
-            <CustomFiltration
-              priority={priority}
-              setPriority={setPriority}
-              status={status}
-              setStatus={setStatus}
-            />
-            <CustomSearch
-              value={search}
-              handleSearch={handleSearch}
-              placeholder="Search tasks..."
-            />
-          </div>
-        )}
-
-        <TasksList
-          tasks={paginatedItems}
-          removeTask={removeTask}
-          // editTask={editTask}
-          handleOpenModal={handleOpenEditModal}
-        />
+        <TasksList tasks={tasks} handleOpenModal={handleOpenEditModal} />
         <TasksModal
           modalOpen={addModalOpen}
           handleCloseModal={handleCloseAddModal}
