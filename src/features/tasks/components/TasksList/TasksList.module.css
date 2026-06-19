@@ -1,4 +1,5 @@
 .list {
+  margin-top: 20px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -8,7 +9,7 @@
 
 .item {
   width: 90%;
-  justify-content: space-between;
+  margin: 0 auto;
   display: flex;
   align-items: center;
   border-bottom: 1px solid #000;
@@ -18,6 +19,20 @@
 
 .item:hover {
   background-color: #333;
+}
+
+.status {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 15px;
+}
+
+.content {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .left {
@@ -56,10 +71,4 @@
 
 .date {
   font-size: 16px;
-}
-
-.priority {
-  height: 10px;
-  width: 10px;
-  border-radius: 50%;
 }
