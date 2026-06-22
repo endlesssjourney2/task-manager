@@ -1,4 +1,4 @@
-import { Button, Input, Modal, Select } from "antd";
+import { Button, DatePicker, Input, Modal, Select } from "antd";
 import { useEffect, useState, type FC } from "react";
 import { useProjectsContext } from "../../../context/ProjectsContext";
 import { useTasksContext } from "../../../context/TasksContext";
@@ -6,11 +6,20 @@ import type { Priority } from "../../../types/task";
 import { PRIORITY_OPTIONS } from "../../../constants/priority";
 import s from "./AddModalTask.module.css";
 import { capitalizeFirst } from "../../../helpers/capitalizeFirst";
+import type { Dayjs } from "dayjs";
+import dayjs from "dayjs";
+import { nextMonday } from "../../../helpers/tomorrowDate";
 
 type Props = {
   modalOpen: boolean;
   handleClose: () => void;
 };
+
+const QUICK_DATES = [
+  { label: "Today", getValue: () => dayjs() },
+  { label: "Tomorrow", getValue: () => dayjs().add(1, "day") },
+  { label: "Next Week", getValue: () => nextMonday(dayjs()) },
+];
 
 const AddModalTask: FC<Props> = ({ modalOpen, handleClose }) => {
   const { projects } = useProjectsContext();
@@ -31,6 +40,7 @@ const AddModalTask: FC<Props> = ({ modalOpen, handleClose }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [priority, setPriority] = useState<Priority>("low");
+  const [date, setDate] = useState<Dayjs | null>(null);
 
   const options = projects.map((p) => ({
     value: p.id,
@@ -43,18 +53,19 @@ const AddModalTask: FC<Props> = ({ modalOpen, handleClose }) => {
       title,
       description,
       priority,
-      null,
+      date ? date.format("YYYY-MM-DD") : null,
     );
     if (result) {
       setTitle("");
       setDescription("");
+      setDate(null);
       handleClose();
     }
   };
 
   return (
     <Modal
-      style={{ top: "200px" }}
+      style={{ top: "200px", minWidth: "600px" }}
       open={modalOpen}
       onCancel={handleClose}
       title="Add new task"
@@ -128,29 +139,51 @@ const AddModalTask: FC<Props> = ({ modalOpen, handleClose }) => {
           />
         </div>
       </div>
-      <div className={s.selects}>
-        <div className={s.selectContainer}>
-          <span className={s.subtitle}>Project</span>
-          <Select
-            className={s.select}
-            defaultValue={selectedProjectId}
-            style={{ width: 150 }}
-            options={options}
-            value={selectedProjectId}
-            onChange={(newValue) => setSelectedProjectId(newValue)}
-          />
-        </div>
+      <div className={s.bottom}>
+        <div className={s.selects}>
+          <div className={s.selectContainer}>
+            <span className={s.subtitle}>Project</span>
+            <Select
+              className={s.select}
+              defaultValue={selectedProjectId}
+              style={{ width: 120 }}
+              options={options}
+              value={selectedProjectId}
+              onChange={(newValue) => setSelectedProjectId(newValue)}
+            />
+          </div>
 
-        <div className={s.selectContainer}>
-          <span className={s.subtitle}>Priority</span>
-          <Select
-            className={s.select}
-            defaultValue={priority}
-            style={{ width: 150 }}
-            options={PRIORITY_OPTIONS}
-            value={priority}
-            onChange={(newValue) => setPriority(newValue)}
+          <div className={s.selectContainer}>
+            <span className={s.subtitle}>Priority</span>
+            <Select
+              className={s.select}
+              defaultValue={priority}
+              style={{ width: 120 }}
+              options={PRIORITY_OPTIONS}
+              value={priority}
+              onChange={(newValue) => setPriority(newValue)}
+            />
+          </div>
+        </div>
+        <div className={s.dateContainer}>
+          <span className={s.subtitle}>Date</span>
+          <DatePicker
+            value={date}
+            format={"DD/MMM/YYYY"}
+            onChange={(e) => setDate(e)}
+            disabledDate={(curr) => curr.isBefore(dayjs(), "day")}
+            className={s.datePicker}
           />
+          <div className={s.quickDates}>
+            {QUICK_DATES.map((q) => (
+              <button
+                onClick={() => setDate(q.getValue())}
+                className={s.quickDateBtn}
+              >
+                {q.label}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
     </Modal>
