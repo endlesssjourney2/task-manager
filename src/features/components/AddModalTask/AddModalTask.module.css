@@ -18,6 +18,7 @@
   font-size: 16px;
   color: #8b949e;
   letter-spacing: 1.5px;
+  font-family: "Montserrat", sans-serif;
 }
 
 .input {
@@ -32,17 +33,21 @@
   border-color: #58a6ff;
 }
 
+.bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+}
+
 .selects {
   display: flex;
-  justify-content: space-around;
-  align-items: center;
+  gap: 10px;
 }
 
 .selectContainer {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
   gap: 5px;
 }
 
@@ -56,7 +61,49 @@
   font-size: 14px;
 }
 
+.dateContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.datePicker {
+  background-color: #161b22 !important;
+  border-color: #30363d !important;
+}
+
+.datePicker input {
+  color: #f0f6fc !important;
+}
+
+.quickDates {
+  display: flex;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.quickDateBtn {
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background-color: #161b22;
+  border: 1px solid #30363d;
+  color: #f0f6fc;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.quickDateBtn:hover {
+  border-color: #58a6ff;
+}
+
 .footer {
+  border-top: 1px solid #161b22;
+  padding-top: 15px;
   margin-top: 15px;
   display: flex;
   justify-content: space-between;
