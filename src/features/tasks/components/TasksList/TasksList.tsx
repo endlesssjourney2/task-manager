@@ -22,7 +22,11 @@ const TasksList: FC<Props> = ({ tasks, handleOpenModal }) => {
             <div className={s.status}>
               <CustomStatus
                 status={t.status}
-                onChange={(newStatus) => editTask(t.id, { status: newStatus })}
+                onChange={(newStatus) => {
+                  newStatus === t.status
+                    ? null
+                    : editTask(t.id, { status: newStatus });
+                }}
               />
             </div>
             <div className={s.content}>
