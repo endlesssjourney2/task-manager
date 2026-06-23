@@ -57,3 +57,19 @@ export const updateTask = async (payload: UpdateTaskPayload) => {
   }
   return null;
 };
+
+export const getDoneTasks = async (userId: string) => {
+  const { data, error } = await supabase
+    .from("tasks")
+    .select("*")
+    .eq("status", "done")
+    .eq("user_id", userId)
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error("Error fetching tasks", error.message);
+    return [null, error];
+  }
+
+  return [data, null];
+};
