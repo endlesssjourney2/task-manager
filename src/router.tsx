@@ -5,6 +5,7 @@ import SignUp from "./pages/SignUp/SignUp.tsx";
 import Home from "./pages/Project/Home.tsx";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.tsx";
 import Project from "./pages/Tasks/Project.tsx";
+import Done from "./pages/Done/Done.tsx";
 
 export const router = createBrowserRouter(
   [
@@ -23,6 +24,10 @@ export const router = createBrowserRouter(
       children: [
         { index: true, element: <Home /> },
         { path: "project/:id", element: <Project /> },
+        {
+          path: "done",
+          element: <Done />,
+        },
       ],
     },
   ],
