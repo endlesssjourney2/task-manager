@@ -5,6 +5,7 @@ import { useProjectTasksContext } from "../../../../context/ProjectTasksContext"
 import TaskDropdown from "../../../components/TaskDropdown/TaskDropdown";
 import CustomStatus from "../CustomStatus/CustomStatus";
 import { tomorrowDate } from "../../../../helpers/tomorrowDate";
+import CustomPriority from "../CustomPriority/CustomPriority";
 
 type Props = {
   tasks: Task[];
@@ -41,11 +42,18 @@ const TasksList: FC<Props> = ({ tasks, handleOpenModal }) => {
                     {t.title}
                   </h2>
                   <span className={s.subtitle}>{t.description}</span>
-                  <div className={s.priority}>{t.priority}</div>
                 </div>
               </div>
               <div className={s.right}>
                 <div className={s.date}>{tomorrowDate(t.due_date)}</div>
+                <CustomPriority
+                  priority={t.priority}
+                  onChange={(newPriority) => {
+                    newPriority === t.priority
+                      ? null
+                      : editTask(t.id, { priority: newPriority });
+                  }}
+                />
                 <TaskDropdown
                   id={t.id}
                   task={t}
