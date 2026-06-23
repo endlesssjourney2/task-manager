@@ -1,26 +1,40 @@
 import type { FC } from "react";
 import s from "./CustomPriority.module.css";
-import { capitalizeFirst } from "../../../../helpers/capitalizeFirst";
 import type { Priority } from "../../../../types/task";
+import { Dropdown, Tooltip, type MenuProps } from "antd";
 
 type Props = {
   priority: Priority;
+  onChange: (priority: Priority) => void;
 };
 
-const CustomPriority: FC<Props> = ({ priority }) => {
+const priorityLabels: Record<Priority, string> = {
+  low: "Low",
+  medium: "Medium",
+  high: "High",
+};
+
+const CustomPriority: FC<Props> = ({ priority, onChange }) => {
+  const items: MenuProps["items"] = [
+    { key: "low", label: "Low" },
+    { key: "medium", label: "Medium" },
+    { key: "high", label: "High" },
+  ];
+
   return (
-    <div
-      className={`${s.priority} ${priority === "low" ? s.lowBg : priority === "medium" ? s.mediumBg : s.highBg}`}
-    >
-      <span className={s.priorityInfo}>Priority:</span>
-      <span
-        className={`${s.priorityText} ${
-          priority === "low" ? s.low : priority === "medium" ? s.medium : s.high
-        }`}
+    <Tooltip title={priorityLabels[priority]}>
+      <Dropdown
+        trigger={["click"]}
+        menu={{
+          items: items,
+          onClick: ({ key }) => {
+            onChange(key as Priority);
+          },
+        }}
       >
-        {capitalizeFirst(priority)}
-      </span>
-    </div>
+        <button className={`${s.circle} ${s[priority]}`}></button>
+      </Dropdown>
+    </Tooltip>
   );
 };
 
