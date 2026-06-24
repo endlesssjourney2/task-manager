@@ -13,7 +13,7 @@ const useProjects = () => {
   const notify = useNotify();
 
   const [projects, setProjects] = useState<Project[]>([]);
-  const [initialLoading, setInitialLoading] = useState(false);
+  const [initialLoading, setInitialLoading] = useState(true);
   const [actionLoading, setActionLoading] = useState(false);
   const { user } = useAuth();
 
