@@ -1,4 +1,4 @@
-import { Button, Layout } from "antd";
+import { Button, Divider, Layout } from "antd";
 import { useState, type Dispatch, type FC, type SetStateAction } from "react";
 import { useNavigate } from "react-router-dom";
 import s from "./Sidebar.module.css";
@@ -14,6 +14,7 @@ import AddModalProject from "../components/AddModalProject/AddModalProject";
 import SidebarProfile from "./components/SidebarProfile/SidebarProfile";
 import SidebarSkeleton from "./components/SidebarSkeleton/SidebarSkeleton";
 import AddModalTask from "../components/AddModalTask/AddModalTask";
+import { useDoneTasksContext } from "../../context/DoneTasksContext";
 
 const { Sider } = Layout;
 
@@ -23,8 +24,17 @@ type Props = {
 };
 
 const Sidebar: FC<Props> = ({ collapsed, setCollapsed }) => {
-  const { projects, addProject, actionLoading, removeProject, initialLoading } =
-    useProjectsContext();
+  const {
+    projects,
+    addProject,
+    actionLoading,
+    removeProject,
+    initialLoading: projectsLoading,
+  } = useProjectsContext();
+
+  const { doneTasks, initialLoading: doneTasksLoading } = useDoneTasksContext();
+
+  const mainLoading = projectsLoading || doneTasksLoading;
 
   const navigate = useNavigate();
 
@@ -100,7 +110,7 @@ const Sidebar: FC<Props> = ({ collapsed, setCollapsed }) => {
         trigger={null}
       >
         <div className={`${s.content} ${collapsed ? s.contentHidden : ""}`}>
-          {initialLoading ? (
+          {mainLoading ? (
             <SidebarSkeleton />
           ) : (
             <>
@@ -159,6 +169,15 @@ const Sidebar: FC<Props> = ({ collapsed, setCollapsed }) => {
           {showProjects && (
             <div className={s.projects}>
               <ProjectsList projects={projects} removeProject={removeProject} />
+            </div>
+          )}
+
+          <Divider />
+
+          {doneTasks.length > 0 && (
+            <div onClick={() => navigate("/app/done")} className={s.doneTasks}>
+              <span className={s.title}>Done tasks</span>
+              <span className={s.subtitle}>{doneTasks.length}</span>
             </div>
           )}
         </div>
