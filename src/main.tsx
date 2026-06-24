@@ -4,9 +4,6 @@ import "./index.css";
 import AppComponent from "./AppComponent.tsx";
 import { AuthProvider } from "./context/AuthContext.tsx";
 import { App, ConfigProvider, theme } from "antd";
-import { ProjectsProvider } from "./context/ProjectsContext.tsx";
-import { ProfileProvider } from "./context/ProfileContext.tsx";
-import { TasksProvider } from "./context/TasksContext.tsx";
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <AuthProvider>
@@ -35,13 +32,7 @@ createRoot(document.getElementById("root")!).render(
         }}
       >
         <App>
-          <ProfileProvider>
-            <ProjectsProvider>
-              <TasksProvider>
-                <AppComponent />
-              </TasksProvider>
-            </ProjectsProvider>
-          </ProfileProvider>
+          <AppComponent />
         </App>
       </ConfigProvider>
     </AuthProvider>
