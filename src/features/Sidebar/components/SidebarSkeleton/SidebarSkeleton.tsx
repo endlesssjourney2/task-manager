@@ -15,7 +15,7 @@ const SidebarSkeleton = () => {
 
       <div className={s.projects}>
         <div className={s.header}>
-          <Skeleton.Input active size="small" style={{ width: 90 }} />
+          <Skeleton.Input active size="small" style={{ width: 150 }} />
           <Skeleton.Button active shape="round" size="small" />
         </div>
 
@@ -23,27 +23,39 @@ const SidebarSkeleton = () => {
           <Skeleton.Input
             active
             size="small"
-            style={{ width: 220, height: 20 }}
+            style={{ width: 200, height: 20 }}
           />
           <Skeleton.Input
             active
             size="small"
-            style={{ width: 220, height: 20 }}
+            style={{ width: 200, height: 20 }}
           />
           <Skeleton.Input
             active
             size="small"
-            style={{ width: 220, height: 20 }}
+            style={{ width: 200, height: 20 }}
           />
           <Skeleton.Input
             active
             size="small"
-            style={{ width: 220, height: 20 }}
+            style={{ width: 200, height: 20 }}
           />
           <Skeleton.Input
             active
             size="small"
-            style={{ width: 220, height: 20 }}
+            style={{ width: 200, height: 20 }}
+          />
+          <Skeleton.Input
+            active
+            size="small"
+            style={{ width: 200, height: 20 }}
+          />
+        </div>
+        <div className={s.done}>
+          <Skeleton.Input
+            active
+            size="small"
+            style={{ width: 180, height: 20 }}
           />
         </div>
       </div>
