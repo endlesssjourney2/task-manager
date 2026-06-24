@@ -4,7 +4,7 @@ import isoWeek from "dayjs/plugin/isoWeek";
 dayjs.extend(isoWeek);
 
 export const tomorrowDate = (date: string) => {
-  if (!date) return "";
+  if (!date) return "No date";
   return dayjs().add(1, "day").format("YYYY-MM-DD") ===
     dayjs(date).format("YYYY-MM-DD")
     ? "Tomorrow"
