@@ -31,3 +31,10 @@ export type UpdateTaskPayload = {
   priority?: Priority;
   due_date?: string | null;
 };
+
+export type TasksWithProjects = Task & {
+  projects: {
+    title: string;
+    color: string;
+  };
+};
