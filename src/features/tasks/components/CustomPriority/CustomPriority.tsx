@@ -14,6 +14,12 @@ const priorityLabels: Record<Priority, string> = {
   high: "High",
 };
 
+const priorityColors: Record<Priority, string> = {
+  low: "green",
+  medium: "yellow",
+  high: "red",
+};
+
 const CustomPriority: FC<Props> = ({ priority, onChange }) => {
   const items: MenuProps["items"] = [
     { key: "low", label: "Low" },
@@ -22,7 +28,7 @@ const CustomPriority: FC<Props> = ({ priority, onChange }) => {
   ];
 
   return (
-    <Tooltip title={priorityLabels[priority]}>
+    <Tooltip title={priorityLabels[priority]} color={priorityColors[priority]}>
       <Dropdown
         trigger={["click"]}
         menu={{
