@@ -1,11 +1,12 @@
 import type { FC } from "react";
 import s from "./TasksList.module.css";
-import type { Task } from "../../../../types/task";
+import type { Status, Task } from "../../../../types/task";
 import { useProjectTasksContext } from "../../../../context/ProjectTasksContext";
 import TaskDropdown from "../../../components/TaskDropdown/TaskDropdown";
 import CustomStatus from "../CustomStatus/CustomStatus";
 import { tomorrowDate } from "../../../../helpers/tomorrowDate";
 import CustomPriority from "../CustomPriority/CustomPriority";
+import { useDoneTasksContext } from "../../../../context/DoneTasksContext";
 
 type Props = {
   tasks: Task[];
@@ -14,6 +15,20 @@ type Props = {
 
 const TasksList: FC<Props> = ({ tasks, handleOpenModal }) => {
   const { editTask } = useProjectTasksContext();
+  const { refetch } = useDoneTasksContext();
+
+  const handleChangeStatus = async (
+    taskId: string,
+    currentStatus: Status,
+    newStatus: Status,
+  ) => {
+    if (currentStatus === newStatus) return;
+    const result = await editTask(taskId, { status: newStatus });
+
+    if (result && newStatus === "done") {
+      refetch();
+    }
+  };
 
   return (
     <>
@@ -22,12 +37,11 @@ const TasksList: FC<Props> = ({ tasks, handleOpenModal }) => {
           <li className={s.item} key={t.id}>
             <div className={s.status}>
               <CustomStatus
+                // disabled={t.status === "done"} im stupid
                 status={t.status}
-                onChange={(newStatus) => {
-                  newStatus === t.status
-                    ? null
-                    : editTask(t.id, { status: newStatus });
-                }}
+                onChange={(newStatus) =>
+                  handleChangeStatus(t.id, t.status, newStatus)
+                }
               />
             </div>
             <div className={s.content}>
