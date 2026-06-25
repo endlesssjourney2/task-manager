@@ -6,22 +6,18 @@
   align-items: center;
 }
 
-.content {
-  width: 100%;
-}
-
 .list {
   width: 90%;
-  margin: 0 auto;
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
   gap: 5px;
 }
 
 .item {
-  width: 100%;
+  margin: 0 auto;
+  width: 95%;
   display: flex;
   align-items: center;
   border-bottom: 1px solid #000;
@@ -38,10 +34,26 @@
   height: 15px;
   border-radius: 50%;
   background: var(--status-done);
-  cursor: pointer;
   flex-shrink: 0;
   border: none;
   margin-right: 15px;
+}
+
+.content {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  min-width: 0;
+}
+
+.left {
+  min-width: 0;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .title {
@@ -51,7 +63,6 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  min-width: 0;
 }
 
 .subtitle {
@@ -59,4 +70,47 @@
   color: var(--text-muted);
   white-space: normal;
   word-wrap: break-word;
+}
+
+.right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.project {
+  min-width: 0;
+  display: flex;
+  justify-content: right;
+  padding: 6px 8px;
+  border-radius: 12px;
+  background-color: #333;
+}
+
+.projectTitle {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.button {
+  padding: 4px 10px;
+  border: none;
+  border-radius: 8px;
+  font-family: "Poppins", sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  background-color: #fff;
+  color: #000;
 }
