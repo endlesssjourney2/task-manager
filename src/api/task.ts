@@ -61,7 +61,7 @@ export const updateTask = async (payload: UpdateTaskPayload) => {
 export const getDoneTasks = async (userId: string) => {
   const { data, error } = await supabase
     .from("tasks")
-    .select("*")
+    .select("*, projects(title, color)")
     .eq("status", "done")
     .eq("user_id", userId)
     .order("created_at", { ascending: false });
