@@ -19,8 +19,7 @@ button {
 
 body {
   min-height: 100vh;
-  background-color: #020408;
-  overflow: hidden;
+  background-color: var(--bg-color-primary);
 }
 
 li {
