@@ -4,7 +4,7 @@ import type { Status, Task } from "../../../../types/task";
 import { useProjectTasksContext } from "../../../../context/ProjectTasksContext";
 import TaskDropdown from "../../../components/TaskDropdown/TaskDropdown";
 import CustomStatus from "../CustomStatus/CustomStatus";
-import { tomorrowDate } from "../../../../helpers/tomorrowDate";
+import { formatDueDate } from "../../../../helpers/dates";
 import CustomPriority from "../CustomPriority/CustomPriority";
 import { useDoneTasksContext } from "../../../../context/DoneTasksContext";
 
@@ -59,7 +59,7 @@ const TasksList: FC<Props> = ({ tasks, handleOpenModal }) => {
                 </div>
               </div>
               <div className={s.right}>
-                <div className={s.date}>{tomorrowDate(t.due_date)}</div>
+                <div className={s.date}>{formatDueDate(t.due_date)}</div>
                 <CustomPriority
                   priority={t.priority}
                   onChange={(newPriority) => {

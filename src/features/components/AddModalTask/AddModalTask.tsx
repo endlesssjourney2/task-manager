@@ -8,7 +8,7 @@ import s from "./AddModalTask.module.css";
 import { capitalizeFirst } from "../../../helpers/capitalizeFirst";
 import type { Dayjs } from "dayjs";
 import dayjs from "dayjs";
-import { nextMonday } from "../../../helpers/tomorrowDate";
+import { nextMonday } from "../../../helpers/dates";
 
 type Props = {
   modalOpen: boolean;
