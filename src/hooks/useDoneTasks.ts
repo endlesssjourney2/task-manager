@@ -37,15 +37,19 @@ const useDoneTasks = () => {
 
   const handleRestoreTask = async (taskId: string, newStatus: "todo") => {
     setActionLoading(true);
-    await editTask(taskId, { status: newStatus });
-    setDoneTasks((prev) => prev.filter((task) => task.id !== taskId));
+    const result = await editTask(taskId, { status: newStatus });
+    if (result) {
+      setDoneTasks((prev) => prev.filter((task) => task.id !== taskId));
+    }
     setActionLoading(false);
   };
 
   const handleRemoveTask = async (taskId: string) => {
     setActionLoading(true);
-    await removeTask(taskId);
-    setDoneTasks((prev) => prev.filter((task) => task.id !== taskId));
+    const result = await removeTask(taskId);
+    if (result) {
+      setDoneTasks((prev) => prev.filter((task) => task.id !== taskId));
+    }
     setActionLoading(false);
   };
 
