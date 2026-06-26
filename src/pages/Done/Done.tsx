@@ -1,5 +1,6 @@
 import CustomHeader from "../../components/CustomHeader/CustomHeader";
 import { useDoneTasksContext } from "../../context/DoneTasksContext";
+import { relativeDate } from "../../helpers/dates";
 import useNotify from "../../hooks/useNotify";
 import s from "./Done.module.css";
 
@@ -31,7 +32,10 @@ const Done = () => {
                 )}
               </div>
               <div className={s.right}>
-                <div className={s.project}>
+                <div
+                  className={s.project}
+                  style={{ backgroundColor: `${t.projects.color}26` }}
+                >
                   <span
                     className={s.projectTitle}
                     style={{ color: t.projects.color }}
@@ -39,24 +43,27 @@ const Done = () => {
                     # {t.projects.title}
                   </span>
                 </div>
+                <span className={s.date}>{relativeDate(t.updated_at)}</span>
                 <div className={s.buttons}>
                   <button
-                    className={s.button}
+                    className={`${s.button} ${s.restoreButton}`}
                     onClick={() => handleRestoreTask(t.id, "todo")}
                   >
-                    restore
+                    Restore
                   </button>
                   <button
-                    className={s.button}
+                    className={`${s.button} ${s.removeButton}`}
                     onClick={() =>
                       notify.modal.confirm(
                         "Are you sure you want to delete this task?",
-                        null,
+                        "This action cannot be undone",
+
                         () => handleRemoveTask(t.id),
+                        450,
                       )
                     }
                   >
-                    remove
+                    Remove
                   </button>
                 </div>
               </div>
