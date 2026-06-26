@@ -76,7 +76,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 15px;
   flex-shrink: 0;
 }
 
@@ -84,15 +84,20 @@
   min-width: 0;
   display: flex;
   justify-content: right;
-  padding: 6px 8px;
+  padding: 4px 10px;
   border-radius: 12px;
-  background-color: #333;
+  flex-shrink: 0;
 }
 
 .projectTitle {
+  font-size: 12px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.date {
+  font-size: 15px;
 }
 
 .buttons {
@@ -105,12 +110,32 @@
 
 .button {
   padding: 4px 10px;
-  border: none;
+  border: 1px solid transparent;
   border-radius: 8px;
   font-family: "Poppins", sans-serif;
   font-size: 13px;
   font-weight: 500;
   cursor: pointer;
-  background-color: #fff;
-  color: #000;
+  background-color: transparent;
+  transition:
+    background-color 0.15s,
+    border-color 0.15s;
+}
+
+.restoreButton {
+  color: var(--status-done);
+  border-color: var(--status-done);
+}
+
+.restoreButton:hover {
+  background-color: rgba(74, 222, 128, 0.12);
+}
+
+.removeButton {
+  color: #f87171;
+  border-color: #f87171;
+}
+
+.removeButton:hover {
+  background-color: rgba(248, 113, 113, 0.12);
 }
