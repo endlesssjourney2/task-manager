@@ -82,11 +82,12 @@ const useTasks = (projectId?: string) => {
       notify.error("Failed to delete task", { duration: 2 });
       console.error("Error deleting task:", error);
       setActionLoading(false);
-      return;
+      return false;
     }
     notify.success("Task deleted successfully!", { duration: 1 });
     setTasks((prev) => prev.filter((task) => task.id !== id));
     setActionLoading(false);
+    return true;
   };
 
   const editTask = async (
