@@ -37,7 +37,6 @@ const TasksList: FC<Props> = ({ tasks, handleOpenModal }) => {
           <li className={s.item} key={t.id}>
             <div className={s.status}>
               <CustomStatus
-                // disabled={t.status === "done"} im stupid
                 status={t.status}
                 onChange={(newStatus) =>
                   handleChangeStatus(t.id, t.status, newStatus)
