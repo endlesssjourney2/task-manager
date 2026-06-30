@@ -8,18 +8,12 @@ import s from "./AddModalTask.module.css";
 import { capitalizeFirst } from "../../../helpers/capitalizeFirst";
 import type { Dayjs } from "dayjs";
 import dayjs from "dayjs";
-import { nextMonday } from "../../../helpers/dates";
+import { QUICK_DATES } from "../../../constants/dates";
 
 type Props = {
   modalOpen: boolean;
   handleClose: () => void;
 };
-
-const QUICK_DATES = [
-  { label: "Today", getValue: () => dayjs() },
-  { label: "Tomorrow", getValue: () => dayjs().add(1, "day") },
-  { label: "Next Week", getValue: () => nextMonday(dayjs()) },
-];
 
 const AddModalTask: FC<Props> = ({ modalOpen, handleClose }) => {
   const { projects } = useProjectsContext();

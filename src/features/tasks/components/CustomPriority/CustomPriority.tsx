@@ -2,16 +2,11 @@ import type { FC } from "react";
 import s from "./CustomPriority.module.css";
 import type { Priority } from "../../../../types/task";
 import { Dropdown, Tooltip, type MenuProps } from "antd";
+import { priorityLabels } from "../../../../constants/priority";
 
 type Props = {
   priority: Priority;
   onChange: (priority: Priority) => void;
-};
-
-const priorityLabels: Record<Priority, string> = {
-  low: "Low",
-  medium: "Medium",
-  high: "High",
 };
 
 const priorityColors: Record<Priority, string> = {
