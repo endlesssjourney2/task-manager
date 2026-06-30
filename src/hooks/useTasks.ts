@@ -43,6 +43,7 @@ const useTasks = (projectId?: string) => {
     if (!user) return;
 
     const cleanTitle = title.trim();
+    const cleanDescription = description.trim();
 
     if (!cleanTitle) {
       notify.notification.error(
@@ -58,7 +59,7 @@ const useTasks = (projectId?: string) => {
       userId: user.id,
       projectId,
       title: cleanTitle,
-      description: description,
+      description: cleanDescription,
       status: "todo",
       priority,
       due_date: due_date,
