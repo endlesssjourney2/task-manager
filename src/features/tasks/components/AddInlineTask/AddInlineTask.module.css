@@ -83,6 +83,15 @@
   gap: 10px;
 }
 
+.subtitle {
+  font-size: 16px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  border: 1px solid #30363d;
+  padding: 4px 8px;
+  border-radius: 8px;
+}
+
 .priorityActions {
   display: flex;
   justify-content: center;
@@ -95,20 +104,16 @@
   height: 20px;
   border-radius: 50%;
   cursor: pointer;
-  transition: transform 0.2s ease;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.priority.active {
+  border-color: #fff;
 }
 
 .priority:hover {
   transform: scale(1.1);
-}
-
-.subtitle {
-  font-size: 16px;
-  font-family: "Poppins", sans-serif;
-  font-weight: 600;
-  border: 1px solid #30363d;
-  padding: 4px 8px;
-  border-radius: 8px;
 }
 
 .low {
@@ -136,7 +141,9 @@
 }
 
 .buttons {
-  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid #161b22;
+  margin-top: 15px;
   display: flex;
   justify-content: flex-end;
   align-items: center;
