@@ -2,7 +2,7 @@ import { type FC } from "react";
 import { Dropdown, Tooltip, type MenuProps } from "antd";
 import type { Status } from "../../../../types/task";
 import s from "./CustomStatus.module.css";
-import { statusLabels } from "../../../../constants/status";
+import { STATUS_LABELS } from "../../../../constants/status";
 
 type Props = {
   status: Status;
@@ -24,7 +24,7 @@ const CustomStatus: FC<Props> = ({ status, onChange, disabled }) => {
   ];
 
   return (
-    <Tooltip title={statusLabels[status]} color={statusColors[status]}>
+    <Tooltip title={STATUS_LABELS[status]} color={statusColors[status]}>
       <Dropdown
         disabled={disabled}
         trigger={["click"]}

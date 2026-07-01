@@ -6,7 +6,7 @@ export const STATUS_OPTIONS = [
   { value: "done", label: "Done" },
 ] satisfies { value: Status; label: string }[];
 
-export const statusLabels: Record<Status, string> = {
+export const STATUS_LABELS: Record<Status, string> = {
   todo: "Todo",
   in_progress: "In progress",
   done: "Done",
