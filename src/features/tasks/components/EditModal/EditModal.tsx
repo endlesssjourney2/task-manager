@@ -1,30 +1,26 @@
 import { useState, type FC } from "react";
 import type { Dayjs } from "dayjs";
 import dayjs from "dayjs";
-import { DatePicker, Input, Modal, Select } from "antd";
+import { Button, DatePicker, Input, Modal, Select } from "antd";
 import s from "./EditModal.module.css";
-import type { Priority, Task, UpdateTaskPayload } from "../../../../types/task";
-import CustomModalFooter from "../../../../components/CustomModalFooter/CustomModalFooter";
+import type { Priority, Task } from "../../../../types/task";
 import { PRIORITY_OPTIONS } from "../../../../constants/priority";
+import { useProjectTasksContext } from "../../../../context/ProjectTasksContext";
+import { QUICK_DATES } from "../../../../constants/dates";
+import { capitalizeFirst } from "../../../../helpers/capitalizeFirst";
 
 type Props = {
   modalOpen: boolean;
-  handleCloseModal: () => void;
-  handleEditTask: (
-    id: string,
-    fields: Omit<UpdateTaskPayload, "id">,
-  ) => Promise<boolean>;
   selectedTask: Task;
-  loading?: boolean;
+  handleCloseModal: () => void;
 };
 
 const EditModal: FC<Props> = ({
   modalOpen,
-  handleCloseModal,
-  handleEditTask,
   selectedTask,
-  loading,
+  handleCloseModal,
 }) => {
+  const { editTask, actionLoading } = useProjectTasksContext();
   const [title, setTitle] = useState(selectedTask.title);
   const [description, setDescription] = useState(selectedTask.description);
   const [priority, setPriority] = useState<Priority>(selectedTask.priority);
@@ -32,13 +28,26 @@ const EditModal: FC<Props> = ({
     selectedTask.due_date ? dayjs(selectedTask.due_date) : null,
   );
 
-  const handleOk = async () => {
-    await handleEditTask(selectedTask.id, {
+  const isEdit =
+    selectedTask.title === title &&
+    selectedTask.description === description &&
+    selectedTask.priority === priority &&
+    selectedTask.due_date === (date ? date.format("YYYY-MM-DD") : null);
+
+  const handleEditTask = async () => {
+    if (isEdit) {
+      handleCloseModal();
+      return;
+    }
+    const result = await editTask(selectedTask.id, {
       title,
       description,
       priority,
       due_date: date ? date.format("YYYY-MM-DD") : null,
     });
+    if (result) {
+      handleCloseModal();
+    }
   };
 
   const handleReset = () => {
@@ -50,69 +59,102 @@ const EditModal: FC<Props> = ({
 
   return (
     <Modal
-      title="Edit your Task"
+      title={`Edit your task ${selectedTask.title}`}
       closable={{ "aria-label": "Custom Close Button" }}
       open={modalOpen}
       onCancel={handleCloseModal}
-      onOk={handleOk}
+      onOk={handleEditTask}
       footer={[
-        <CustomModalFooter
-          clearText="Reset"
-          handleAction={handleReset}
-          handleCloseModal={handleCloseModal}
-          handleOk={handleOk}
-          loading={loading}
-          addText="Edit"
-        />,
+        <div className={s.footer}>
+          <div className={s.statusIndicator}>
+            <div className={`${s.circle} ${s[selectedTask.status]}`} />
+            <span className={s.statusText}>
+              {capitalizeFirst(selectedTask.status)}
+            </span>
+          </div>
+
+          <div className={s.buttons}>
+            <Button type="default" onClick={handleCloseModal}>
+              Cancel
+            </Button>
+            <Button type="default" onClick={handleReset}>
+              Reset
+            </Button>
+            <Button
+              type="primary"
+              onClick={handleEditTask}
+              loading={actionLoading}
+            >
+              Edit task
+            </Button>
+          </div>
+        </div>,
       ]}
     >
-      <div className={s.modalContent}>
-        <div className={s.header}>
-          <div className={s.item}>
-            <span className={s.itemLabel}>Title</span>
-            <Input
-              size="large"
-              type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              className={s.input}
-            />
-          </div>
-          <div className={s.item}>
-            <span className={s.itemLabel}>Description</span>
-            <Input
-              size="large"
-              type="text"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              className={s.input}
-            />
-          </div>
-        </div>
-        <div className={s.bottom}>
-          <Select
+      <div className={s.inputs}>
+        <div className={s.inputContainer}>
+          <span className={s.subtitle}>Title</span>
+          <Input.TextArea
             size="large"
-            className={s.select}
-            options={[
-              {
-                label: (
-                  <div className={s.labelContainer}>
-                    <span className={s.selectLabel}>Priority</span>
-                  </div>
-                ),
-                options: PRIORITY_OPTIONS,
+            rows={1}
+            autoSize={{ minRows: 1, maxRows: 1 }}
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            styles={{
+              textarea: {
+                backgroundColor: "#161b22",
+                borderColor: "#30363d",
               },
-            ]}
-            value={priority}
-            onChange={(e) => setPriority(e)}
+            }}
           />
-          <DatePicker
-            disabledDate={(curr) => curr.isBefore(dayjs(), "day")}
+        </div>
+        <div className={s.inputContainer}>
+          <span className={s.subtitle}>Description</span>
+          <Input.TextArea
+            rows={3}
+            autoSize={{ minRows: 1, maxRows: 3 }}
             size="large"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            styles={{
+              textarea: {
+                backgroundColor: "#161b22",
+                borderColor: "#30363d",
+              },
+            }}
+          />
+        </div>
+      </div>
+      <div className={s.actions}>
+        <div className={s.actionsContainer}>
+          <span className={s.subtitle}>Priority</span>
+          <Select
+            className={s.select}
+            value={priority}
+            options={PRIORITY_OPTIONS}
+            style={{ width: 150 }}
+            onChange={(p) => setPriority(p)}
+          />
+        </div>
+        <div className={s.dateContainer}>
+          <span className={s.subtitle}>Due date</span>
+          <DatePicker
+            format={"DD/MMM/YYYY"}
             value={date}
-            onChange={(e) => setDate(e)}
+            onChange={(d) => setDate(d)}
+            disabledDate={(curr) => curr.isBefore(dayjs(), "day")}
             className={s.datePicker}
           />
+          <div className={s.quickDates}>
+            {QUICK_DATES.map((q) => (
+              <button
+                onClick={() => setDate(q.getValue())}
+                className={s.quickDateBtn}
+              >
+                {q.label}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
     </Modal>
