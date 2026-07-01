@@ -2,17 +2,12 @@ import { type FC } from "react";
 import { Dropdown, Tooltip, type MenuProps } from "antd";
 import type { Status } from "../../../../types/task";
 import s from "./CustomStatus.module.css";
+import { statusLabels } from "../../../../constants/status";
 
 type Props = {
   status: Status;
   onChange: (status: Status) => void;
   disabled?: boolean;
-};
-
-const statusLabels: Record<Status, string> = {
-  todo: "Todo",
-  in_progress: "In progress",
-  done: "Done",
 };
 
 const statusColors: Record<Status, string> = {
