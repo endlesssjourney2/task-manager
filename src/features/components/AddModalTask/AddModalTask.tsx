@@ -3,7 +3,7 @@ import { useEffect, useState, type FC } from "react";
 import { useProjectsContext } from "../../../context/ProjectsContext";
 import { useTasksContext } from "../../../context/TasksContext";
 import type { Priority } from "../../../types/task";
-import { PRIORITY_OPTIONS } from "../../../constants/priority";
+import { PRIORITY_COLORS, PRIORITY_OPTIONS } from "../../../constants/priority";
 import s from "./AddModalTask.module.css";
 import { capitalizeFirst } from "../../../helpers/capitalizeFirst";
 import type { Dayjs } from "dayjs";
@@ -69,23 +69,13 @@ const AddModalTask: FC<Props> = ({ modalOpen, handleClose }) => {
             <div
               className={s.priorityCircle}
               style={{
-                background:
-                  priority === "high"
-                    ? "#ef4444"
-                    : priority === "medium"
-                      ? "#f59e0b"
-                      : "#22c55e",
+                background: PRIORITY_COLORS[priority],
               }}
             />
             <span
               className={s.priorityLabel}
               style={{
-                color:
-                  priority === "high"
-                    ? "#ef4444"
-                    : priority === "medium"
-                      ? "#f59e0b"
-                      : "#22c55e",
+                color: PRIORITY_COLORS[priority],
               }}
             >
               {capitalizeFirst(priority)}
