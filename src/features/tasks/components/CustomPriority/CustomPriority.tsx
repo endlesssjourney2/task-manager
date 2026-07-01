@@ -2,7 +2,7 @@ import type { FC } from "react";
 import s from "./CustomPriority.module.css";
 import type { Priority } from "../../../../types/task";
 import { Dropdown, Tooltip, type MenuProps } from "antd";
-import { priorityLabels } from "../../../../constants/priority";
+import { PRIORITY_LABELS } from "../../../../constants/priority";
 
 type Props = {
   priority: Priority;
@@ -17,13 +17,13 @@ const priorityColors: Record<Priority, string> = {
 
 const CustomPriority: FC<Props> = ({ priority, onChange }) => {
   const items: MenuProps["items"] = [
-    { key: "low", label: "Low" },
-    { key: "medium", label: "Medium" },
-    { key: "high", label: "High" },
+    { key: "low", label: "🟢 Low" },
+    { key: "medium", label: "🟡 Medium" },
+    { key: "high", label: "🔴 High" },
   ];
 
   return (
-    <Tooltip title={priorityLabels[priority]} color={priorityColors[priority]}>
+    <Tooltip title={PRIORITY_LABELS[priority]} color={priorityColors[priority]}>
       <Dropdown
         trigger={["click"]}
         menu={{
