@@ -6,7 +6,7 @@ import { LoadingOutlined } from "@ant-design/icons";
 import EditModal from "../../features/tasks/components/EditModal/EditModal";
 import HeaderProject from "../../features/tasks/components/HeaderProject/HeaderProject";
 import { useProjectsContext } from "../../context/ProjectsContext";
-import type { Task, UpdateTaskPayload } from "../../types/task";
+import type { Task } from "../../types/task";
 import { useProjectTasksContext } from "../../context/ProjectTasksContext";
 import AddInlineTask from "../../features/tasks/components/AddInlineTask/AddInlineTask";
 
@@ -15,8 +15,7 @@ type Props = {
 };
 
 const ProjectContent: FC<Props> = ({ projectId }) => {
-  const { tasks, actionLoading, editTask, initialLoading } =
-    useProjectTasksContext();
+  const { tasks, initialLoading } = useProjectTasksContext();
 
   const { getProjectById, editProject } = useProjectsContext();
 
@@ -31,18 +30,6 @@ const ProjectContent: FC<Props> = ({ projectId }) => {
   const handleCloseEditModal = () => {
     setEditModalOpen(false);
     setTimeout(() => setSelectedTask(null), 300);
-  };
-
-  const handleEditTask = async (
-    id: string,
-    fields: Omit<UpdateTaskPayload, "id">,
-  ) => {
-    const result = await editTask(id, fields);
-    if (result) {
-      setEditModalOpen(false);
-      setTimeout(() => setSelectedTask(null), 300);
-    }
-    return result;
   };
 
   const handleRenameProject = async (newTitle: string) => {
@@ -76,8 +63,6 @@ const ProjectContent: FC<Props> = ({ projectId }) => {
             modalOpen={editModalOpen}
             selectedTask={selectedTask}
             handleCloseModal={handleCloseEditModal}
-            handleEditTask={handleEditTask}
-            loading={actionLoading}
           />
         )}
       </div>
