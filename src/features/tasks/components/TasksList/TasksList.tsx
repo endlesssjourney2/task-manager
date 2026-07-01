@@ -2,7 +2,7 @@ import type { FC } from "react";
 import s from "./TasksList.module.css";
 import type { Status, Task } from "../../../../types/task";
 import { useProjectTasksContext } from "../../../../context/ProjectTasksContext";
-import TaskDropdown from "../../../components/TaskDropdown/TaskDropdown";
+import TaskDropdown from "../TaskDropdown/TaskDropdown";
 import CustomStatus from "../CustomStatus/CustomStatus";
 import { formatDueDate } from "../../../../helpers/dates";
 import CustomPriority from "../CustomPriority/CustomPriority";
@@ -67,11 +67,7 @@ const TasksList: FC<Props> = ({ tasks, handleOpenModal }) => {
                       : editTask(t.id, { priority: newPriority });
                   }}
                 />
-                <TaskDropdown
-                  id={t.id}
-                  task={t}
-                  handleOpenEditModal={handleOpenModal}
-                />
+                <TaskDropdown task={t} handleOpenEditModal={handleOpenModal} />
               </div>
             </div>
           </li>
