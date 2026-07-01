@@ -5,7 +5,7 @@ import type { Priority } from "../../../../types/task";
 import { Button, DatePicker, Input } from "antd";
 import dayjs, { Dayjs } from "dayjs";
 import { QUICK_DATES } from "../../../../constants/dates";
-import { priorityLabels } from "../../../../constants/priority";
+import { PRIORITY_LABELS } from "../../../../constants/priority";
 
 type Props = {
   projectId: string;
@@ -106,20 +106,20 @@ const AddInlineTask: FC<Props> = ({ projectId }) => {
             </div>
             <div className={s.priorityContainer}>
               <span className={`${s.subtitle} ${s[priority]}`}>
-                {priorityLabels[priority]}
+                {PRIORITY_LABELS[priority]}
               </span>
               <div className={s.priorityActions}>
                 <div
                   onClick={() => setPriority("low")}
-                  className={`${s.priority} ${s.l}`}
+                  className={`${s.priority} ${s.l} ${priority === "low" ? s.active : ""}`}
                 />
                 <div
                   onClick={() => setPriority("medium")}
-                  className={`${s.priority} ${s.m}`}
+                  className={`${s.priority} ${s.m} ${priority === "medium" ? s.active : ""}`}
                 />
                 <div
                   onClick={() => setPriority("high")}
-                  className={`${s.priority} ${s.h}`}
+                  className={`${s.priority} ${s.h} ${priority === "high" ? s.active : ""}`}
                 />
               </div>
             </div>
