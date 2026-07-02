@@ -64,7 +64,7 @@ const AddModalTask: FC<Props> = ({ modalOpen, handleClose }) => {
       onCancel={handleClose}
       title="Add new task"
       footer={[
-        <div className={s.footer}>
+        <div className={s.footer} key={"footer"}>
           <div className={s.priorityIndicator}>
             <div
               className={s.priorityCircle}
@@ -161,6 +161,7 @@ const AddModalTask: FC<Props> = ({ modalOpen, handleClose }) => {
           <div className={s.quickDates}>
             {QUICK_DATES.map((q) => (
               <button
+                key={q.label}
                 onClick={() => setDate(q.getValue())}
                 className={s.quickDateBtn}
               >
