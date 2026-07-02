@@ -5,7 +5,7 @@ const SidebarSkeleton = () => {
   return (
     <div className={s.container}>
       <div className={s.profile}>
-        <Skeleton.Avatar active size="default" />
+        <Skeleton.Avatar active size="medium" />
         <Skeleton.Input
           active
           size="small"
