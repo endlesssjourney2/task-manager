@@ -30,7 +30,6 @@ const HomeModal: FC<Props> = ({
   const handleCancel = () => {
     handleCloseModal();
     setColor(getRandomColor());
-    setTitle(title);
   };
 
   return (
@@ -42,7 +41,7 @@ const HomeModal: FC<Props> = ({
       style={{ top: "250px" }}
       confirmLoading={loading}
       footer={[
-        <div className={s.footer}>
+        <div className={s.footer} key={"footer"}>
           <Button type="default" onClick={handleCancel}>
             Cancel
           </Button>
