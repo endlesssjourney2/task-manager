@@ -47,7 +47,7 @@ const EditModalProject: FC<Props> = ({
       onCancel={handleCloseModal}
       confirmLoading={loading}
       footer={[
-        <div className={s.footer}>
+        <div className={s.footer} key={"footer"}>
           <Button type="default" onClick={handleCloseModal}>
             Cancel
           </Button>
@@ -66,6 +66,7 @@ const EditModalProject: FC<Props> = ({
           onChange={(e) => setTitle(e.target.value)}
           suffix={[
             <ColorPicker
+              key={"suffix"}
               className={s.datePicker}
               value={color}
               onChange={(e) => setColor(e.toHexString())}
