@@ -1,0 +1,128 @@
+.inputs {
+  margin: 10px 0 20px 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  gap: 10px;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  gap: 5px;
+}
+
+.subtitle {
+  font-size: 16px;
+  color: #8b949e;
+  letter-spacing: 1.5px;
+  font-family: "Montserrat", sans-serif;
+}
+
+.input {
+  width: 100%;
+  padding: 6px 10px;
+  border-radius: 8px;
+  color: #f0f6fc;
+  font-size: 15px;
+}
+
+.input:focus {
+  border-color: #58a6ff;
+}
+
+.bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.selects {
+  display: flex;
+  gap: 10px;
+}
+
+.selectContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.select {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background-color: #161b22;
+  border: 1px solid #30363d;
+  color: #f0f6fc;
+  font-size: 14px;
+}
+
+.dateContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.datePicker {
+  background-color: #161b22 !important;
+  border-color: #30363d !important;
+}
+
+.datePicker input {
+  color: #f0f6fc !important;
+}
+
+.quickDates {
+  display: flex;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.quickDateBtn {
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background-color: #161b22;
+  border: 1px solid #30363d;
+  color: #f0f6fc;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.quickDateBtn:hover {
+  border-color: #58a6ff;
+}
+
+.footer {
+  border-top: 1px solid #161b22;
+  padding-top: 15px;
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.priorityIndicator,
+.buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.priorityCircle {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+}
+
+.priorityLabel {
+  font-size: 15px;
+  font-weight: 600;
+}

@@ -1,0 +1,33 @@
+.inputs {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.authInput {
+  height: 45px;
+  border-radius: 8px;
+}
+
+.authInput input {
+  background: transparent !important;
+  color: var(--text-primary);
+}
+
+.authInput input::placeholder {
+  color: var(--text-placeholder) !important;
+}
+
+.authInput :global(.ant-input-show-count-suffix) {
+  color: var(--text-primary);
+}
+
+.authInput {
+  background: transparent !important;
+  color: var(--text-primary);
+}
+
+.authInput::placeholder {
+  color: var(--text-placeholder) !important;
+}

@@ -1,0 +1,200 @@
+import { Button, Divider, Layout } from "antd";
+import { useState, type Dispatch, type FC, type SetStateAction } from "react";
+import { useNavigate } from "react-router-dom";
+import s from "./Sidebar.module.css";
+import {
+  ArrowRightOutlined,
+  CloseOutlined,
+  MenuOutlined,
+  PlusOutlined,
+} from "@ant-design/icons";
+import { useProjectsContext } from "../../context/ProjectsContext";
+import ProjectsList from "./components/ProjectsList/ProjectsList";
+import AddModalProject from "../components/AddModalProject/AddModalProject";
+import SidebarProfile from "./components/SidebarProfile/SidebarProfile";
+import SidebarSkeleton from "./components/SidebarSkeleton/SidebarSkeleton";
+import AddModalTask from "../components/AddModalTask/AddModalTask";
+import { useDoneTasksContext } from "../../context/DoneTasksContext";
+
+const { Sider } = Layout;
+
+type Props = {
+  collapsed: boolean;
+  setCollapsed: Dispatch<SetStateAction<boolean>>;
+};
+
+const Sidebar: FC<Props> = ({ collapsed, setCollapsed }) => {
+  const {
+    projects,
+    addProject,
+    actionLoading,
+    removeProject,
+    initialLoading: projectsLoading,
+  } = useProjectsContext();
+
+  const { doneTasks, initialLoading: doneTasksLoading } = useDoneTasksContext();
+
+  const mainLoading = projectsLoading || doneTasksLoading;
+
+  const navigate = useNavigate();
+
+  const projectsLength = projects.length;
+
+  const handleNavigateProjects = () => {
+    navigate("/app");
+  };
+
+  const toggleSidebar = () => {
+    setCollapsed((prev) => {
+      const next = !prev;
+      localStorage.setItem("collapsed", String(next));
+      return next;
+    });
+  };
+
+  const [addModalOpen, setAddModalOpen] = useState(false);
+  const [showProjects, setShowProjects] = useState(() => {
+    return localStorage.getItem("showProjects") === "true";
+  });
+
+  const toggleProjects = () => {
+    setShowProjects((prev) => {
+      const next = !prev;
+      localStorage.setItem("showProjects", String(next));
+      return next;
+    });
+  };
+
+  const handleAddProject = async (
+    title: string,
+    color: string,
+  ): Promise<boolean> => {
+    const result = await addProject(title, color);
+    if (result) {
+      setAddModalOpen(false);
+    }
+    return result;
+  };
+
+  const handleOpenAddModal = () => {
+    setAddModalOpen(true);
+  };
+
+  const handleCloseAddModal = () => {
+    setAddModalOpen(false);
+  };
+
+  const [addTaskModalOpen, setAddTaskModalOpen] = useState(false);
+
+  const handleOpenAddTaskModal = () => {
+    setAddTaskModalOpen(true);
+  };
+
+  const handleCloseAddTaskModal = () => {
+    setAddTaskModalOpen(false);
+  };
+
+  return (
+    <>
+      <Button
+        className={`${s.toggleBtn} ${collapsed ? s.toggleBtnCollapsed : ""}`}
+        onClick={toggleSidebar}
+        icon={collapsed ? <MenuOutlined /> : <CloseOutlined />}
+      />
+      <Sider
+        className={s.sider}
+        collapsible
+        collapsed={collapsed}
+        width={250}
+        collapsedWidth={0}
+        trigger={null}
+      >
+        <div className={`${s.content} ${collapsed ? s.contentHidden : ""}`}>
+          {mainLoading ? (
+            <SidebarSkeleton />
+          ) : (
+            <>
+              <div className={s.header}>
+                <SidebarProfile />
+              </div>
+              <div className={s.addTask} onClick={handleOpenAddTaskModal}>
+                <span className={s.addTaskTitle}>Add task</span>
+                <PlusOutlined
+                  style={{
+                    color: "#fdad1c",
+                    fontSize: "16px",
+                    fontWeight: 800,
+                  }}
+                />
+              </div>
+              <div
+                onClick={handleNavigateProjects}
+                className={s.projectsHeader}
+              >
+                <div className={s.left}>
+                  <h2 className={s.projectsTitle}>My projects</h2>
+                </div>
+                <div className={s.right}>
+                  <div className={s.actionButtons}>
+                    <Button
+                      size="small"
+                      icon={
+                        <ArrowRightOutlined
+                          className={`${s.arrow} ${showProjects ? s.arrowOpen : ""}`}
+                        />
+                      }
+                      type="text"
+                      shape="default"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleProjects();
+                      }}
+                    />
+                    <Button
+                      size="small"
+                      type="text"
+                      icon={<PlusOutlined />}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleOpenAddModal();
+                      }}
+                    />
+                  </div>
+                  <span className={s.projectsInfo}>{projectsLength}</span>
+                </div>
+              </div>
+            </>
+          )}
+
+          {showProjects && (
+            <div className={s.projects}>
+              <ProjectsList projects={projects} removeProject={removeProject} />
+            </div>
+          )}
+
+          <Divider />
+
+          {doneTasks.length > 0 && (
+            <div onClick={() => navigate("/app/done")} className={s.doneTasks}>
+              <span className={s.title}>Done tasks</span>
+              <span className={s.subtitle}>{doneTasks.length}</span>
+            </div>
+          )}
+        </div>
+
+        <AddModalTask
+          modalOpen={addTaskModalOpen}
+          handleClose={handleCloseAddTaskModal}
+        />
+        <AddModalProject
+          modalOpen={addModalOpen}
+          handleCloseModal={handleCloseAddModal}
+          handleCreateProject={handleAddProject}
+          loading={actionLoading}
+        />
+      </Sider>
+    </>
+  );
+};
+
+export default Sidebar;

@@ -1,0 +1,57 @@
+import { supabase } from "../supabase/supabaseClient";
+import type { UpdateProfilePayload } from "../types/profile";
+
+export const getProfile = async (userId: string) => {
+  const { data, error } = await supabase
+    .from("profiles")
+    .select("*")
+    .eq("id", userId)
+    .single();
+
+  if (error) {
+    console.error("Error fetching profile:", error);
+    return [null, error];
+  }
+  return [data, null];
+};
+
+export const updateProfile = async (payload: UpdateProfilePayload) => {
+  const { id, ...rest } = payload;
+
+  const { error } = await supabase.from("profiles").update(rest).eq("id", id);
+
+  if (error) {
+    console.error("Error updating profile:", error);
+    return error;
+  }
+  return null;
+};
+
+export const uploadAvatar = async (userId: string, file: File) => {
+  const path = `${userId}/avatar`;
+
+  const { error } = await supabase.storage
+    .from("avatars")
+    .upload(path, file, { upsert: true });
+
+  if (error) {
+    console.error("Error updating avatar", error);
+    return [null, error];
+  }
+
+  const { data } = await supabase.storage.from("avatars").getPublicUrl(path);
+
+  return [`${data.publicUrl}?t=${Date.now()}`, null];
+};
+
+export const deleteAvatar = async (userId: string) => {
+  const { error } = await supabase.storage
+    .from("avatars")
+    .remove([`${userId}/avatar`]);
+
+  if (error) {
+    console.error("Error deleting avatar", error);
+    return error;
+  }
+  return null;
+};

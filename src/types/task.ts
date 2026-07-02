@@ -11,6 +11,7 @@ export type Task = {
   priority: Priority;
   due_date: string | null;
   created_at: string;
+  updated_at: string;
 };
 
 export type CreateTaskPayload = {
@@ -30,4 +31,11 @@ export type UpdateTaskPayload = {
   status?: Status;
   priority?: Priority;
   due_date?: string | null;
+};
+
+export type TasksWithProjects = Task & {
+  projects: {
+    title: string;
+    color: string;
+  };
 };

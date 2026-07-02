@@ -1,0 +1,138 @@
+.toggleBtn {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 1000;
+  transition: left 0.2s;
+}
+
+.toggleBtn:not(.toggleBtnCollapsed) {
+  left: 205px;
+}
+
+.content {
+  margin: 16px 20px 0 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  opacity: 1;
+  visibility: visible;
+  transition:
+    opacity 0.1s ease 0.15s,
+    visibility 0.1s ease 0.15s;
+}
+
+.contentHidden {
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.8ms ease 0s,
+    visibility 0.8ms ease 0s;
+}
+
+.header {
+  margin-bottom: 20px;
+}
+
+.addTask {
+  cursor: pointer;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  border-radius: 8px;
+  height: 35px;
+  gap: 10px;
+  margin-bottom: 5px;
+  transition: all 0.2s ease;
+  padding-left: 8px;
+}
+
+.addTask:hover {
+  background-color: #4f4941;
+}
+
+.addTask:active {
+  transform: scale(0.95);
+}
+
+.addTaskTitle {
+  font-size: 20px;
+  font-weight: 500;
+  color: #fdad1c;
+}
+
+.projectsHeader {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.2s ease;
+  border-radius: 8px;
+  height: 35px;
+  padding: 0 8px 0 8px;
+}
+
+.projectsInfo {
+  opacity: 0;
+}
+
+.projectsHeader:hover {
+  background-color: #322f2a;
+}
+
+.actionButtons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 5px;
+  opacity: 0;
+}
+
+.projectsHeader:hover .projectsInfo,
+.projectsHeader:hover .actionButtons {
+  opacity: 1;
+}
+
+.right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.arrow {
+  transition: transform 0.2s ease;
+}
+
+.arrowOpen {
+  transform: rotate(90deg);
+}
+
+.doneTasks {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 8px;
+  height: 35px;
+  gap: 10px;
+  margin-bottom: 5px;
+  transition: all 0.2s ease;
+  padding: 0 8px 0 8px;
+}
+
+.doneTasks:hover {
+  background-color: #322f2a;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.subtitle {
+  opacity: 0;
+}
+
+.doneTasks:hover .subtitle {
+  opacity: 1;
+}

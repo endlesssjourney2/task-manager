@@ -1,0 +1,18 @@
+.circle {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: none;
+}
+
+.high {
+  background-color: var(--priority-high);
+}
+
+.medium {
+  background-color: var(--priority-medium);
+}
+
+.low {
+  background-color: var(--priority-low);
+}

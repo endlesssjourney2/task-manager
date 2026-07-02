@@ -1,20 +1,33 @@
 import { createBrowserRouter } from "react-router-dom";
 import RootLayout from "./layout/RootLayout.tsx";
-import Home from "./pages/Home/Home.tsx";
-import SignIn from "./pages/Auth/SignIn/SignIn.tsx";
-import SignUp from "./pages/Auth/SignUp/SignUp.tsx";
-import Project from "./pages/Project/Project.tsx";
+import SignIn from "./pages/SignIn/SignIn.tsx";
+import SignUp from "./pages/SignUp/SignUp.tsx";
+import Home from "./pages/Project/Home.tsx";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.tsx";
+import Project from "./pages/Tasks/Project.tsx";
+import Done from "./pages/Done/Done.tsx";
 
 export const router = createBrowserRouter(
   [
     {
       path: "/",
-      element: <RootLayout />,
+      element: <SignIn />,
+    },
+    { path: "signup", element: <SignUp /> },
+    {
+      path: "/app",
+      element: (
+        <ProtectedRoute>
+          <RootLayout />
+        </ProtectedRoute>
+      ),
       children: [
         { index: true, element: <Home /> },
-        { path: "signin", element: <SignIn /> },
-        { path: "signup", element: <SignUp /> },
         { path: "project/:id", element: <Project /> },
+        {
+          path: "done",
+          element: <Done />,
+        },
       ],
     },
   ],

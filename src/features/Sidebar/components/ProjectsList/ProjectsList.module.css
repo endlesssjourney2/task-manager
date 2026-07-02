@@ -1,0 +1,45 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-left: 4px;
+}
+
+.item {
+  width: 100%;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  gap: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  height: 35px;
+  padding-left: 8px;
+}
+
+.item:hover {
+  background-color: #322f2a;
+}
+
+.desc {
+  font-weight: 400;
+  font-size: 18px;
+}
+
+.title {
+  font-family: "Poppins", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  max-width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.right {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

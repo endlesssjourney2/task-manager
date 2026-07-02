@@ -19,7 +19,7 @@ button {
 
 body {
   min-height: 100vh;
-  background-color: #020408;
+  background-color: var(--bg-color-primary);
 }
 
 li {
@@ -28,7 +28,7 @@ li {
 
 :root {
   /* Background */
-  --bg-color-primary: #0c1117;
+  --bg-color-primary: #1f1f1f;
   --bg-color-secondary: #262c36;
 
   /* Card */
@@ -79,4 +79,12 @@ li {
   --status-todo-bg: rgba(47, 129, 247, 0.15);
   --status-in-progress-bg: rgba(234, 179, 8, 0.15);
   --status-done-bg: rgba(34, 197, 94, 0.15);
+
+  /* Login page  */
+  --btn-register-bg: #ffffff;
+  --btn-register-hover: #f0f6fc;
+  --btn-register-active: #dbeafe;
+  --btn-register-text: #020408;
+  --btn-register-border: rgba(255, 255, 255, 0.12);
+  --btn-register-shadow: rgba(255, 255, 255, 0.18);
 }

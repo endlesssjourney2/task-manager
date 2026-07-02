@@ -49,15 +49,27 @@ export const deleteTask = async (id: string) => {
 export const updateTask = async (payload: UpdateTaskPayload) => {
   const { id, ...rest } = payload;
 
-  const { error } = await supabase
-    .from("tasks")
-    .update({ ...rest })
-    .eq("id", id)
-    .select()
-    .single();
+  const { error } = await supabase.from("tasks").update(rest).eq("id", id);
 
   if (error) {
     console.error("Error updating task", error.message);
-    return null;
+    return error;
   }
+  return null;
+};
+
+export const getDoneTasks = async (userId: string) => {
+  const { data, error } = await supabase
+    .from("tasks")
+    .select("*, projects(title, color)")
+    .eq("status", "done")
+    .eq("user_id", userId)
+    .order("updated_at", { ascending: false });
+
+  if (error) {
+    console.error("Error fetching tasks", error.message);
+    return [null, error];
+  }
+
+  return [data, null];
 };

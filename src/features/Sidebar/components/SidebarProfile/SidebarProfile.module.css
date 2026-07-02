@@ -1,0 +1,47 @@
+.profile {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.profileContent {
+  width: 80%;
+  border-radius: 8px;
+  padding: 5px 8px;
+  cursor: pointer;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  gap: 10px;
+  transition: background 0.2s ease;
+}
+
+.profileContent:hover {
+  background: #3c3c3c;
+}
+
+.avatar {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+}
+
+.noAvatar {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  background-color: red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.username {
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  max-width: 140px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

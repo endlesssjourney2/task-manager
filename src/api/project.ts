@@ -1,4 +1,5 @@
 import { supabase } from "../supabase/supabaseClient";
+import type { UpdateProjectPayload } from "../types/project";
 
 export const getProjects = async (userId: string) => {
   const { data, error } = await supabase
@@ -46,5 +47,17 @@ export const deleteProject = async (id: string) => {
     return error;
   }
 
+  return null;
+};
+
+export const updateProject = async (payload: UpdateProjectPayload) => {
+  const { id, ...rest } = payload;
+
+  const { error } = await supabase.from("projects").update(rest).eq("id", id);
+
+  if (error) {
+    console.error("Error updating project", error.message);
+    return error;
+  }
   return null;
 };

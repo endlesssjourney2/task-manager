@@ -1,18 +1,37 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
-const useSearch = <T>(items: T[], keys: (keyof T)[]) => {
+const useDebounce = <T>(value: T, delay: number) => {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value, delay]);
+
+  return debouncedValue;
+};
+
+const useSearch = <T>(items: T[], keys: (keyof T)[], delay: number) => {
   const [search, setSearch] = useState("");
+  const debouncedSearch = useDebounce(search, delay);
 
   const filteredItems = useMemo(
     () =>
-      search.length
+      debouncedSearch.length
         ? items.filter((item) =>
             keys.some((key) =>
-              String(item[key]).toLowerCase().includes(search.toLowerCase()),
+              String(item[key])
+                .toLowerCase()
+                .trim()
+                .includes(debouncedSearch.toLowerCase().trim()),
             ),
           )
         : items,
-    [items, search],
+    [items, debouncedSearch],
   );
 
   return {

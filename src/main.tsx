@@ -25,6 +25,9 @@ createRoot(document.getElementById("root")!).render(
               contentBg: "#21262d",
               titleColor: "#f0f6fc",
             },
+            Layout: {
+              siderBg: "#262626",
+            },
           },
         }}
       >

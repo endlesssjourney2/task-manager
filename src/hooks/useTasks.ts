@@ -4,7 +4,7 @@ import { useAuth } from "../context/AuthContext";
 import { createTask, deleteTask, getTasks, updateTask } from "../api/task";
 import useNotify from "./useNotify";
 
-const useTasks = (projectId: string) => {
+const useTasks = (projectId?: string) => {
   const notify = useNotify();
 
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -13,7 +13,7 @@ const useTasks = (projectId: string) => {
   const { user } = useAuth();
 
   useEffect(() => {
-    if (!user) return;
+    if (!user || !projectId) return;
     const fetchTasks = async () => {
       setInitialLoading(true);
       const [data, error] = await getTasks(projectId);
@@ -34,6 +34,7 @@ const useTasks = (projectId: string) => {
   }, [user, projectId]);
 
   const addTask = async (
+    projectId: string,
     title: string,
     description: string | null,
     priority: Priority,
@@ -42,6 +43,7 @@ const useTasks = (projectId: string) => {
     if (!user) return;
 
     const cleanTitle = title.trim();
+    const cleanDescription = description.trim();
 
     if (!cleanTitle) {
       notify.notification.error(
@@ -57,7 +59,7 @@ const useTasks = (projectId: string) => {
       userId: user.id,
       projectId,
       title: cleanTitle,
-      description: description,
+      description: cleanDescription,
       status: "todo",
       priority,
       due_date: due_date,
@@ -81,11 +83,12 @@ const useTasks = (projectId: string) => {
       notify.error("Failed to delete task", { duration: 2 });
       console.error("Error deleting task:", error);
       setActionLoading(false);
-      return;
+      return false;
     }
     notify.success("Task deleted successfully!", { duration: 1 });
     setTasks((prev) => prev.filter((task) => task.id !== id));
     setActionLoading(false);
+    return true;
   };
 
   const editTask = async (
@@ -135,6 +138,10 @@ const useTasks = (projectId: string) => {
     return true;
   };
 
+  const getTaskById = (id: string) => {
+    return tasks.find((task) => task.id === id) ?? null;
+  };
+
   return {
     tasks,
     setTasks,
@@ -143,6 +150,7 @@ const useTasks = (projectId: string) => {
     editTask,
     initialLoading,
     actionLoading,
+    getTaskById,
   };
 };
 

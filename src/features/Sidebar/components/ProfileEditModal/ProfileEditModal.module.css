@@ -1,0 +1,122 @@
+.content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.subtitle {
+  font-size: 16px;
+  color: #8b949e;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.avatarInfo {
+  display: flex;
+  justify-content: left;
+  margin-bottom: 15px;
+  gap: 20px;
+}
+
+.changeAvatar {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  max-width: 220px;
+}
+
+.avatar {
+  height: 90px;
+  width: 90px;
+  border-radius: 50%;
+}
+
+.noAvatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 32px;
+  height: 90px;
+  width: 90px;
+  border-radius: 50%;
+  background-color: red;
+}
+
+.buttons {
+  width: 380px;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  gap: 10px;
+}
+
+.btnUpload {
+  padding: 6px 12px;
+  border-radius: 8px;
+  background-color: #30363d;
+  color: #f0f6fc;
+  border: 1px solid #444c56;
+  cursor: pointer;
+  font-size: 14px;
+  transition:
+    background-color 0.2s ease,
+    transform 0.1s ease;
+}
+
+.btnUpload:hover {
+  background-color: #3c444d;
+}
+
+.btnUpload:active {
+  transform: scale(0.97);
+}
+
+.btnDelete {
+  padding: 6px 12px;
+  border-radius: 8px;
+  background-color: var(--btn-remove-bg);
+  color: var(--btn-remove-text);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  cursor: pointer;
+  font-size: 14px;
+  transition:
+    background-color 0.2s ease,
+    transform 0.1s ease;
+}
+
+.btnDelete:hover {
+  background-color: var(--btn-remove-hover-bg);
+}
+
+.btnDelete:active {
+  transform: scale(0.97);
+}
+
+.btnDelete:disabled {
+  background-color: rgba(175, 47, 47, 0.06);
+  color: var(--text-disabled);
+  cursor: not-allowed;
+}
+
+.aboutInfo {
+  font-size: 14px;
+  color: #8b949e;
+  margin-top: 8px;
+  line-height: 1.4;
+}
+
+.input {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background-color: #161b22;
+  border: 1px solid #30363d;
+  color: #f0f6fc;
+  font-size: 14px;
+  outline: none;
+}
+
+.input:focus {
+  border-color: #58a6ff;
+}

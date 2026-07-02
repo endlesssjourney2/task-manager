@@ -4,3 +4,5 @@ export type Project = {
   color: string | null;
   created_at: string;
 };
+
+export type UpdateProjectPayload = Omit<Project, "created_at">;
