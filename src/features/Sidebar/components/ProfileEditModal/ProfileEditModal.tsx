@@ -24,6 +24,11 @@ const ProfileEditModal: FC<Props> = ({ modalOpen, handleCloseModal }) => {
     if (result) handleCloseModal();
   };
 
+  const handleCancel = () => {
+    setName(profile?.display_name ?? "");
+    handleCloseModal();
+  };
+
   const handleAvatarClick = () => {
     fileInputRef.current?.click();
   };
@@ -37,7 +42,7 @@ const ProfileEditModal: FC<Props> = ({ modalOpen, handleCloseModal }) => {
   return (
     <Modal
       open={modalOpen}
-      onCancel={handleCloseModal}
+      onCancel={handleCancel}
       onOk={handleOk}
       confirmLoading={actionLoading}
     >
