@@ -10,6 +10,7 @@ import CustomSearch from "../../components/CustomSearch/CustomSearch";
 import AddModalProject from "../../features/components/AddModalProject/AddModalProject";
 import { getRandomColor } from "../../helpers/getRandomColor";
 import AddInlineProject from "../../features/project/components/AddInlineProject/AddInlineProject";
+import EmptyState from "../../components/EmptyState/EmptyState";
 
 const Home = () => {
   const { projects, addProject, initialLoading, actionLoading } =
@@ -75,38 +76,46 @@ const Home = () => {
   return (
     <div className={s.home}>
       <CustomHeader title="My Projects" />
-      <div className={s.header}>
-        <div className={s.headerLeft}>
-          <div className={s.search}>
-            <CustomSearch
-              handleClear={handleClearSearch}
-              value={search}
-              handleSearch={handleSearch}
-              placeholder="Search projects..."
+      {projects.length === 0 ? (
+        <EmptyState
+          handleOpenAddModal={handleOpenModal}
+          description="No projects yet"
+          buttonText="Add Project"
+        />
+      ) : (
+        <>
+          <div className={s.header}>
+            <div className={s.headerLeft}>
+              <div className={s.search}>
+                <CustomSearch
+                  handleClear={handleClearSearch}
+                  value={search}
+                  handleSearch={handleSearch}
+                  placeholder="Search projects..."
+                />
+              </div>
+            </div>
+            <div className={s.headerRight} onClick={handleOpenModal}>
+              <span className={s.text}>Add</span>
+              <PlusOutlined />
+            </div>
+          </div>
+
+          <div className={s.content}>
+            <div className={s.top}>
+              <span className={s.length}>{projectsLength}</span>
+            </div>
+            <div className={s.bottom}>
+              <ProjectList projects={filteredProjects} />
+            </div>
+            <AddInlineProject
+              value={inlineTitle}
+              setValue={setInlineTitle}
+              handleInlineCreateProject={handleInlineCreateProject}
             />
           </div>
-        </div>
-        <div className={s.headerRight} onClick={handleOpenModal}>
-          <span className={s.text}>Add</span>
-          <PlusOutlined />
-        </div>
-      </div>
-
-      {projects.length > 0 && (
-        <div className={s.content}>
-          <div className={s.top}>
-            <span className={s.length}>{projectsLength}</span>
-          </div>
-          <div className={s.bottom}>
-            <ProjectList projects={filteredProjects} />
-          </div>
-        </div>
+        </>
       )}
-      <AddInlineProject
-        value={inlineTitle}
-        setValue={setInlineTitle}
-        handleInlineCreateProject={handleInlineCreateProject}
-      />
 
       <AddModalProject
         modalOpen={modalOpen}
