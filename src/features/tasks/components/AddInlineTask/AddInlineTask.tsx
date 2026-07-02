@@ -19,6 +19,14 @@ const AddInlineTask: FC<Props> = ({ projectId }) => {
   const [date, setDate] = useState<Dayjs | null>(null);
   const [priority, setPriority] = useState<Priority>("low");
 
+  const reset = () => {
+    setIsAdding(false);
+    setTitle("");
+    setDescription("");
+    setDate(null);
+    setPriority("low");
+  };
+
   const handleAddTask = async () => {
     const result = await addTask(
       projectId,
@@ -28,20 +36,12 @@ const AddInlineTask: FC<Props> = ({ projectId }) => {
       date ? date.format("YYYY-MM-DD") : null,
     );
     if (result) {
-      setIsAdding(false);
-      setTitle("");
-      setDescription("");
-      setDate(null);
-      setPriority("low");
+      reset();
     }
   };
 
   const handleCancel = () => {
-    setIsAdding(false);
-    setTitle("");
-    setDescription("");
-    setDate(null);
-    setPriority("low");
+    reset();
   };
 
   return (
@@ -96,6 +96,7 @@ const AddInlineTask: FC<Props> = ({ projectId }) => {
               <div className={s.quickDates}>
                 {QUICK_DATES.map((q) => (
                   <button
+                    key={q.label}
                     onClick={() => setDate(q.getValue())}
                     className={s.quickDateBtn}
                   >
