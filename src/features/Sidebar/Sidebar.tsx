@@ -164,6 +164,10 @@ const Sidebar: FC<Props> = ({ collapsed, setCollapsed }) => {
 
           <Divider />
 
+          <div onClick={() => navigate("/app/today")} className={s.todayTasks}>
+            <span className={s.title}>Today's tasks</span>
+          </div>
+
           <div onClick={() => navigate("/app/done")} className={s.doneTasks}>
             <span className={s.title}>Done tasks</span>
           </div>
