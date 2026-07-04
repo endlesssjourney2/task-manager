@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import Sidebar from "../features/sidebar/Sidebar";
+import Sidebar from "../features/Sidebar/Sidebar";
 import { useState } from "react";
 import { Layout } from "antd";
 import { ProfileProvider } from "../context/ProfileContext";
