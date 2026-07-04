@@ -9,12 +9,11 @@ import {
   PlusOutlined,
 } from "@ant-design/icons";
 import { useProjectsContext } from "../../context/ProjectsContext";
-import ProjectsList from "./components/ProjectsList/ProjectsList";
 import AddModalProject from "../components/AddModalProject/AddModalProject";
-import SidebarProfile from "./components/SidebarProfile/SidebarProfile";
-import SidebarSkeleton from "./components/SidebarSkeleton/SidebarSkeleton";
 import AddModalTask from "../components/AddModalTask/AddModalTask";
-import { useDoneTasksContext } from "../../context/DoneTasksContext";
+import SidebarSkeleton from "./components/SidebarSkeleton/SidebarSkeleton";
+import SidebarProfile from "./components/SidebarProfile/SidebarProfile";
+import ProjectsList from "./components/ProjectsList/ProjectsList";
 
 const { Sider } = Layout;
 
@@ -24,17 +23,8 @@ type Props = {
 };
 
 const Sidebar: FC<Props> = ({ collapsed, setCollapsed }) => {
-  const {
-    projects,
-    addProject,
-    actionLoading,
-    removeProject,
-    initialLoading: projectsLoading,
-  } = useProjectsContext();
-
-  const { doneTasks, initialLoading: doneTasksLoading } = useDoneTasksContext();
-
-  const mainLoading = projectsLoading || doneTasksLoading;
+  const { projects, addProject, actionLoading, removeProject, initialLoading } =
+    useProjectsContext();
 
   const navigate = useNavigate();
 
@@ -110,7 +100,7 @@ const Sidebar: FC<Props> = ({ collapsed, setCollapsed }) => {
         trigger={null}
       >
         <div className={`${s.content} ${collapsed ? s.contentHidden : ""}`}>
-          {mainLoading ? (
+          {initialLoading ? (
             <SidebarSkeleton />
           ) : (
             <>
@@ -174,12 +164,9 @@ const Sidebar: FC<Props> = ({ collapsed, setCollapsed }) => {
 
           <Divider />
 
-          {doneTasks.length > 0 && (
-            <div onClick={() => navigate("/app/done")} className={s.doneTasks}>
-              <span className={s.title}>Done tasks</span>
-              <span className={s.subtitle}>{doneTasks.length}</span>
-            </div>
-          )}
+          <div onClick={() => navigate("/app/done")} className={s.doneTasks}>
+            <span className={s.title}>Done tasks</span>
+          </div>
         </div>
 
         <AddModalTask
