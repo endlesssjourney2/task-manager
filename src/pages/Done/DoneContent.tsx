@@ -47,7 +47,7 @@ const DoneContent = () => {
                 <div className={s.buttons}>
                   <button
                     className={`${s.button} ${s.restoreButton}`}
-                    onClick={() => handleRestoreTask(t.id, "todo")}
+                    onClick={() => handleRestoreTask(t.id)}
                   >
                     Restore
                   </button>
