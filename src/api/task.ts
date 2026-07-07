@@ -83,6 +83,7 @@ export const getTodayTasks = async (userId: string) => {
     .select("*, projects(title, color)")
     .eq("due_date", today)
     .eq("user_id", userId)
+    .neq("status", "done")
     .order("priority", { ascending: false });
 
   if (error) {
