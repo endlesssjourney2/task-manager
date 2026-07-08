@@ -153,24 +153,31 @@ const Sidebar: FC<Props> = ({ collapsed, setCollapsed }) => {
                   <span className={s.projectsInfo}>{projectsLength}</span>
                 </div>
               </div>
+              {showProjects && (
+                <div className={s.projects}>
+                  <ProjectsList
+                    projects={projects}
+                    removeProject={removeProject}
+                  />
+                </div>
+              )}
+              <Divider />
+
+              <div
+                onClick={() => navigate("/app/today")}
+                className={s.todayTasks}
+              >
+                <span className={s.title}>Today's tasks</span>
+              </div>
+
+              <div
+                onClick={() => navigate("/app/done")}
+                className={s.doneTasks}
+              >
+                <span className={s.title}>Done tasks</span>
+              </div>
             </>
           )}
-
-          {showProjects && (
-            <div className={s.projects}>
-              <ProjectsList projects={projects} removeProject={removeProject} />
-            </div>
-          )}
-
-          <Divider />
-
-          <div onClick={() => navigate("/app/today")} className={s.todayTasks}>
-            <span className={s.title}>Today's tasks</span>
-          </div>
-
-          <div onClick={() => navigate("/app/done")} className={s.doneTasks}>
-            <span className={s.title}>Done tasks</span>
-          </div>
         </div>
 
         <AddModalTask
