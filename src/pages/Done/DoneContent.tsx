@@ -1,14 +1,23 @@
+import { Spin } from "antd";
 import CustomHeader from "../../components/CustomHeader/CustomHeader";
 import { useDoneTasksContext } from "../../context/DoneTasksContext";
 import { relativeDate } from "../../helpers/dates";
 import useNotify from "../../hooks/useNotify";
 import s from "./Done.module.css";
+import { LoadingOutlined } from "@ant-design/icons";
 
 const DoneContent = () => {
-  const { doneTasks, handleRestoreTask, handleRemoveTask } =
+  const { doneTasks, handleRestoreTask, handleRemoveTask, initialLoading } =
     useDoneTasksContext();
 
   const notify = useNotify();
+
+  if (initialLoading)
+    return (
+      <div className={s.loading}>
+        <Spin indicator={<LoadingOutlined style={{ fontSize: 60 }} spin />} />
+      </div>
+    );
 
   return (
     <div className={s.done}>

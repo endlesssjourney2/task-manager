@@ -1,7 +1,8 @@
 import s from "./Today.module.css";
 import useTodayTasks from "../../hooks/useTodayTasks";
 import CustomHeader from "../../components/CustomHeader/CustomHeader";
-import { Checkbox, Tooltip } from "antd";
+import { Checkbox, Spin, Tooltip } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
 
 const Today = () => {
   const {
@@ -9,7 +10,15 @@ const Today = () => {
     handleDoneTask,
     handleTomorrowUpdate,
     handleNextWeekUpdate,
+    initialLoading,
   } = useTodayTasks();
+
+  if (initialLoading)
+    return (
+      <div className={s.loading}>
+        <Spin indicator={<LoadingOutlined style={{ fontSize: 60 }} spin />} />
+      </div>
+    );
 
   return (
     <div className={s.today}>

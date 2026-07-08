@@ -113,3 +113,11 @@
 .button:active {
   transform: scale(0.97);
 }
+
+.loading {
+  min-height: 100vh;
+  background-color: var(--bg-color-primary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
