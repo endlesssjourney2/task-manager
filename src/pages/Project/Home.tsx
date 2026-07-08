@@ -2,15 +2,15 @@ import React, { useMemo, useState } from "react";
 import s from "./Home.module.css";
 import { Spin } from "antd";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
-import ProjectList from "../../features/project/components/ProjectList/ProjectList";
 import { useProjectsContext } from "../../context/ProjectsContext";
 import useSearch from "../../hooks/useSearch";
 import CustomHeader from "../../components/CustomHeader/CustomHeader";
 import CustomSearch from "../../components/CustomSearch/CustomSearch";
 import AddModalProject from "../../features/components/AddModalProject/AddModalProject";
 import { getRandomColor } from "../../helpers/getRandomColor";
-import AddInlineProject from "../../features/project/components/AddInlineProject/AddInlineProject";
 import EmptyState from "../../components/EmptyState/EmptyState";
+import AddInlineProject from "../../features/Project/components/AddInlineProject/AddInlineProject";
+import ProjectList from "../../features/Project/components/ProjectList/ProjectList";
 
 const Home = () => {
   const { projects, addProject, initialLoading, actionLoading } =
