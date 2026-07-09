@@ -3,6 +3,9 @@ import useTodayTasks from "../../hooks/useTodayTasks";
 import CustomHeader from "../../components/CustomHeader/CustomHeader";
 import { Checkbox, Spin, Tooltip } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
+import { nextMonday } from "../../helpers/dates";
+import dayjs from "dayjs";
+import { IconArrowRight, IconCalendarPlus } from "@tabler/icons-react";
 
 const Today = () => {
   const {
@@ -11,6 +14,7 @@ const Today = () => {
     handleTomorrowUpdate,
     handleNextWeekUpdate,
     initialLoading,
+    actionLoading,
   } = useTodayTasks();
 
   if (initialLoading)
@@ -52,17 +56,21 @@ const Today = () => {
                 </div>
                 <div className={s.buttons}>
                   <button
+                    disabled={actionLoading}
                     className={`${s.button}`}
                     onClick={() => handleTomorrowUpdate(t.id)}
                   >
-                    Tomorrow
+                    <IconArrowRight size={14} />
+                    {dayjs().add(1, "day").format("MMMM D")}
                   </button>
 
                   <button
+                    disabled={actionLoading}
                     className={`${s.button}`}
                     onClick={() => handleNextWeekUpdate(t.id)}
                   >
-                    Next week
+                    <IconCalendarPlus size={14} />
+                    {nextMonday(dayjs()).format("MMM D")}
                   </button>
                 </div>
               </div>
