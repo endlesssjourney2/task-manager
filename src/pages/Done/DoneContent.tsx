@@ -5,6 +5,12 @@ import { relativeDate } from "../../helpers/dates";
 import useNotify from "../../hooks/useNotify";
 import s from "./Done.module.css";
 import { LoadingOutlined } from "@ant-design/icons";
+import {
+  IconCircleCheck,
+  IconClock,
+  IconRotateClockwise2,
+  IconTrash,
+} from "@tabler/icons-react";
 
 const DoneContent = () => {
   const { doneTasks, handleRestoreTask, handleRemoveTask, initialLoading } =
@@ -25,12 +31,12 @@ const DoneContent = () => {
       <ul className={s.list}>
         {doneTasks.map((t) => (
           <li key={t.id} className={s.item}>
-            <div className={s.status} />
+            <IconCircleCheck stroke={2} color="#22c55e" className={s.status} />
             <div className={s.content}>
               <div className={s.left}>
                 <h2
                   style={{
-                    textDecoration: t.status === "done" && "line-through",
+                    textDecoration: "line-through",
                   }}
                   className={s.title}
                 >
@@ -52,12 +58,16 @@ const DoneContent = () => {
                     # {t.projects.title}
                   </span>
                 </div>
-                <span className={s.date}>{relativeDate(t.updated_at)}</span>
+                <span className={s.date}>
+                  <IconClock size={14} />
+                  {relativeDate(t.updated_at)}
+                </span>
                 <div className={s.buttons}>
                   <button
                     className={`${s.button} ${s.restoreButton}`}
                     onClick={() => handleRestoreTask(t.id)}
                   >
+                    <IconRotateClockwise2 size={14} />
                     Restore
                   </button>
                   <button
@@ -72,6 +82,7 @@ const DoneContent = () => {
                       )
                     }
                   >
+                    <IconTrash size={14} />
                     Remove
                   </button>
                 </div>
