@@ -30,10 +30,6 @@
 }
 
 .status {
-  width: 15px;
-  height: 15px;
-  border-radius: 50%;
-  background: var(--status-done);
   flex-shrink: 0;
   border: none;
   margin-right: 15px;
@@ -97,18 +93,25 @@
 }
 
 .date {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3.5px;
   font-size: 15px;
 }
 
 .buttons {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 8px;
 }
 
 .button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3.5px;
   padding: 4px 10px;
   border: 1px solid transparent;
   border-radius: 8px;
