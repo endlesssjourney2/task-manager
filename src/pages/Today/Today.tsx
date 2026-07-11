@@ -6,6 +6,7 @@ import { LoadingOutlined } from "@ant-design/icons";
 import { nextMonday } from "../../helpers/dates";
 import dayjs from "dayjs";
 import { IconArrowRight, IconCalendarPlus } from "@tabler/icons-react";
+import { Link } from "react-router-dom";
 
 const Today = () => {
   const {
@@ -38,21 +39,19 @@ const Today = () => {
 
               <div className={s.left}>
                 <h2 className={s.title}>{t.title}</h2>
-                {t.description && (
-                  <span className={s.subtitle}>{t.description}</span>
-                )}
               </div>
               <div className={s.right}>
                 <div
                   className={s.project}
                   style={{ backgroundColor: `${t.projects.color}26` }}
                 >
-                  <span
+                  <Link
                     className={s.projectTitle}
                     style={{ color: t.projects.color }}
+                    to={`/app/project/${t.project_id}`}
                   >
                     # {t.projects.title}
-                  </span>
+                  </Link>
                 </div>
                 <div className={s.buttons}>
                   <button
