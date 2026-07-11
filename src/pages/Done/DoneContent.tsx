@@ -11,6 +11,7 @@ import {
   IconRotateClockwise2,
   IconTrash,
 } from "@tabler/icons-react";
+import { Link } from "react-router-dom";
 
 const DoneContent = () => {
   const { doneTasks, handleRestoreTask, handleRemoveTask, initialLoading } =
@@ -51,12 +52,13 @@ const DoneContent = () => {
                   className={s.project}
                   style={{ backgroundColor: `${t.projects.color}26` }}
                 >
-                  <span
+                  <Link
                     className={s.projectTitle}
                     style={{ color: t.projects.color }}
+                    to={`/app/project/${t.project_id}`}
                   >
                     # {t.projects.title}
-                  </span>
+                  </Link>
                 </div>
                 <span className={s.date}>
                   <IconClock size={14} />
