@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { supabase } from "../supabase/supabaseClient";
 import type { CreateTaskPayload, UpdateTaskPayload } from "../types/task";
 
@@ -71,5 +72,23 @@ export const getDoneTasks = async (userId: string) => {
     return [null, error];
   }
 
+  return [data, null];
+};
+
+export const getTodayTasks = async (userId: string) => {
+  const today = dayjs().format("YYYY-MM-DD");
+
+  const { data, error } = await supabase
+    .from("tasks")
+    .select("*, projects(title, color)")
+    .eq("due_date", today)
+    .eq("user_id", userId)
+    .neq("status", "done")
+    .order("priority", { ascending: false });
+
+  if (error) {
+    console.error("Error fetching tasks", error.message);
+    return [null, error];
+  }
   return [data, null];
 };

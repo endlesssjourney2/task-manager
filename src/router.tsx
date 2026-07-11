@@ -6,6 +6,7 @@ import Home from "./pages/Project/Home.tsx";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.tsx";
 import Project from "./pages/Tasks/Project.tsx";
 import Done from "./pages/Done/Done.tsx";
+import Today from "./pages/Today/Today.tsx";
 
 export const router = createBrowserRouter(
   [
@@ -27,6 +28,10 @@ export const router = createBrowserRouter(
         {
           path: "done",
           element: <Done />,
+        },
+        {
+          path: "today",
+          element: <Today />,
         },
       ],
     },

@@ -35,9 +35,9 @@ const useDoneTasks = () => {
     fetchDoneTasks();
   }, [user]);
 
-  const handleRestoreTask = async (taskId: string, newStatus: "todo") => {
+  const handleRestoreTask = async (taskId: string) => {
     setActionLoading(true);
-    const result = await editTask(taskId, { status: newStatus });
+    const result = await editTask(taskId, { status: "todo" });
     if (result) {
       setDoneTasks((prev) => prev.filter((task) => task.id !== taskId));
     }

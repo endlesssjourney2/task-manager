@@ -6,7 +6,6 @@ import TaskDropdown from "../TaskDropdown/TaskDropdown";
 import CustomStatus from "../CustomStatus/CustomStatus";
 import { formatDueDate } from "../../../../helpers/dates";
 import CustomPriority from "../CustomPriority/CustomPriority";
-import { useDoneTasksContext } from "../../../../context/DoneTasksContext";
 
 type Props = {
   tasks: Task[];
@@ -15,7 +14,6 @@ type Props = {
 
 const TasksList: FC<Props> = ({ tasks, handleOpenModal }) => {
   const { editTask } = useProjectTasksContext();
-  const { refetch } = useDoneTasksContext();
 
   const handleChangeStatus = async (
     taskId: string,
@@ -23,11 +21,7 @@ const TasksList: FC<Props> = ({ tasks, handleOpenModal }) => {
     newStatus: Status,
   ) => {
     if (currentStatus === newStatus) return;
-    const result = await editTask(taskId, { status: newStatus });
-
-    if (result && newStatus === "done") {
-      refetch();
-    }
+    await editTask(taskId, { status: newStatus });
   };
 
   return (

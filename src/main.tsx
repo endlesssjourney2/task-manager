@@ -28,6 +28,12 @@ createRoot(document.getElementById("root")!).render(
             Layout: {
               siderBg: "#262626",
             },
+            Checkbox: {
+              colorPrimary: "#49AA19",
+              colorPrimaryHover: "#49AA19",
+              colorBgContainer: "transparent",
+              colorBorder: "#d9d9d9",
+            },
           },
         }}
       >

@@ -1,11 +1,10 @@
 import { Outlet } from "react-router-dom";
-import Sidebar from "../features/sidebar/Sidebar";
+import Sidebar from "../features/Sidebar/Sidebar";
 import { useState } from "react";
 import { Layout } from "antd";
 import { ProfileProvider } from "../context/ProfileContext";
 import { ProjectsProvider } from "../context/ProjectsContext";
 import { TasksProvider } from "../context/TasksContext";
-import { DoneTasksProvider } from "../context/DoneTasksContext";
 
 const { Content } = Layout;
 
@@ -18,16 +17,14 @@ const RootLayout = () => {
     <ProfileProvider>
       <ProjectsProvider>
         <TasksProvider>
-          <DoneTasksProvider>
+          <Layout>
+            <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} />
             <Layout>
-              <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} />
-              <Layout>
-                <Content>
-                  <Outlet />
-                </Content>
-              </Layout>
+              <Content>
+                <Outlet />
+              </Content>
             </Layout>
-          </DoneTasksProvider>
+          </Layout>
         </TasksProvider>
       </ProjectsProvider>
     </ProfileProvider>

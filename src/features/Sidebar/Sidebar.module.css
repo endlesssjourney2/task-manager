@@ -107,7 +107,8 @@
   transform: rotate(90deg);
 }
 
-.doneTasks {
+.doneTasks,
+.todayTasks {
   cursor: pointer;
   display: flex;
   justify-content: space-between;
@@ -120,19 +121,12 @@
   padding: 0 8px 0 8px;
 }
 
-.doneTasks:hover {
+.doneTasks:hover,
+.todayTasks:hover {
   background-color: #322f2a;
 }
 
 .title {
   font-size: 20px;
   font-weight: 600;
-}
-
-.subtitle {
-  opacity: 0;
-}
-
-.doneTasks:hover .subtitle {
-  opacity: 1;
 }
