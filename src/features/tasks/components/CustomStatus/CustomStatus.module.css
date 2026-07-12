@@ -8,19 +8,8 @@
   border: none;
 }
 
-.todo {
-  border: 1px solid var(--status-todo);
-}
-
-.in_progress {
-  border: 1px solid var(--status-in-progress);
-  background: conic-gradient(
-    var(--status-in-progress) 200deg,
-    transparent 200deg
-  );
-}
-
-.done {
-  border: 1px solid var(--status-done);
-  background: var(--status-done);
+.label {
+  display: flex;
+  gap: 8px;
+  align-items: center;
 }
