@@ -2,7 +2,11 @@ import type { FC } from "react";
 import s from "./CustomPriority.module.css";
 import type { Priority } from "../../../../types/task";
 import { Dropdown, Tooltip, type MenuProps } from "antd";
-import { PRIORITY_LABELS } from "../../../../constants/priority";
+import {
+  PRIORITY_COLORS,
+  PRIORITY_LABELS,
+} from "../../../../constants/priority";
+import { IconFlag } from "@tabler/icons-react";
 
 type Props = {
   priority: Priority;
@@ -17,9 +21,30 @@ const priorityColors: Record<Priority, string> = {
 
 const CustomPriority: FC<Props> = ({ priority, onChange }) => {
   const items: MenuProps["items"] = [
-    { key: "low", label: "🟢 Low" },
-    { key: "medium", label: "🟡 Medium" },
-    { key: "high", label: "🔴 High" },
+    {
+      key: "low",
+      label: (
+        <span className={s.label}>
+          <IconFlag size={14} color={PRIORITY_COLORS.low} /> Low
+        </span>
+      ),
+    },
+    {
+      key: "medium",
+      label: (
+        <span className={s.label}>
+          <IconFlag size={14} color={PRIORITY_COLORS.medium} /> Medium
+        </span>
+      ),
+    },
+    {
+      key: "high",
+      label: (
+        <span className={s.label}>
+          <IconFlag size={14} color={PRIORITY_COLORS.high} /> High
+        </span>
+      ),
+    },
   ];
 
   return (
@@ -33,7 +58,19 @@ const CustomPriority: FC<Props> = ({ priority, onChange }) => {
           },
         }}
       >
-        <button className={`${s.circle} ${s[priority]}`}></button>
+        {priority === "low" ? (
+          <IconFlag style={{ cursor: "pointer" }} color={PRIORITY_COLORS.low} />
+        ) : priority === "medium" ? (
+          <IconFlag
+            style={{ cursor: "pointer" }}
+            color={PRIORITY_COLORS.medium}
+          />
+        ) : (
+          <IconFlag
+            style={{ cursor: "pointer" }}
+            color={PRIORITY_COLORS.high}
+          />
+        )}
       </Dropdown>
     </Tooltip>
   );
