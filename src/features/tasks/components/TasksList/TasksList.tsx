@@ -1,19 +1,29 @@
-import type { FC } from "react";
+import { useState } from "react";
 import s from "./TasksList.module.css";
 import type { Status, Task } from "../../../../types/task";
 import { useProjectTasksContext } from "../../../../context/ProjectTasksContext";
-import TaskDropdown from "../TaskDropdown/TaskDropdown";
 import CustomStatus from "../CustomStatus/CustomStatus";
 import { formatDueDate } from "../../../../helpers/dates";
 import CustomPriority from "../CustomPriority/CustomPriority";
+import EditModal from "../EditModal/EditModal";
+import useNotify from "../../../../hooks/useNotify";
+import { IconEdit, IconTrash } from "@tabler/icons-react";
 
-type Props = {
-  tasks: Task[];
-  handleOpenModal: (task: Task) => void;
-};
+const TasksList = () => {
+  const { editTask, removeTask, tasks } = useProjectTasksContext();
+  const notify = useNotify();
+  const [editModalOpen, setEditModalOpen] = useState(false);
+  const [selectedTask, setSelectedTask] = useState<Task | null>(null);
 
-const TasksList: FC<Props> = ({ tasks, handleOpenModal }) => {
-  const { editTask } = useProjectTasksContext();
+  const handleOpenEditModal = (task: Task) => {
+    setEditModalOpen(true);
+    setSelectedTask(task);
+  };
+
+  const handleCloseEditModal = () => {
+    setEditModalOpen(false);
+    setTimeout(() => setSelectedTask(null), 300);
+  };
 
   const handleChangeStatus = async (
     taskId: string,
@@ -61,12 +71,41 @@ const TasksList: FC<Props> = ({ tasks, handleOpenModal }) => {
                       : editTask(t.id, { priority: newPriority });
                   }}
                 />
-                <TaskDropdown task={t} handleOpenEditModal={handleOpenModal} />
+                <div className={s.buttons}>
+                  <button
+                    className={`${s.button} ${s.editBtn}`}
+                    onClick={() => handleOpenEditModal(t)}
+                  >
+                    <IconEdit size={14} />
+                    Edit
+                  </button>
+                  <button
+                    className={`${s.button} ${s.removeBtn}`}
+                    onClick={() =>
+                      notify.modal.confirm(
+                        "Are you sure you want to delete this task?",
+                        "This action cannot be undone",
+                        () => removeTask(t.id),
+                        450,
+                      )
+                    }
+                  >
+                    <IconTrash size={14} />
+                    Remove
+                  </button>
+                </div>
               </div>
             </div>
           </li>
         ))}
       </ul>
+      {selectedTask && (
+        <EditModal
+          modalOpen={editModalOpen}
+          selectedTask={selectedTask}
+          handleCloseModal={handleCloseEditModal}
+        />
+      )}
     </>
   );
 };
