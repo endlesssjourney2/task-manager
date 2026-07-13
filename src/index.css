@@ -53,27 +53,41 @@ li {
   --btn-primary-hover: #30363d;
   --btn-primary-active: #373e47;
   --btn-primary-text: #c9d1d9;
-  --btn-edit-bg: rgba(88, 166, 255, 0.12);
-  --btn-edit-hover-bg: rgba(88, 166, 255, 0.22);
-  --btn-edit-text: #58a6ff;
-  --btn-remove-bg: rgba(239, 68, 68, 0.12);
-  --btn-remove-hover-bg: rgba(239, 68, 68, 0.22);
-  --btn-remove-text: #ef4444;
+
+  --btn-edit-bg: #2f81f714;
+  --btn-edit-border: #2f81f759;
+  --btn-edit-text: #2f81f7;
+  --btn-edit-hover-bg: #2f81f724;
+  --btn-edit-hover-border: #2f81f7a6;
+  --btn-edit-hover-text: #79c0ff;
+
+  --btn-remove-bg: #f8717114;
+  --btn-remove-border: #f8717159;
+  --btn-remove-text: #f87171;
+  --btn-remove-hover-bg: #f8717124;
+  --btn-remove-hover-border: #f87171a6;
+  --btn-remove-hover-text: #fca5a5;
 
   /* Accent */
   --color-accent-blue: #2f81f7;
   --color-error: #ef4444;
   --color-error-hover: #dc2626;
 
-  /* Priority colors */
-  --priority-low: #22c55e;
-  --priority-medium: #f59e0b;
-  --priority-high: #ef4444;
-
   /* Status text/accent */
   --status-todo: #2f81f7;
   --status-in-progress: #eab308;
   --status-done: #22c55e;
+
+  /* Status background */
+  --status-todo-bg: rgba(47, 129, 247, 0.15);
+  --status-in-progress-bg: rgba(234, 179, 8, 0.15);
+  --status-done-bg: rgba(34, 197, 94, 0.15);
+  --status-done-hover-bg: rgba(34, 197, 94, 0.22);
+
+  /* Priority colors */
+  --priority-low: #22c55e;
+  --priority-medium: #f59e0b;
+  --priority-high: #ef4444;
 
   /* Status background */
   --status-todo-bg: rgba(47, 129, 247, 0.15);
