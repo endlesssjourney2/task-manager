@@ -118,7 +118,7 @@
   justify-content: center;
   align-items: center;
   gap: 3.5px;
-  padding: 4px 10px;
+  padding: 5px 10px;
   border: 1px solid transparent;
   border-radius: 8px;
   font-family: "Poppins", sans-serif;
@@ -127,26 +127,42 @@
   cursor: pointer;
   background-color: transparent;
   transition:
-    background-color 0.15s,
-    border-color 0.15s;
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    transform 0.15s ease;
 }
 
 .restoreButton {
   color: var(--status-done);
-  border-color: var(--status-done);
+  background: var(--status-done-bg);
+  border: 1px solid var(--status-done);
 }
 
 .restoreButton:hover {
-  background-color: rgba(74, 222, 128, 0.12);
+  background: var(--status-done-hover-bg);
+}
+
+.restoreButton:active {
+  transform: scale(0.97);
 }
 
 .removeButton {
   color: #f87171;
-  border-color: #f87171;
+  background: #f8717114;
+  border: 1px solid #f8717159;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
 }
 
 .removeButton:hover {
-  background-color: rgba(248, 113, 113, 0.12);
+  color: #fca5a5;
+  background: #f8717124;
+  border-color: #f87171a6;
+}
+
+.removeButton:active {
+  transform: scale(0.97);
 }
 
 .loading {
