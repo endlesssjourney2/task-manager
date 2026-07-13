@@ -69,7 +69,7 @@ const Today = () => {
                     onClick={() => handleNextWeekUpdate(t.id)}
                   >
                     <IconCalendarPlus size={14} />
-                    {nextMonday(dayjs()).format("MMM D")}
+                    {nextMonday(dayjs()).format("MMMM D")}
                   </button>
                 </div>
               </div>
