@@ -1,13 +1,12 @@
 import { type FC } from "react";
 import { Dropdown, Tooltip, type MenuProps } from "antd";
 import type { Status } from "../../../../types/task";
-import s from "./CustomStatus.module.css";
-import { STATUS_COLORS, STATUS_LABELS } from "../../../../constants/status";
 import {
-  IconCircle,
-  IconCircleCheck,
-  IconCircleHalf2,
-} from "@tabler/icons-react";
+  STATUS_COLORS,
+  STATUS_ICONS,
+  STATUS_LABELS,
+} from "../../../../constants/status";
+import StatusIcon from "./StatusIcon/StatusIcon";
 
 type Props = {
   status: Status;
@@ -25,30 +24,19 @@ const CustomStatus: FC<Props> = ({ status, onChange, disabled }) => {
   const items: MenuProps["items"] = [
     {
       key: "todo",
-      label: (
-        <span className={s.label}>
-          <IconCircle size={14} color={STATUS_COLORS.todo} /> Todo
-        </span>
-      ),
+      label: <StatusIcon status="todo" />,
     },
     {
       key: "in_progress",
-      label: (
-        <span className={s.label}>
-          <IconCircleHalf2 size={14} color={STATUS_COLORS.in_progress} /> In
-          progress
-        </span>
-      ),
+      label: <StatusIcon status="in_progress" />,
     },
     {
       key: "done",
-      label: (
-        <span className={s.label}>
-          <IconCircleCheck size={14} color={STATUS_COLORS.done} /> Done
-        </span>
-      ),
+      label: <StatusIcon status="done" />,
     },
   ];
+
+  const CurrentIcon = STATUS_ICONS[status];
 
   return (
     <Tooltip title={STATUS_LABELS[status]} color={statusColors[status]}>
@@ -62,22 +50,10 @@ const CustomStatus: FC<Props> = ({ status, onChange, disabled }) => {
           },
         }}
       >
-        {status === "todo" ? (
-          <IconCircle
-            style={{ cursor: "pointer" }}
-            color={STATUS_COLORS.todo}
-          />
-        ) : status === "in_progress" ? (
-          <IconCircleHalf2
-            style={{ cursor: "pointer" }}
-            color={STATUS_COLORS.in_progress}
-          />
-        ) : (
-          <IconCircleCheck
-            style={{ cursor: "pointer" }}
-            color={STATUS_COLORS.done}
-          />
-        )}
+        <CurrentIcon
+          style={{ cursor: "pointer" }}
+          color={STATUS_COLORS[status]}
+        />
       </Dropdown>
     </Tooltip>
   );
