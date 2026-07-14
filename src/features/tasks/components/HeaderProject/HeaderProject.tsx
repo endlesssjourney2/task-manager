@@ -1,6 +1,6 @@
 import type { FC } from "react";
 import s from "./HeaderProject.module.css";
-import { Typography } from "antd";
+import { ConfigProvider, Typography } from "antd";
 
 type Props = {
   title: string;
@@ -10,17 +10,30 @@ type Props = {
 const HeaderProject: FC<Props> = ({ title, renameProject }) => {
   return (
     <div className={s.header}>
-      <Typography.Title
-        className={s.title}
-        level={2}
-        editable={{
-          onChange: renameProject,
-          triggerType: ["text"],
-          tooltip: "Click to rename project",
+      <ConfigProvider
+        theme={{
+          components: {
+            Input: {
+              colorBgContainer: "transparent",
+              colorBorder: "transparent",
+              activeBorderColor: "transparent",
+              hoverBorderColor: "transparent",
+            },
+          },
         }}
       >
-        {title}
-      </Typography.Title>
+        <Typography.Title
+          className={s.title}
+          level={2}
+          editable={{
+            onChange: renameProject,
+            triggerType: ["text"],
+            tooltip: "Click to rename project",
+          }}
+        >
+          {title}
+        </Typography.Title>
+      </ConfigProvider>
     </div>
   );
 };
