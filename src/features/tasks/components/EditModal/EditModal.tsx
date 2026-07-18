@@ -8,6 +8,7 @@ import { PRIORITY_OPTIONS } from "../../../../constants/priority";
 import { useProjectTasksContext } from "../../../../context/ProjectTasksContext";
 import { QUICK_DATES } from "../../../../constants/dates";
 import { capitalizeFirst } from "../../../../helpers/capitalizeFirst";
+import { IconCancel, IconEdit, IconRestore } from "@tabler/icons-react";
 
 type Props = {
   modalOpen: boolean;
@@ -75,9 +76,11 @@ const EditModal: FC<Props> = ({
 
           <div className={s.buttons}>
             <Button type="default" onClick={handleCloseModal}>
+              <IconCancel size={16} />
               Cancel
             </Button>
             <Button type="default" onClick={handleReset}>
+              <IconRestore size={16} />
               Reset
             </Button>
             <Button
@@ -85,6 +88,7 @@ const EditModal: FC<Props> = ({
               onClick={handleEditTask}
               loading={actionLoading}
             >
+              <IconEdit size={16} />
               Edit task
             </Button>
           </div>
