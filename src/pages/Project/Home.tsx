@@ -9,8 +9,8 @@ import CustomSearch from "../../components/CustomSearch/CustomSearch";
 import AddModalProject from "../../features/components/AddModalProject/AddModalProject";
 import { getRandomColor } from "../../helpers/getRandomColor";
 import EmptyState from "../../components/EmptyState/EmptyState";
-import AddInlineProject from "../../features/Project/components/AddInlineProject/AddInlineProject";
-import ProjectList from "../../features/Project/components/ProjectList/ProjectList";
+import AddInlineProject from "../../features/project/components/AddInlineProject/AddInlineProject";
+import ProjectList from "../../features/project/components/ProjectList/ProjectList";
 
 const Home = () => {
   const { projects, addProject, initialLoading, actionLoading } =
