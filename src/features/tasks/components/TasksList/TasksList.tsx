@@ -3,14 +3,17 @@ import s from "./TasksList.module.css";
 import type { Status, Task } from "../../../../types/task";
 import { useProjectTasksContext } from "../../../../context/ProjectTasksContext";
 import CustomStatus from "../CustomStatus/CustomStatus";
-import { formatDueDate } from "../../../../helpers/dates";
+import { formatDueDate, getDueDateColor } from "../../../../helpers/dates";
 import CustomPriority from "../CustomPriority/CustomPriority";
 import EditModal from "../EditModal/EditModal";
 import useNotify from "../../../../hooks/useNotify";
-import { IconEdit, IconTrash } from "@tabler/icons-react";
+import { IconCalendar, IconEdit, IconTrash } from "@tabler/icons-react";
+import dayjs from "dayjs";
+import { Tooltip } from "antd";
 
 const TasksList = () => {
-  const { editTask, removeTask, tasks } = useProjectTasksContext();
+  const { editTask, removeTask, tasks, actionLoading } =
+    useProjectTasksContext();
   const notify = useNotify();
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
@@ -62,7 +65,18 @@ const TasksList = () => {
                 </div>
               </div>
               <div className={s.right}>
-                <div className={s.date}>{formatDueDate(t.due_date)}</div>
+                <Tooltip
+                  title={`${t.due_date ? dayjs(t.due_date).format("YYYY-MM-DD") : ""}`}
+                >
+                  <div
+                    className={s.date}
+                    style={{ color: getDueDateColor(t.due_date, t.status) }}
+                  >
+                    <IconCalendar size={16} />
+                    {formatDueDate(t.due_date)}
+                  </div>
+                </Tooltip>
+
                 <CustomPriority
                   priority={t.priority}
                   onChange={(newPriority) => {
@@ -75,6 +89,7 @@ const TasksList = () => {
                   <button
                     className={`${s.button} ${s.editBtn}`}
                     onClick={() => handleOpenEditModal(t)}
+                    disabled={actionLoading}
                   >
                     <IconEdit size={14} />
                     Edit
@@ -89,6 +104,7 @@ const TasksList = () => {
                         450,
                       )
                     }
+                    disabled={actionLoading}
                   >
                     <IconTrash size={14} />
                     Remove
