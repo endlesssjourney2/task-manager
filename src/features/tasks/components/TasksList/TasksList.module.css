@@ -81,7 +81,13 @@
 }
 
 .date {
-  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3.5px;
+  font-size: 15px;
+  font-weight: 500;
+  white-space: nowrap;
 }
 
 .buttons {
