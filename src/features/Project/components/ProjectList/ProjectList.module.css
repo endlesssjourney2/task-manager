@@ -43,3 +43,52 @@
   font-size: 20px;
   font-weight: 300;
 }
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3.5px;
+  padding: 6px 10px;
+  font-size: 13px;
+  border-radius: 8px;
+  transition: all 0.15s ease;
+  cursor: pointer;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+}
+
+.button:active {
+  transform: scale(0.97);
+}
+
+.editBtn {
+  color: var(--btn-edit-text);
+  background: var(--btn-edit-bg);
+  border: 1px solid var(--btn-edit-border);
+}
+
+.editBtn:hover {
+  color: var(--btn-edit-hover-text);
+  background: var(--btn-edit-hover-bg);
+  border-color: var(--btn-edit-hover-border);
+}
+
+.removeBtn {
+  color: var(--btn-remove-text);
+  background: var(--btn-remove-bg);
+  border: 1px solid var(--btn-remove-border);
+}
+
+.removeBtn:hover {
+  color: var(--btn-remove-hover-text);
+  background: var(--btn-remove-hover-bg);
+  border-color: var(--btn-remove-hover-border);
+}
