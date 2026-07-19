@@ -2,6 +2,7 @@ import { Button, ColorPicker, Input, Modal } from "antd";
 import s from "./EditModalProject.module.css";
 import { useState, type FC } from "react";
 import type { Project, UpdateProjectPayload } from "../../../../types/project";
+import { IconCancel, IconEdit } from "@tabler/icons-react";
 
 type Props = {
   modalOpen: boolean;
@@ -49,9 +50,11 @@ const EditModalProject: FC<Props> = ({
       footer={[
         <div className={s.footer} key={"footer"}>
           <Button type="default" onClick={handleCloseModal}>
+            <IconCancel size={16} />
             Cancel
           </Button>
           <Button type="primary" onClick={handleOk} loading={loading}>
+            <IconEdit size={16} />
             Edit Project
           </Button>
         </div>,
