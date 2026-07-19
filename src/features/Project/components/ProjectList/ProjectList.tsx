@@ -4,7 +4,8 @@ import { useState, type FC } from "react";
 import type { Project, UpdateProjectPayload } from "../../../../types/project";
 import { useProjectsContext } from "../../../../context/ProjectsContext";
 import EditModalProject from "../EditModalProject/EditModalProject";
-import CustomDropdown from "../../../components/CustomDropdown/CustomDropdown";
+import useNotify from "../../../../hooks/useNotify";
+import { IconEdit, IconTrash } from "@tabler/icons-react";
 
 type Props = {
   projects: Project[];
@@ -12,7 +13,8 @@ type Props = {
 
 const ProjectList: FC<Props> = ({ projects }) => {
   const navigate = useNavigate();
-  const { editProject } = useProjectsContext();
+  const notify = useNotify();
+  const { editProject, removeProject, actionLoading } = useProjectsContext();
 
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
@@ -55,12 +57,34 @@ const ProjectList: FC<Props> = ({ projects }) => {
               <div className={s.title}>
                 <span className={s.titleText}>{p.title}</span>
               </div>
-              <div onClick={(e) => e.stopPropagation()}>
-                <CustomDropdown
-                  id={p.id}
-                  handleOpenEditModal={handleOpenEditModal}
-                  project={p}
-                />
+              <div className={s.buttons}>
+                <button
+                  className={`${s.button} ${s.editBtn}`}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleOpenEditModal(p);
+                  }}
+                  disabled={actionLoading}
+                >
+                  <IconEdit size={14} />
+                  Edit
+                </button>
+                <button
+                  className={`${s.button} ${s.removeBtn}`}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    notify.modal.confirm(
+                      "Are you sure you want to delete this project?",
+                      "This action cannot be undone",
+                      () => removeProject(p.id),
+                      450,
+                    );
+                  }}
+                  disabled={actionLoading}
+                >
+                  <IconTrash size={14} />
+                  Remove
+                </button>
               </div>
             </div>
           </li>
