@@ -7,7 +7,6 @@ import useSearch from "../../hooks/useSearch";
 import CustomHeader from "../../components/CustomHeader/CustomHeader";
 import CustomSearch from "../../components/CustomSearch/CustomSearch";
 import AddModalProject from "../../features/components/AddModalProject/AddModalProject";
-import { getRandomColor } from "../../helpers/getRandomColor";
 import EmptyState from "../../components/EmptyState/EmptyState";
 import AddInlineProject from "../../features/project/components/AddInlineProject/AddInlineProject";
 import ProjectList from "../../features/project/components/ProjectList/ProjectList";
@@ -34,18 +33,6 @@ const Home = () => {
       setModalOpen(false);
     }
     return result;
-  };
-
-  const [inlineTitle, setInlineTitle] = useState("");
-
-  const handleInlineCreateProject = async (
-    e: React.KeyboardEvent<HTMLInputElement>,
-  ) => {
-    if (e.key === "Enter") {
-      if (!inlineTitle.trim()) return;
-      await addProject(inlineTitle, getRandomColor());
-      setInlineTitle("");
-    }
   };
 
   const handleOpenModal = () => {
@@ -95,10 +82,10 @@ const Home = () => {
                 />
               </div>
             </div>
-            <div className={s.headerRight} onClick={handleOpenModal}>
+            <button className={s.headerRight} onClick={handleOpenModal}>
               <span className={s.text}>Add</span>
               <PlusOutlined />
-            </div>
+            </button>
           </div>
 
           <div className={s.content}>
@@ -108,11 +95,7 @@ const Home = () => {
             <div className={s.bottom}>
               <ProjectList projects={filteredProjects} />
             </div>
-            <AddInlineProject
-              value={inlineTitle}
-              setValue={setInlineTitle}
-              handleInlineCreateProject={handleInlineCreateProject}
-            />
+            <AddInlineProject />
           </div>
         </>
       )}
