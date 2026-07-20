@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import CustomDropdown from "../../../components/CustomDropdown/CustomDropdown";
 import { useProjectsContext } from "../../../../context/ProjectsContext";
 import EditModalProject from "../../../project/components/EditModalProject/EditModalProject";
+import { IconFolder } from "@tabler/icons-react";
 
 type Props = {
   projects: Project[];
@@ -50,9 +51,7 @@ const ProjectsList: FC<Props> = ({ projects }) => {
             onClick={() => navigate(`/app/project/${p.id}`)}
           >
             <div className={s.left}>
-              <span className={s.desc} style={{ color: `${p.color}` }}>
-                #
-              </span>
+              <IconFolder color={p.color} size={18} />
             </div>
             <div className={s.right}>
               <h2 className={s.title}>{p.title}</h2>

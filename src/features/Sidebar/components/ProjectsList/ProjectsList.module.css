@@ -22,9 +22,10 @@
   background-color: #322f2a;
 }
 
-.desc {
-  font-weight: 400;
-  font-size: 18px;
+.left {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .title {

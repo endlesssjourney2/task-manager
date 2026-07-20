@@ -5,7 +5,7 @@ import type { Project, UpdateProjectPayload } from "../../../../types/project";
 import { useProjectsContext } from "../../../../context/ProjectsContext";
 import EditModalProject from "../EditModalProject/EditModalProject";
 import useNotify from "../../../../hooks/useNotify";
-import { IconEdit, IconTrash } from "@tabler/icons-react";
+import { IconEdit, IconFolder, IconTrash } from "@tabler/icons-react";
 
 type Props = {
   projects: Project[];
@@ -51,7 +51,7 @@ const ProjectList: FC<Props> = ({ projects }) => {
             onClick={() => navigate(`/app/project/${p.id}`)}
           >
             <div className={s.colorBar}>
-              <span style={{ color: p.color }}>#</span>
+              <IconFolder color={p.color} size={20} />
             </div>
             <div className={s.content}>
               <div className={s.title}>
