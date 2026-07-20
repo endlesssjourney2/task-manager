@@ -17,10 +17,3 @@
   height: 40px;
   font-size: 18px;
 }
-
-.colorSwatch {
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
-  cursor: pointer;
-}

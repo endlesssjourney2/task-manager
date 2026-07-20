@@ -2,6 +2,7 @@ import { Button, ColorPicker, Input, Modal } from "antd";
 import s from "./AddModalProject.module.css";
 import { useState, type FC } from "react";
 import { getRandomColor } from "../../../helpers/getRandomColor";
+import { IconCancel, IconFolder, IconFolderPlus } from "@tabler/icons-react";
 
 type Props = {
   modalOpen: boolean;
@@ -43,9 +44,11 @@ const HomeModal: FC<Props> = ({
       footer={[
         <div className={s.footer} key={"footer"}>
           <Button type="default" onClick={handleCancel}>
+            <IconCancel size={16} />
             Cancel
           </Button>
           <Button type="primary" onClick={handleOk} loading={loading}>
+            <IconFolderPlus size={16} />
             Create Project
           </Button>
         </div>,
@@ -61,12 +64,14 @@ const HomeModal: FC<Props> = ({
           onPressEnter={handleOk}
           suffix={
             <ColorPicker
+              placement="bottom"
               value={color}
               onChange={(e) => setColor(e.toHexString())}
             >
-              <div
-                className={s.colorSwatch}
-                style={{ backgroundColor: color }}
+              <IconFolder
+                style={{ cursor: "pointer" }}
+                size={25}
+                color={color}
               />
             </ColorPicker>
           }
