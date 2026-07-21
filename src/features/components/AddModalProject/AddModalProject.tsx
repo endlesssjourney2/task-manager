@@ -64,6 +64,7 @@ const HomeModal: FC<Props> = ({
           onPressEnter={handleOk}
           suffix={
             <ColorPicker
+              arrow={{ pointAtCenter: true }}
               placement="bottom"
               value={color}
               onChange={(e) => setColor(e.toHexString())}
