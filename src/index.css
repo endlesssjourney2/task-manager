@@ -68,6 +68,13 @@ li {
   --btn-remove-hover-border: #f87171a6;
   --btn-remove-hover-text: #fca5a5;
 
+  --btn-add-bg: #2f81f7;
+  --btn-add-border: #2f81f7;
+  --btn-add-text: #ffffff;
+  --btn-add-hover-bg: #4a90ff;
+  --btn-add-hover-border: #4a90ff;
+  --btn-add-hover-text: #ffffff;
+
   /* Accent */
   --color-accent-blue: #2f81f7;
   --color-error: #ef4444;
