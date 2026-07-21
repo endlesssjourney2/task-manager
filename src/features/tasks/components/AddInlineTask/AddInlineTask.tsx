@@ -160,7 +160,7 @@ const AddInlineTask: FC<Props> = ({ projectId }) => {
               </button>
               <button
                 className={`${s.btn} ${s.addBtn}`}
-                onClick={() => handleAddTask()}
+                onClick={handleAddTask}
                 disabled={actionLoading}
               >
                 <IconPlus size={16} />
