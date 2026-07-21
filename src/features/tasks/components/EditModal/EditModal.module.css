@@ -79,6 +79,10 @@
   transition: border-color 0.2s ease;
 }
 
+.quickDateBtn:active {
+  transform: scale(0.97);
+}
+
 .quickDateBtn:hover {
   border-color: #58a6ff;
 }
