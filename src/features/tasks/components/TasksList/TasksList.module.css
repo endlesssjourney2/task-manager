@@ -65,7 +65,7 @@
   min-width: 0;
 }
 
-.subtitle {
+.description {
   font-size: 14px;
   color: var(--text-muted);
   white-space: normal;

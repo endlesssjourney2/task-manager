@@ -61,7 +61,7 @@ const TasksList = () => {
                   >
                     {t.title}
                   </h2>
-                  <span className={s.subtitle}>{t.description}</span>
+                  <span className={s.description}>{t.description}</span>
                 </div>
               </div>
               <div className={s.right}>
