@@ -7,6 +7,8 @@ import { nextMonday } from "../../helpers/dates";
 import dayjs from "dayjs";
 import { IconArrowRight, IconCalendarPlus } from "@tabler/icons-react";
 import { Link } from "react-router-dom";
+import EmptyState from "../../features/components/EmptyState/EmptyState";
+import Empty from "../../../images/emptyToday.svg";
 
 const Today = () => {
   const {
@@ -28,55 +30,61 @@ const Today = () => {
   return (
     <div className={s.today}>
       <CustomHeader title="Your today's tasks" />
+      {todayTasks.length > 0 ? (
+        <ul className={s.list}>
+          {todayTasks.map((t) => (
+            <li key={t.id} className={s.item}>
+              <div className={s.content}>
+                <Tooltip title="Mark as done" color={"green"} placement="left">
+                  <Checkbox onChange={() => handleDoneTask(t.id)} />
+                </Tooltip>
 
-      <ul className={s.list}>
-        {todayTasks.map((t) => (
-          <li key={t.id} className={s.item}>
-            <div className={s.content}>
-              <Tooltip title="Mark as done" color={"green"} placement="left">
-                <Checkbox onChange={() => handleDoneTask(t.id)} />
-              </Tooltip>
-
-              <div className={s.left}>
-                <h2 className={s.title}>{t.title}</h2>
-              </div>
-              <div className={s.right}>
-                <div
-                  className={s.project}
-                  style={{ backgroundColor: `${t.projects.color}26` }}
-                >
-                  <Link
-                    className={s.projectTitle}
-                    style={{ color: t.projects.color }}
-                    to={`/app/project/${t.project_id}`}
-                  >
-                    # {t.projects.title}
-                  </Link>
+                <div className={s.left}>
+                  <h2 className={s.title}>{t.title}</h2>
                 </div>
-                <div className={s.buttons}>
-                  <button
-                    disabled={actionLoading}
-                    className={`${s.button}`}
-                    onClick={() => handleTomorrowUpdate(t.id)}
+                <div className={s.right}>
+                  <div
+                    className={s.project}
+                    style={{ backgroundColor: `${t.projects.color}26` }}
                   >
-                    <IconArrowRight size={14} />
-                    {dayjs().add(1, "day").format("MMMM D")}
-                  </button>
+                    <Link
+                      className={s.projectTitle}
+                      style={{ color: t.projects.color }}
+                      to={`/app/project/${t.project_id}`}
+                    >
+                      # {t.projects.title}
+                    </Link>
+                  </div>
+                  <div className={s.buttons}>
+                    <button
+                      disabled={actionLoading}
+                      className={`${s.button}`}
+                      onClick={() => handleTomorrowUpdate(t.id)}
+                    >
+                      <IconArrowRight size={14} />
+                      {dayjs().add(1, "day").format("MMMM D")}
+                    </button>
 
-                  <button
-                    disabled={actionLoading}
-                    className={`${s.button}`}
-                    onClick={() => handleNextWeekUpdate(t.id)}
-                  >
-                    <IconCalendarPlus size={14} />
-                    {nextMonday(dayjs()).format("MMMM D")}
-                  </button>
+                    <button
+                      disabled={actionLoading}
+                      className={`${s.button}`}
+                      onClick={() => handleNextWeekUpdate(t.id)}
+                    >
+                      <IconCalendarPlus size={14} />
+                      {nextMonday(dayjs()).format("MMMM D")}
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          </li>
-        ))}
-      </ul>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <EmptyState
+          image={Empty}
+          description="No tasks today. Enjoy your day!"
+        />
+      )}
     </div>
   );
 };
