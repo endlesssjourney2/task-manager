@@ -3,12 +3,13 @@ import { useEffect, useState, type FC } from "react";
 import { useProjectsContext } from "../../../context/ProjectsContext";
 import { useTasksContext } from "../../../context/TasksContext";
 import type { Priority } from "../../../types/task";
-import { PRIORITY_COLORS, PRIORITY_OPTIONS } from "../../../constants/priority";
+import { PRIORITY_OPTIONS } from "../../../constants/priority";
 import s from "./AddModalTask.module.css";
-import { capitalizeFirst } from "../../../helpers/capitalizeFirst";
 import type { Dayjs } from "dayjs";
 import dayjs from "dayjs";
 import { QUICK_DATES } from "../../../constants/dates";
+import PriorityIcon from "../../tasks/components/CustomPriority/PriorityIcon/PriorityIcon";
+import { IconCancel, IconPlus } from "@tabler/icons-react";
 
 type Props = {
   modalOpen: boolean;
@@ -41,6 +42,11 @@ const AddModalTask: FC<Props> = ({ modalOpen, handleClose }) => {
     label: p.title,
   }));
 
+  const priorityOptions = PRIORITY_OPTIONS.map((o) => ({
+    ...o,
+    label: <PriorityIcon priority={o.value as Priority} />,
+  }));
+
   const handleOk = async () => {
     const result = await addTask(
       selectedProjectId,
@@ -65,28 +71,13 @@ const AddModalTask: FC<Props> = ({ modalOpen, handleClose }) => {
       title="Add new task"
       footer={[
         <div className={s.footer} key={"footer"}>
-          <div className={s.priorityIndicator}>
-            <div
-              className={s.priorityCircle}
-              style={{
-                background: PRIORITY_COLORS[priority],
-              }}
-            />
-            <span
-              className={s.priorityLabel}
-              style={{
-                color: PRIORITY_COLORS[priority],
-              }}
-            >
-              {capitalizeFirst(priority)}
-            </span>
-          </div>
-
           <div className={s.buttons}>
             <Button type="default" onClick={handleClose}>
+              <IconCancel size={16} />
               Cancel
             </Button>
             <Button type="primary" onClick={handleOk} loading={actionLoading}>
+              <IconPlus size={16} />
               Add task
             </Button>
           </div>
@@ -143,7 +134,7 @@ const AddModalTask: FC<Props> = ({ modalOpen, handleClose }) => {
               className={s.select}
               defaultValue={priority}
               style={{ width: 120 }}
-              options={PRIORITY_OPTIONS}
+              options={priorityOptions}
               value={priority}
               onChange={(newValue) => setPriority(newValue)}
             />
