@@ -7,9 +7,10 @@ import useSearch from "../../hooks/useSearch";
 import CustomHeader from "../../components/CustomHeader/CustomHeader";
 import CustomSearch from "../../components/CustomSearch/CustomSearch";
 import AddModalProject from "../../features/components/AddModalProject/AddModalProject";
-import EmptyState from "../../components/EmptyState/EmptyState";
-import AddInlineProject from "../../features/project/components/AddInlineProject/AddInlineProject";
+import EmptyState from "../../features/components/EmptyState/EmptyState";
 import ProjectList from "../../features/project/components/ProjectList/ProjectList";
+import Empty from "../../../images/emptyProject.svg";
+import EmptySearch from "../../../images/emptySearch.svg";
 
 const Home = () => {
   const { projects, addProject, initialLoading, actionLoading } =
@@ -65,9 +66,9 @@ const Home = () => {
       <CustomHeader title="My Projects" />
       {projects.length === 0 ? (
         <EmptyState
-          handleOpenAddModal={handleOpenModal}
+          action={{ btnText: "Add now", onClick: handleOpenModal }}
           description="No projects yet"
-          buttonText="Add Project"
+          image={Empty}
         />
       ) : (
         <>
@@ -93,9 +94,15 @@ const Home = () => {
               <span className={s.length}>{projectsLength}</span>
             </div>
             <div className={s.bottom}>
-              <ProjectList projects={filteredProjects} />
+              {filteredProjects.length > 0 ? (
+                <ProjectList projects={filteredProjects} />
+              ) : (
+                <EmptyState
+                  description="No projects found"
+                  image={EmptySearch}
+                />
+              )}
             </div>
-            <AddInlineProject />
           </div>
         </>
       )}
