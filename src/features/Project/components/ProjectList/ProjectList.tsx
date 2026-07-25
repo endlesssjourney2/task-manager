@@ -6,6 +6,7 @@ import { useProjectsContext } from "../../../../context/ProjectsContext";
 import EditModalProject from "../EditModalProject/EditModalProject";
 import useNotify from "../../../../hooks/useNotify";
 import { IconEdit, IconFolder, IconTrash } from "@tabler/icons-react";
+import AddInlineProject from "../AddInlineProject/AddInlineProject";
 
 type Props = {
   projects: Project[];
@@ -89,6 +90,7 @@ const ProjectList: FC<Props> = ({ projects }) => {
             </div>
           </li>
         ))}
+        <AddInlineProject />
       </ul>
       {selectedProject && (
         <EditModalProject
