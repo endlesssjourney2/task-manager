@@ -1,5 +1,5 @@
 .inputs {
-  margin: 10px 0 20px 0;
+  margin: 10px 0 10px 0;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -35,17 +35,16 @@
 
 .bottom {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 20px;
-}
-
-.selects {
-  display: flex;
+  align-items: center;
+  justify-content: center;
   gap: 10px;
+  margin-bottom: 10px;
+  width: 100%;
 }
 
-.selectContainer {
+.bottomContainer {
+  min-width: 0;
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 5px;
@@ -64,10 +63,18 @@
 .dateContainer {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  gap: 5px;
+  margin-bottom: 16px;
+}
+
+.date {
+  display: flex;
+  gap: 8px;
 }
 
 .datePicker {
+  padding: 6px 10px;
+  flex: 1;
   background-color: #161b22 !important;
   border-color: #30363d !important;
 }
@@ -79,14 +86,13 @@
 .quickDates {
   display: flex;
   gap: 6px;
-  margin-top: 6px;
 }
 
 .quickDateBtn {
   justify-content: center;
   display: flex;
   align-items: center;
-  padding: 8px 10px;
+  padding: 6px 11px;
   border-radius: 8px;
   background-color: #161b22;
   border: 1px solid #30363d;
