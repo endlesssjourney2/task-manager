@@ -10,6 +10,7 @@ import dayjs from "dayjs";
 import { QUICK_DATES } from "../../../constants/dates";
 import PriorityIcon from "../../tasks/components/CustomPriority/PriorityIcon/PriorityIcon";
 import { IconCancel, IconPlus } from "@tabler/icons-react";
+import ProjectIcon from "../../project/components/ProjectIcon/ProjectIcon";
 
 type Props = {
   modalOpen: boolean;
@@ -37,14 +38,14 @@ const AddModalTask: FC<Props> = ({ modalOpen, handleClose }) => {
   const [priority, setPriority] = useState<Priority>("low");
   const [date, setDate] = useState<Dayjs | null>(null);
 
-  const options = projects.map((p) => ({
+  const projectOptions = projects.map((p) => ({
     value: p.id,
-    label: p.title,
+    label: <ProjectIcon project={p} size={14} fontSize={14} />,
   }));
 
-  const priorityOptions = PRIORITY_OPTIONS.map((o) => ({
-    ...o,
-    label: <PriorityIcon priority={o.value as Priority} />,
+  const priorityOptions = PRIORITY_OPTIONS.map((p) => ({
+    ...p,
+    label: <PriorityIcon priority={p.value} />,
   }));
 
   const handleOk = async () => {
@@ -114,34 +115,33 @@ const AddModalTask: FC<Props> = ({ modalOpen, handleClose }) => {
           />
         </div>
       </div>
-      <div className={s.bottom}>
-        <div className={s.selects}>
-          <div className={s.selectContainer}>
-            <span className={s.subtitle}>Project</span>
-            <Select
-              className={s.select}
-              defaultValue={selectedProjectId}
-              style={{ width: 120 }}
-              options={options}
-              value={selectedProjectId}
-              onChange={(newValue) => setSelectedProjectId(newValue)}
-            />
-          </div>
 
-          <div className={s.selectContainer}>
-            <span className={s.subtitle}>Priority</span>
-            <Select
-              className={s.select}
-              defaultValue={priority}
-              style={{ width: 120 }}
-              options={priorityOptions}
-              value={priority}
-              onChange={(newValue) => setPriority(newValue)}
-            />
-          </div>
+      <div className={s.bottom}>
+        <div className={s.bottomContainer}>
+          <span className={s.subtitle}>Project</span>
+          <Select
+            className={s.select}
+            defaultValue={selectedProjectId}
+            options={projectOptions}
+            value={selectedProjectId}
+            onChange={(newValue) => setSelectedProjectId(newValue)}
+          />
         </div>
-        <div className={s.dateContainer}>
-          <span className={s.subtitle}>Date</span>
+
+        <div className={s.bottomContainer}>
+          <span className={s.subtitle}>Priority</span>
+          <Select
+            className={s.select}
+            defaultValue={priority}
+            options={priorityOptions}
+            value={priority}
+            onChange={(newValue) => setPriority(newValue)}
+          />
+        </div>
+      </div>
+      <div className={s.dateContainer}>
+        <span className={s.subtitle}>Date</span>
+        <div className={s.date}>
           <DatePicker
             value={date}
             format={"DD/MMM/YYYY"}
