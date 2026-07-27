@@ -9,6 +9,8 @@ import { useProjectTasksContext } from "../../../../context/ProjectTasksContext"
 import { QUICK_DATES } from "../../../../constants/dates";
 import { capitalizeFirst } from "../../../../helpers/capitalizeFirst";
 import { IconCancel, IconEdit, IconRestore } from "@tabler/icons-react";
+import PriorityIcon from "../CustomPriority/PriorityIcon/PriorityIcon";
+import { STATUS_COLORS, STATUS_ICONS } from "../../../../constants/status";
 
 type Props = {
   modalOpen: boolean;
@@ -58,6 +60,13 @@ const EditModal: FC<Props> = ({
     setDate(selectedTask.due_date ? dayjs(selectedTask.due_date) : null);
   };
 
+  const priorityOptions = PRIORITY_OPTIONS.map((p) => ({
+    ...p,
+    label: <PriorityIcon priority={p.value} />,
+  }));
+
+  const StatusIcon = STATUS_ICONS[selectedTask.status];
+
   return (
     <Modal
       title={`Edit your task ${selectedTask.title}`}
@@ -68,7 +77,7 @@ const EditModal: FC<Props> = ({
       footer={[
         <div className={s.footer} key={"footer"}>
           <div className={s.statusIndicator}>
-            <div className={`${s.circle} ${s[selectedTask.status]}`} />
+            <StatusIcon size={13} color={STATUS_COLORS[selectedTask.status]} />
             <span className={s.statusText}>
               {capitalizeFirst(selectedTask.status)}
             </span>
@@ -135,7 +144,7 @@ const EditModal: FC<Props> = ({
           <Select
             className={s.select}
             value={priority}
-            options={PRIORITY_OPTIONS}
+            options={priorityOptions}
             style={{ width: 150 }}
             onChange={(p) => setPriority(p)}
           />
