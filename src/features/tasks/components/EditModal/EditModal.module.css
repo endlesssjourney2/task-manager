@@ -102,32 +102,6 @@
   gap: 6px;
 }
 
-.circle {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: transparent;
-  flex-shrink: 0;
-  border: none;
-}
-
-.todo {
-  border: 1px solid var(--status-todo);
-}
-
-.in_progress {
-  border: 1px solid var(--status-in-progress);
-  background: conic-gradient(
-    var(--status-in-progress) 200deg,
-    transparent 200deg
-  );
-}
-
-.done {
-  border: 1px solid var(--status-done);
-  background: var(--status-done);
-}
-
 .statusText {
   font-size: 14px;
   color: #8b949e;
