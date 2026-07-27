@@ -15,7 +15,7 @@ const PriorityIcon: FC<Props> = ({ priority }) => {
   return (
     <span className={s.label}>
       <IconFlag size={14} color={PRIORITY_COLORS[priority]} />
-      {PRIORITY_LABELS[priority]}
+      <span className={s.priority}>{PRIORITY_LABELS[priority]}</span>
     </span>
   );
 };

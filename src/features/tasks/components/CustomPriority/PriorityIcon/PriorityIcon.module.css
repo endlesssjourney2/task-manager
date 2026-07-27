@@ -3,3 +3,8 @@
   gap: 8px;
   align-items: center;
 }
+
+.priority {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+}
