@@ -48,6 +48,13 @@ const AddModalTask: FC<Props> = ({ modalOpen, handleClose }) => {
     label: <PriorityIcon priority={p.value} />,
   }));
 
+  const reset = () => {
+    setTitle("");
+    setDescription("");
+    setDate(null);
+    setPriority("low");
+  };
+
   const handleOk = async () => {
     const result = await addTask(
       selectedProjectId,
@@ -57,23 +64,26 @@ const AddModalTask: FC<Props> = ({ modalOpen, handleClose }) => {
       date ? date.format("YYYY-MM-DD") : null,
     );
     if (result) {
-      setTitle("");
-      setDescription("");
-      setDate(null);
+      reset();
       handleClose();
     }
+  };
+
+  const handleCancel = () => {
+    reset();
+    handleClose();
   };
 
   return (
     <Modal
       style={{ top: "200px", minWidth: "600px" }}
       open={modalOpen}
-      onCancel={handleClose}
+      onCancel={handleCancel}
       title="Add new task"
       footer={[
         <div className={s.footer} key={"footer"}>
           <div className={s.buttons}>
-            <Button type="default" onClick={handleClose}>
+            <Button type="default" onClick={handleCancel}>
               <IconCancel size={16} />
               Cancel
             </Button>
