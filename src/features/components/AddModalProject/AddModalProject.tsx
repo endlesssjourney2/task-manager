@@ -23,14 +23,16 @@ const HomeModal: FC<Props> = ({
   const handleOk = async () => {
     const result = await handleCreateProject(title, color);
     if (result) {
-      setColor(getRandomColor());
       setTitle("");
+      setColor(getRandomColor());
+      handleCloseModal();
     }
   };
 
   const handleCancel = () => {
-    handleCloseModal();
+    setTitle("");
     setColor(getRandomColor());
+    handleCloseModal();
   };
 
   return (
