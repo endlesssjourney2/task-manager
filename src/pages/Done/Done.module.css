@@ -92,6 +92,10 @@
 }
 
 .projectTitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
   font-size: 12px;
   overflow: hidden;
   text-overflow: ellipsis;
