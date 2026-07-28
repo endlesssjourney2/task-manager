@@ -8,6 +8,7 @@ import { LoadingOutlined } from "@ant-design/icons";
 import {
   IconCircleCheck,
   IconClock,
+  IconFolder,
   IconRotateClockwise2,
   IconTrash,
 } from "@tabler/icons-react";
@@ -64,7 +65,8 @@ const DoneContent = () => {
                       style={{ color: t.projects.color }}
                       to={`/app/project/${t.project_id}`}
                     >
-                      # {t.projects.title}
+                      <IconFolder size={14} />
+                      <span>{t.projects.title}</span>
                     </Link>
                   </div>
                   <span className={s.date}>
