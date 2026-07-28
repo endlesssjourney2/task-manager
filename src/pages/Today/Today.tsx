@@ -5,7 +5,11 @@ import { Checkbox, Spin, Tooltip } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 import { nextMonday } from "../../helpers/dates";
 import dayjs from "dayjs";
-import { IconArrowRight, IconCalendarPlus } from "@tabler/icons-react";
+import {
+  IconArrowRight,
+  IconCalendarPlus,
+  IconFolder,
+} from "@tabler/icons-react";
 import { Link } from "react-router-dom";
 import EmptyState from "../../features/components/EmptyState/EmptyState";
 import Empty from "../../../images/emptyToday.svg";
@@ -52,7 +56,8 @@ const Today = () => {
                       style={{ color: t.projects.color }}
                       to={`/app/project/${t.project_id}`}
                     >
-                      # {t.projects.title}
+                      <IconFolder size={14} />
+                      <span>{t.projects.title}</span>
                     </Link>
                   </div>
                   <div className={s.buttons}>
