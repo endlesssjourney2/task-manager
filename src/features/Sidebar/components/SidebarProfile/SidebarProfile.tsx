@@ -5,7 +5,7 @@ import s from "./SidebarProfile.module.css";
 import { getFirstLetter } from "../../../../helpers/getFirstLetter";
 import { supabase } from "../../../../supabase/supabaseClient";
 import { Dropdown, type MenuProps } from "antd";
-import { LogoutOutlined, SettingOutlined } from "@ant-design/icons";
+import { IconLogout, IconSettings } from "@tabler/icons-react";
 
 const SidebarProfile = () => {
   const { profile, initialLoading } = useProfileContext();
@@ -23,14 +23,14 @@ const SidebarProfile = () => {
     {
       key: "settings",
       label: "Settings",
-      icon: <SettingOutlined />,
+      icon: <IconSettings size={15} />,
       onClick: handleOpenModal,
     },
     { type: "divider" },
     {
       key: "logout",
       label: "Log out",
-      icon: <LogoutOutlined />,
+      icon: <IconLogout size={15} />,
       danger: true,
       onClick: handleLogout,
     },

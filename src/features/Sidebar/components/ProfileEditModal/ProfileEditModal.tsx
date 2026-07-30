@@ -1,8 +1,14 @@
-import { Modal } from "antd";
+import { Button, Modal } from "antd";
 import React, { useRef, useState, type FC } from "react";
 import { getFirstLetter } from "../../../../helpers/getFirstLetter";
 import s from "./ProfileEditModal.module.css";
 import { useProfileContext } from "../../../../context/ProfileContext";
+import {
+  IconCancel,
+  IconDeviceFloppy,
+  IconPhotoOff,
+  IconUpload,
+} from "@tabler/icons-react";
 
 type Props = {
   modalOpen: boolean;
@@ -45,6 +51,18 @@ const ProfileEditModal: FC<Props> = ({ modalOpen, handleCloseModal }) => {
       onCancel={handleCancel}
       onOk={handleOk}
       confirmLoading={actionLoading}
+      footer={
+        <div className={s.footer} key={"footer"}>
+          <Button type="default" onClick={handleCancel}>
+            <IconCancel size={16} />
+            Cancel
+          </Button>
+          <Button type="primary" onClick={handleOk} loading={actionLoading}>
+            <IconDeviceFloppy size={16} />
+            Save
+          </Button>
+        </div>
+      }
     >
       <div className={s.content}>
         <span className={s.subtitle}>Photo</span>
@@ -59,17 +77,19 @@ const ProfileEditModal: FC<Props> = ({ modalOpen, handleCloseModal }) => {
           <div className={s.changeAvatar}>
             <div className={s.buttons}>
               <button
-                className={s.btnUpload}
+                className={`${s.btn} ${s.btnUpload}`}
                 onClick={handleAvatarClick}
                 disabled={actionLoading}
               >
+                <IconUpload size={14} />
                 Change photo
               </button>
               <button
-                className={s.btnDelete}
+                className={`${s.btn} ${s.btnDelete}`}
                 disabled={actionLoading || !profile.avatar_url}
                 onClick={removeAvatar}
               >
+                <IconPhotoOff size={14} />
                 Delete photo
               </button>
               <input

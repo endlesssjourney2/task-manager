@@ -4,6 +4,13 @@
   flex-direction: column;
 }
 
+.footer {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 10px;
+}
+
 .subtitle {
   font-size: 16px;
   color: #8b949e;
@@ -51,46 +58,42 @@
   gap: 10px;
 }
 
-.btnUpload {
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
   padding: 6px 12px;
   border-radius: 8px;
-  background-color: #30363d;
-  color: #f0f6fc;
-  border: 1px solid #444c56;
   cursor: pointer;
   font-size: 14px;
   transition:
     background-color 0.2s ease,
     transform 0.1s ease;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btnUpload {
+  background-color: #30363d;
+  color: #f0f6fc;
+  border: 1px solid #444c56;
 }
 
 .btnUpload:hover {
   background-color: #3c444d;
 }
 
-.btnUpload:active {
-  transform: scale(0.97);
-}
-
 .btnDelete {
-  padding: 6px 12px;
-  border-radius: 8px;
   background-color: var(--btn-remove-bg);
   color: var(--btn-remove-text);
   border: 1px solid rgba(239, 68, 68, 0.35);
-  cursor: pointer;
-  font-size: 14px;
-  transition:
-    background-color 0.2s ease,
-    transform 0.1s ease;
 }
 
 .btnDelete:hover {
   background-color: var(--btn-remove-hover-bg);
-}
-
-.btnDelete:active {
-  transform: scale(0.97);
 }
 
 .btnDelete:disabled {

@@ -1,12 +1,10 @@
 import s from "./Project.module.css";
-import { useState, type FC } from "react";
+import { type FC } from "react";
 import TasksList from "../../features/tasks/components/TasksList/TasksList";
 import { Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
-import EditModal from "../../features/tasks/components/EditModal/EditModal";
 import HeaderProject from "../../features/tasks/components/HeaderProject/HeaderProject";
 import { useProjectsContext } from "../../context/ProjectsContext";
-import type { Task } from "../../types/task";
 import { useProjectTasksContext } from "../../context/ProjectTasksContext";
 import AddInlineTask from "../../features/tasks/components/AddInlineTask/AddInlineTask";
 
@@ -15,22 +13,9 @@ type Props = {
 };
 
 const ProjectContent: FC<Props> = ({ projectId }) => {
-  const { tasks, initialLoading } = useProjectTasksContext();
+  const { initialLoading } = useProjectTasksContext();
 
   const { getProjectById, editProject } = useProjectsContext();
-
-  const [editModalOpen, setEditModalOpen] = useState(false);
-  const [selectedTask, setSelectedTask] = useState<Task | null>(null);
-
-  const handleOpenEditModal = (task: Task) => {
-    setEditModalOpen(true);
-    setSelectedTask(task);
-  };
-
-  const handleCloseEditModal = () => {
-    setEditModalOpen(false);
-    setTimeout(() => setSelectedTask(null), 300);
-  };
 
   const handleRenameProject = async (newTitle: string) => {
     const project = getProjectById(projectId);
@@ -56,15 +41,8 @@ const ProjectContent: FC<Props> = ({ projectId }) => {
         renameProject={handleRenameProject}
       />
       <div className={s.content}>
-        <TasksList tasks={tasks} handleOpenModal={handleOpenEditModal} />
+        <TasksList />
         <AddInlineTask projectId={projectId} />
-        {selectedTask && (
-          <EditModal
-            modalOpen={editModalOpen}
-            selectedTask={selectedTask}
-            handleCloseModal={handleCloseEditModal}
-          />
-        )}
       </div>
     </div>
   );

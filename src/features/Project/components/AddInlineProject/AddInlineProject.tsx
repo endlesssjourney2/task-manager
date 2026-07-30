@@ -1,25 +1,44 @@
-import type { FC } from "react";
+import { useState } from "react";
+import { useProjectsContext } from "../../../../context/ProjectsContext";
 import s from "./AddInlineProject.module.css";
+import { getRandomColor } from "../../../../helpers/getRandomColor";
+import { ColorPicker } from "antd";
+import { IconFolder } from "@tabler/icons-react";
 
-type Props = {
-  value: string;
-  setValue: (value: string) => void;
-  handleInlineCreateProject: (
+const AddInlineProject = () => {
+  const { addProject } = useProjectsContext();
+
+  const [inlineTitle, setInlineTitle] = useState("");
+  const [inlineColor, setInlineColor] = useState(getRandomColor());
+
+  const handleInlineCreateProject = async (
     e: React.KeyboardEvent<HTMLInputElement>,
-  ) => Promise<void>;
-};
+  ) => {
+    if (e.key === "Enter") {
+      if (!inlineTitle.trim()) return;
+      await addProject(inlineTitle, inlineColor);
+      setInlineTitle("");
+      setInlineColor(getRandomColor());
+    }
+  };
 
-const AddInlineProject: FC<Props> = ({
-  value,
-  setValue,
-  handleInlineCreateProject,
-}) => {
   return (
     <div className={s.addInline}>
+      <ColorPicker
+        value={inlineColor}
+        onChange={(v) => setInlineColor(v.toHexString())}
+        placement="bottom"
+      >
+        <IconFolder
+          color={inlineColor}
+          size={20}
+          style={{ cursor: "pointer" }}
+        />
+      </ColorPicker>
       <input
         className={s.inlineInput}
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
+        value={inlineTitle}
+        onChange={(e) => setInlineTitle(e.target.value)}
         onKeyDown={handleInlineCreateProject}
         placeholder="Project name..."
       />

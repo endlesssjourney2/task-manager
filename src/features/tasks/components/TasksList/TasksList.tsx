@@ -1,19 +1,32 @@
-import type { FC } from "react";
+import { useState } from "react";
 import s from "./TasksList.module.css";
 import type { Status, Task } from "../../../../types/task";
 import { useProjectTasksContext } from "../../../../context/ProjectTasksContext";
-import TaskDropdown from "../TaskDropdown/TaskDropdown";
 import CustomStatus from "../CustomStatus/CustomStatus";
-import { formatDueDate } from "../../../../helpers/dates";
+import { formatDueDate, getDueDateColor } from "../../../../helpers/dates";
 import CustomPriority from "../CustomPriority/CustomPriority";
+import EditModal from "../EditModal/EditModal";
+import useNotify from "../../../../hooks/useNotify";
+import { IconCalendar, IconEdit, IconTrash } from "@tabler/icons-react";
+import dayjs from "dayjs";
+import { Tooltip } from "antd";
 
-type Props = {
-  tasks: Task[];
-  handleOpenModal: (task: Task) => void;
-};
+const TasksList = () => {
+  const { editTask, removeTask, tasks, actionLoading } =
+    useProjectTasksContext();
+  const notify = useNotify();
+  const [editModalOpen, setEditModalOpen] = useState(false);
+  const [selectedTask, setSelectedTask] = useState<Task | null>(null);
 
-const TasksList: FC<Props> = ({ tasks, handleOpenModal }) => {
-  const { editTask } = useProjectTasksContext();
+  const handleOpenEditModal = (task: Task) => {
+    setEditModalOpen(true);
+    setSelectedTask(task);
+  };
+
+  const handleCloseEditModal = () => {
+    setEditModalOpen(false);
+    setTimeout(() => setSelectedTask(null), 300);
+  };
 
   const handleChangeStatus = async (
     taskId: string,
@@ -48,11 +61,22 @@ const TasksList: FC<Props> = ({ tasks, handleOpenModal }) => {
                   >
                     {t.title}
                   </h2>
-                  <span className={s.subtitle}>{t.description}</span>
+                  <span className={s.description}>{t.description}</span>
                 </div>
               </div>
               <div className={s.right}>
-                <div className={s.date}>{formatDueDate(t.due_date)}</div>
+                <Tooltip
+                  title={`${t.due_date ? dayjs(t.due_date).format("YYYY-MM-DD") : ""}`}
+                >
+                  <div
+                    className={s.date}
+                    style={{ color: getDueDateColor(t.due_date, t.status) }}
+                  >
+                    <IconCalendar size={16} />
+                    {formatDueDate(t.due_date)}
+                  </div>
+                </Tooltip>
+
                 <CustomPriority
                   priority={t.priority}
                   onChange={(newPriority) => {
@@ -61,12 +85,43 @@ const TasksList: FC<Props> = ({ tasks, handleOpenModal }) => {
                       : editTask(t.id, { priority: newPriority });
                   }}
                 />
-                <TaskDropdown task={t} handleOpenEditModal={handleOpenModal} />
+                <div className={s.buttons}>
+                  <button
+                    className={`${s.button} ${s.editBtn}`}
+                    onClick={() => handleOpenEditModal(t)}
+                    disabled={actionLoading}
+                  >
+                    <IconEdit size={14} />
+                    Edit
+                  </button>
+                  <button
+                    className={`${s.button} ${s.removeBtn}`}
+                    onClick={() =>
+                      notify.modal.confirm(
+                        "Are you sure you want to delete this task?",
+                        "This action cannot be undone",
+                        () => removeTask(t.id),
+                        450,
+                      )
+                    }
+                    disabled={actionLoading}
+                  >
+                    <IconTrash size={14} />
+                    Remove
+                  </button>
+                </div>
               </div>
             </div>
           </li>
         ))}
       </ul>
+      {selectedTask && (
+        <EditModal
+          modalOpen={editModalOpen}
+          selectedTask={selectedTask}
+          handleCloseModal={handleCloseEditModal}
+        />
+      )}
     </>
   );
 };

@@ -7,10 +7,10 @@ import useSearch from "../../hooks/useSearch";
 import CustomHeader from "../../components/CustomHeader/CustomHeader";
 import CustomSearch from "../../components/CustomSearch/CustomSearch";
 import AddModalProject from "../../features/components/AddModalProject/AddModalProject";
-import { getRandomColor } from "../../helpers/getRandomColor";
-import EmptyState from "../../components/EmptyState/EmptyState";
-import AddInlineProject from "../../features/Project/components/AddInlineProject/AddInlineProject";
-import ProjectList from "../../features/Project/components/ProjectList/ProjectList";
+import EmptyState from "../../features/components/EmptyState/EmptyState";
+import ProjectList from "../../features/project/components/ProjectList/ProjectList";
+import Empty from "../../../images/emptyProject.svg";
+import EmptySearch from "../../../images/emptySearch.svg";
 
 const Home = () => {
   const { projects, addProject, initialLoading, actionLoading } =
@@ -34,18 +34,6 @@ const Home = () => {
       setModalOpen(false);
     }
     return result;
-  };
-
-  const [inlineTitle, setInlineTitle] = useState("");
-
-  const handleInlineCreateProject = async (
-    e: React.KeyboardEvent<HTMLInputElement>,
-  ) => {
-    if (e.key === "Enter") {
-      if (!inlineTitle.trim()) return;
-      await addProject(inlineTitle, getRandomColor());
-      setInlineTitle("");
-    }
   };
 
   const handleOpenModal = () => {
@@ -78,9 +66,9 @@ const Home = () => {
       <CustomHeader title="My Projects" />
       {projects.length === 0 ? (
         <EmptyState
-          handleOpenAddModal={handleOpenModal}
+          action={{ btnText: "Add now", onClick: handleOpenModal }}
           description="No projects yet"
-          buttonText="Add Project"
+          image={Empty}
         />
       ) : (
         <>
@@ -95,10 +83,10 @@ const Home = () => {
                 />
               </div>
             </div>
-            <div className={s.headerRight} onClick={handleOpenModal}>
+            <button className={s.headerRight} onClick={handleOpenModal}>
               <span className={s.text}>Add</span>
               <PlusOutlined />
-            </div>
+            </button>
           </div>
 
           <div className={s.content}>
@@ -106,13 +94,15 @@ const Home = () => {
               <span className={s.length}>{projectsLength}</span>
             </div>
             <div className={s.bottom}>
-              <ProjectList projects={filteredProjects} />
+              {filteredProjects.length > 0 ? (
+                <ProjectList projects={filteredProjects} />
+              ) : (
+                <EmptyState
+                  description="No projects found"
+                  image={EmptySearch}
+                />
+              )}
             </div>
-            <AddInlineProject
-              value={inlineTitle}
-              setValue={setInlineTitle}
-              handleInlineCreateProject={handleInlineCreateProject}
-            />
           </div>
         </>
       )}

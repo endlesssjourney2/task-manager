@@ -17,7 +17,7 @@
 
 .item {
   margin: 0 auto;
-  width: 100%;
+  width: 95%;
   display: flex;
   align-items: center;
   border-bottom: 1px solid #000;
@@ -87,6 +87,10 @@
 }
 
 .projectTitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
   font-size: 12px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -106,19 +110,21 @@
   align-items: center;
   gap: 3.5px;
   padding: 6px 10px;
+  font-family: "Poppins", sans-serif;
   font-size: 13px;
-  color: var(--color-accent-blue);
-  background: #2f81f714;
-  border: 1px solid #2f81f759;
+  font-weight: 500;
+  color: var(--btn-edit-text);
+  background: var(--btn-edit-bg);
+  border: 1px solid var(--btn-edit-border);
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
 .button:hover {
-  color: #79c0ff;
-  background: #2f81f724;
-  border-color: #2f81f7a6;
+  color: var(--btn-edit-hover-text);
+  background: var(--btn-edit-hover-bg);
+  border-color: var(--btn-edit-hover-border);
 }
 
 .button:active {
