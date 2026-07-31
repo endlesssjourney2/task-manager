@@ -7,6 +7,7 @@ import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.tsx";
 import Project from "./pages/Tasks/Project.tsx";
 import Done from "./pages/Done/Done.tsx";
 import Today from "./pages/Today/Today.tsx";
+import Overdue from "./pages/Overdue/Overdue.tsx";
 
 export const router = createBrowserRouter(
   [
@@ -32,6 +33,10 @@ export const router = createBrowserRouter(
         {
           path: "today",
           element: <Today />,
+        },
+        {
+          path: "overdue",
+          element: <Overdue />,
         },
       ],
     },
