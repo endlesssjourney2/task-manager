@@ -163,21 +163,28 @@ const Sidebar: FC<Props> = ({ collapsed, setCollapsed }) => {
                 </div>
               )}
               <Divider />
+              <div className={s.links}>
+                <div
+                  onClick={() => navigate("/app/today")}
+                  className={s.sidebarLink}
+                >
+                  <span className={s.title}>Today's tasks</span>
+                  <IconCalendarClock stroke={1.3} />
+                </div>
 
-              <div
-                onClick={() => navigate("/app/today")}
-                className={s.todayTasks}
-              >
-                <span className={s.title}>Today's tasks</span>
-                <IconCalendarClock stroke={1.3} />
-              </div>
-
-              <div
-                onClick={() => navigate("/app/done")}
-                className={s.doneTasks}
-              >
-                <span className={s.title}>Done tasks </span>
-                <IconCircleCheck stroke={1.3} />
+                <div
+                  onClick={() => navigate("/app/done")}
+                  className={s.sidebarLink}
+                >
+                  <span className={s.title}>Done tasks </span>
+                  <IconCircleCheck stroke={1.3} />
+                </div>
+                <div
+                  onClick={() => navigate("/app/overdue")}
+                  className={s.sidebarLink}
+                >
+                  <span className={s.title}>Overdue tasks</span>
+                </div>
               </div>
             </>
           )}
