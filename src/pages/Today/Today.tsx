@@ -18,8 +18,7 @@ const Today = () => {
   const {
     todayTasks,
     handleDoneTask,
-    handleTomorrowUpdate,
-    handleNextWeekUpdate,
+    handleReschedule,
     initialLoading,
     actionLoading,
   } = useTodayTasks();
@@ -64,7 +63,12 @@ const Today = () => {
                     <button
                       disabled={actionLoading}
                       className={`${s.button}`}
-                      onClick={() => handleTomorrowUpdate(t.id)}
+                      onClick={() =>
+                        handleReschedule(
+                          t.id,
+                          dayjs().add(1, "day").format("YYYY-MM-DD"),
+                        )
+                      }
                     >
                       <IconArrowRight size={14} />
                       {dayjs().add(1, "day").format("MMMM D")}
@@ -73,7 +77,12 @@ const Today = () => {
                     <button
                       disabled={actionLoading}
                       className={`${s.button}`}
-                      onClick={() => handleNextWeekUpdate(t.id)}
+                      onClick={() =>
+                        handleReschedule(
+                          t.id,
+                          nextMonday(dayjs()).format("YYYY-MM-DD"),
+                        )
+                      }
                     >
                       <IconCalendarPlus size={14} />
                       {nextMonday(dayjs()).format("MMMM D")}
