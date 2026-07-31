@@ -98,7 +98,7 @@ const TasksList = () => {
                     className={`${s.button} ${s.removeBtn}`}
                     onClick={() =>
                       notify.modal.confirm(
-                        "Are you sure you want to delete this task?",
+                        `Are you sure you want to delete ${t.title} task?`,
                         "This action cannot be undone",
                         () => removeTask(t.id),
                         450,

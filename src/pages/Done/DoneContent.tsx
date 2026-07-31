@@ -85,9 +85,8 @@ const DoneContent = () => {
                       className={`${s.button} ${s.removeButton}`}
                       onClick={() =>
                         notify.modal.confirm(
-                          "Are you sure you want to delete this task?",
+                          `Are you sure you want to delete ${t.title} task?`,
                           "This action cannot be undone",
-
                           () => handleRemoveTask(t.id),
                           450,
                         )
