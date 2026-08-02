@@ -55,3 +55,15 @@ export const relativeDate = (date: string) => {
   if (!date) return null;
   return dayjs(date).fromNow();
 };
+
+export const getOverdueColor = (date: string) => {
+  if (!date) return null;
+
+  const diffDays = dayjs()
+    .startOf("day")
+    .diff(dayjs(date).startOf("day"), "day");
+
+  if (diffDays <= 2) return "recent";
+  if (diffDays <= 7) return "week";
+  return "old";
+};
