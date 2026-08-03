@@ -17,3 +17,9 @@ export const PRIORITY_COLORS: Record<Priority, string> = {
   medium: "#f59e0b",
   high: "#ef4444",
 };
+
+export const tooltipPriorityColors: Record<Priority, string> = {
+  low: "green",
+  medium: "yellow",
+  high: "red",
+};
