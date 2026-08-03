@@ -5,14 +5,10 @@ import { Checkbox, Spin, Tooltip } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 import { nextMonday } from "../../helpers/dates";
 import dayjs from "dayjs";
-import {
-  IconArrowRight,
-  IconCalendarPlus,
-  IconFolder,
-} from "@tabler/icons-react";
-import { Link } from "react-router-dom";
+import { IconArrowRight, IconCalendarPlus } from "@tabler/icons-react";
 import EmptyState from "../../features/components/EmptyState/EmptyState";
 import Empty from "../../../images/emptyToday.svg";
+import ProjectBadge from "../../features/components/ProjectBadge/ProjectBadge";
 
 const Today = () => {
   const {
@@ -46,19 +42,7 @@ const Today = () => {
                   <h2 className={s.title}>{t.title}</h2>
                 </div>
                 <div className={s.right}>
-                  <div
-                    className={s.project}
-                    style={{ backgroundColor: `${t.projects.color}26` }}
-                  >
-                    <Link
-                      className={s.projectTitle}
-                      style={{ color: t.projects.color }}
-                      to={`/app/project/${t.project_id}`}
-                    >
-                      <IconFolder size={14} />
-                      <span>{t.projects.title}</span>
-                    </Link>
-                  </div>
+                  <ProjectBadge project={t.projects} id={t.project_id} />
                   <div className={s.buttons}>
                     <button
                       disabled={actionLoading}

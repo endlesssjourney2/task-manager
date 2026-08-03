@@ -8,13 +8,12 @@ import { LoadingOutlined } from "@ant-design/icons";
 import {
   IconCircleCheck,
   IconClock,
-  IconFolder,
   IconRotateClockwise2,
   IconTrash,
 } from "@tabler/icons-react";
-import { Link } from "react-router-dom";
 import EmptyState from "../../features/components/EmptyState/EmptyState";
 import Empty from "../../../images/emptyDone.svg";
+import ProjectBadge from "../../features/components/ProjectBadge/ProjectBadge";
 
 const DoneContent = () => {
   const { doneTasks, handleRestoreTask, handleRemoveTask, initialLoading } =
@@ -56,19 +55,7 @@ const DoneContent = () => {
                   )}
                 </div>
                 <div className={s.right}>
-                  <div
-                    className={s.project}
-                    style={{ backgroundColor: `${t.projects.color}26` }}
-                  >
-                    <Link
-                      className={s.projectTitle}
-                      style={{ color: t.projects.color }}
-                      to={`/app/project/${t.project_id}`}
-                    >
-                      <IconFolder size={14} />
-                      <span>{t.projects.title}</span>
-                    </Link>
-                  </div>
+                  <ProjectBadge project={t.projects} id={t.project_id} />
                   <span className={s.date}>
                     <IconClock size={14} />
                     {relativeDate(t.updated_at)}
