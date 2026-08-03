@@ -4,6 +4,7 @@ import { Dropdown, Tooltip, type MenuProps } from "antd";
 import {
   PRIORITY_COLORS,
   PRIORITY_LABELS,
+  tooltipPriorityColors,
 } from "../../../../constants/priority";
 import { IconFlag } from "@tabler/icons-react";
 import PriorityIcon from "./PriorityIcon/PriorityIcon";
@@ -11,12 +12,6 @@ import PriorityIcon from "./PriorityIcon/PriorityIcon";
 type Props = {
   priority: Priority;
   onChange: (priority: Priority) => void;
-};
-
-const priorityColors: Record<Priority, string> = {
-  low: "green",
-  medium: "yellow",
-  high: "red",
 };
 
 const CustomPriority: FC<Props> = ({ priority, onChange }) => {
@@ -36,7 +31,10 @@ const CustomPriority: FC<Props> = ({ priority, onChange }) => {
   ];
 
   return (
-    <Tooltip title={PRIORITY_LABELS[priority]} color={priorityColors[priority]}>
+    <Tooltip
+      title={PRIORITY_LABELS[priority]}
+      color={tooltipPriorityColors[priority]}
+    >
       <Dropdown
         trigger={["click"]}
         menu={{
