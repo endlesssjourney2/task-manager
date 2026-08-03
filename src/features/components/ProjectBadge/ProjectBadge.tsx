@@ -11,19 +11,16 @@ type Props = {
 
 const ProjectBadge: FC<Props> = ({ project, id }) => {
   return (
-    <div
+    <Link
       className={s.project}
       style={{ backgroundColor: `${project.color}26` }}
+      to={`/app/project/${id}`}
     >
-      <Link
-        className={s.projectTitle}
-        style={{ color: project.color }}
-        to={`/app/project/${id}`}
-      >
+      <div className={s.projectTitle} style={{ color: project.color }}>
         <IconFolder size={14} />
         <span>{project.title}</span>
-      </Link>
-    </div>
+      </div>
+    </Link>
   );
 };
 
