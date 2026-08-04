@@ -94,7 +94,7 @@ const AddInlineTask: FC<Props> = ({ projectId }) => {
                   <div className={s.popover}>
                     <DatePicker
                       value={date}
-                      format="DD/MMMM/YYYY"
+                      format="DD MMMM YYYY"
                       onChange={(e) => setDate(e)}
                       disabledDate={(curr) => curr.isBefore(dayjs(), "day")}
                     />
