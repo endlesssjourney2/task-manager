@@ -1,0 +1,14 @@
+.info {
+  border: 1px solid var(--border-color-primary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 10px;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+}
+
+.info:hover {
+  border-color: var(--btn-edit-hover-border);
+}
