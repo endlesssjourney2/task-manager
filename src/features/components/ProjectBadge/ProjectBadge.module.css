@@ -13,6 +13,10 @@
   cursor: pointer;
 }
 
+.project:active {
+  transform: scale(0.97);
+}
+
 .projectTitle {
   display: flex;
   justify-content: center;
