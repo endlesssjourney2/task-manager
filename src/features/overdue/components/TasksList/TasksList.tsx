@@ -20,6 +20,7 @@ type Props = {
   handleDone: (taskId: string) => void;
   handleRemove: (taskId: string) => void;
   handleReschedule: (taskId: string, newDate: string) => void;
+  actionLoading: boolean;
 };
 
 const TasksList: FC<Props> = ({
@@ -27,6 +28,7 @@ const TasksList: FC<Props> = ({
   handleDone,
   handleRemove,
   handleReschedule,
+  actionLoading,
 }) => {
   const notify = useNotify();
 
@@ -118,6 +120,7 @@ const TasksList: FC<Props> = ({
                         450,
                       )
                     }
+                    disabled={actionLoading}
                   >
                     <IconTrash size={14} />
                     Remove

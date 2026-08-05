@@ -14,6 +14,7 @@ const Overdue = () => {
     handleRemoveTask,
     handleDoneTask,
     handleReschedule,
+    actionLoading,
   } = useOverdueTasks();
 
   if (initialLoading)
@@ -34,6 +35,7 @@ const Overdue = () => {
           handleRemove={handleRemoveTask}
           handleDone={handleDoneTask}
           handleReschedule={handleReschedule}
+          actionLoading={actionLoading}
         />
       )}
     </div>
