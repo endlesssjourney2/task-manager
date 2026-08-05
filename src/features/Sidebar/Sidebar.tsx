@@ -14,7 +14,11 @@ import AddModalTask from "../components/AddModalTask/AddModalTask";
 import SidebarSkeleton from "./components/SidebarSkeleton/SidebarSkeleton";
 import SidebarProfile from "./components/SidebarProfile/SidebarProfile";
 import ProjectsList from "./components/ProjectsList/ProjectsList";
-import { IconCalendarClock, IconCircleCheck } from "@tabler/icons-react";
+import {
+  IconCalendarClock,
+  IconCircleCheck,
+  IconClockExclamation,
+} from "@tabler/icons-react";
 
 const { Sider } = Layout;
 
@@ -184,6 +188,7 @@ const Sidebar: FC<Props> = ({ collapsed, setCollapsed }) => {
                   className={s.sidebarLink}
                 >
                   <span className={s.title}>Overdue tasks</span>
+                  <IconClockExclamation stroke={1.3} />
                 </div>
               </div>
             </>
