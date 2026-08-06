@@ -4,6 +4,7 @@ import useNotify from "./useNotify";
 import type { TasksWithProjects } from "../types/task";
 import { getOverdueTasks } from "../api/task";
 import { useTasksContext } from "../context/TasksContext";
+import dayjs from "dayjs";
 
 const useOverdueTasks = () => {
   const { user } = useAuth();
@@ -63,6 +64,32 @@ const useOverdueTasks = () => {
     setActionLoading(false);
   };
 
+  const handleRescheduleAll = async () => {
+    setActionLoading(true);
+
+    const today = dayjs().format("YYYY-MM-DD");
+
+    const results = await Promise.allSettled(
+      overdueTasks.map((t) => editTask(t.id, { due_date: today })),
+    );
+
+    const failedResults = results.filter((r) => r.status === "rejected").length;
+
+    if (failedResults > 0) {
+      notify.notification.error(
+        "Failed to reschedule some tasks",
+        `${failedResults} tasks could not be rescheduled. Please try again.`,
+        "reschedule-tasks-error",
+      );
+    }
+
+    setOverdueTasks((prev) =>
+      prev.filter((_, index) => results[index].status === "rejected"),
+    );
+
+    setActionLoading(false);
+  };
+
   return {
     overdueTasks,
     actionLoading,
@@ -70,6 +97,7 @@ const useOverdueTasks = () => {
     handleRemoveTask,
     handleReschedule,
     handleDoneTask,
+    handleRescheduleAll,
   };
 };
 
