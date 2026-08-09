@@ -6,6 +6,69 @@
   align-items: center;
 }
 
+.actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  margin-top: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #000;
+}
+
+.select {
+  padding: 6px 10px;
+  border-radius: 8px;
+  background-color: transparent;
+  min-width: 170px;
+  font-size: 14px;
+  color: var(--btn-edit-text);
+  background: var(--btn-edit-bg);
+  border: 1px solid var(--btn-edit-border);
+}
+
+.select:hover {
+  color: var(--btn-edit-hover-text);
+  background: var(--btn-edit-hover-bg);
+  border-color: var(--btn-edit-hover-border);
+}
+
+.optionLabel {
+  display: flex;
+  align-items: center;
+  gap: 3.5px;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.rescheduleAllBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 10px;
+  font-family: "Poppins", sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--btn-edit-text);
+  background: var(--btn-edit-bg);
+  border: 1px solid var(--btn-edit-border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.rescheduleAllBtn:hover {
+  color: var(--btn-edit-hover-text);
+  background: var(--btn-edit-hover-bg);
+  border-color: var(--btn-edit-hover-border);
+}
+
+.rescheduleAllBtn:active {
+  transform: scale(0.97);
+}
+
 .loading {
   min-height: 100vh;
   background-color: var(--bg-color-primary);
