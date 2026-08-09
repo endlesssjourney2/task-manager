@@ -1,11 +1,16 @@
 import s from "./Overdue.module.css";
 import useOverdueTasks from "../../hooks/useOverdueTasks";
 import { LoadingOutlined } from "@ant-design/icons";
-import { Spin } from "antd";
+import { Select, Spin } from "antd";
 import CustomHeader from "../../components/CustomHeader/CustomHeader";
 import TasksList from "../../features/overdue/components/TasksList/TasksList";
 import EmptyState from "../../features/components/EmptyState/EmptyState";
 import Empty from "../../../images/emptyOverdue.svg";
+import useNotify from "../../hooks/useNotify";
+import { useMemo, useState } from "react";
+import dayjs from "dayjs";
+
+type SortBy = "due_date_desc" | "due_date_asc" | "priority";
 
 const Overdue = () => {
   const {
@@ -14,8 +19,33 @@ const Overdue = () => {
     handleRemoveTask,
     handleDoneTask,
     handleReschedule,
+    handleRescheduleAll,
     actionLoading,
   } = useOverdueTasks();
+
+  const notify = useNotify();
+
+  const [sortOption, setSortOption] = useState<SortBy>("due_date_desc");
+
+  const sortedTasks = useMemo(() => {
+    const sorted = [...overdueTasks];
+
+    switch (sortOption) {
+      case "priority": {
+        const priorityOrder = { high: 1, medium: 2, low: 3 };
+        return sorted.sort(
+          (a, b) => priorityOrder[a.priority] - priorityOrder[b.priority],
+        );
+      }
+
+      case "due_date_asc":
+        return sorted.sort((a, b) => dayjs(a.due_date).diff(dayjs(b.due_date)));
+
+      case "due_date_desc":
+      default:
+        return sorted.sort((a, b) => dayjs(b.due_date).diff(dayjs(a.due_date)));
+    }
+  }, [overdueTasks, sortOption]);
 
   if (initialLoading)
     return (
@@ -30,13 +60,40 @@ const Overdue = () => {
       {overdueTasks.length === 0 ? (
         <EmptyState image={Empty} description="No overdue tasks. nice work." />
       ) : (
-        <TasksList
-          overdueTasks={overdueTasks}
-          handleRemove={handleRemoveTask}
-          handleDone={handleDoneTask}
-          handleReschedule={handleReschedule}
-          actionLoading={actionLoading}
-        />
+        <>
+          <div className={s.actions}>
+            <Select
+              value={sortOption}
+              onChange={setSortOption}
+              options={[
+                { label: "Recently overdue", value: "due_date_desc" },
+                { label: "Longest overdue", value: "due_date_asc" },
+                { label: "Priority", value: "priority" },
+              ]}
+            />
+            <button
+              onClick={() =>
+                notify.modal.confirm(
+                  "Reschedule all tasks",
+                  `Are you sure you want to reschedule all overdue tasks to today (${dayjs().format(
+                    "D MMMM YYYY",
+                  )})?`,
+                  handleRescheduleAll,
+                  450,
+                )
+              }
+            >
+              Reschedule all
+            </button>
+          </div>
+          <TasksList
+            overdueTasks={sortedTasks}
+            handleRemove={handleRemoveTask}
+            handleDone={handleDoneTask}
+            handleReschedule={handleReschedule}
+            actionLoading={actionLoading}
+          />
+        </>
       )}
     </div>
   );
