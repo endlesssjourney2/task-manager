@@ -9,8 +9,13 @@ import Empty from "../../../images/emptyOverdue.svg";
 import useNotify from "../../hooks/useNotify";
 import { useMemo, useState } from "react";
 import dayjs from "dayjs";
-
-type SortBy = "due_date_desc" | "due_date_asc" | "priority";
+import {
+  IconArrowDown,
+  IconArrowUp,
+  IconCalendarRepeat,
+  IconFlag,
+} from "@tabler/icons-react";
+import type { SortBy } from "../../types/sort";
 
 const Overdue = () => {
   const {
@@ -63,15 +68,42 @@ const Overdue = () => {
         <>
           <div className={s.actions}>
             <Select
+              className={s.select}
               value={sortOption}
-              onChange={setSortOption}
+              defaultValue="due_date_asc"
+              onChange={(value: SortBy) => setSortOption(value)}
               options={[
-                { label: "Recently overdue", value: "due_date_desc" },
-                { label: "Longest overdue", value: "due_date_asc" },
-                { label: "Priority", value: "priority" },
+                {
+                  label: (
+                    <span className={s.optionLabel}>
+                      <IconArrowDown size={14} />
+                      Recently overdue
+                    </span>
+                  ),
+                  value: "due_date_desc",
+                },
+                {
+                  label: (
+                    <span className={s.optionLabel}>
+                      <IconArrowUp size={14} />
+                      Longest overdue
+                    </span>
+                  ),
+                  value: "due_date_asc",
+                },
+                {
+                  label: (
+                    <span className={s.optionLabel}>
+                      <IconFlag size={14} />
+                      Priority
+                    </span>
+                  ),
+                  value: "priority",
+                },
               ]}
             />
             <button
+              className={s.rescheduleAllBtn}
               onClick={() =>
                 notify.modal.confirm(
                   "Reschedule all tasks",
@@ -83,6 +115,7 @@ const Overdue = () => {
                 )
               }
             >
+              <IconCalendarRepeat size={17} />
               Reschedule all
             </button>
           </div>
