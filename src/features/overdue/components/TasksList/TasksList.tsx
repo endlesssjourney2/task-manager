@@ -41,12 +41,17 @@ const TasksList: FC<Props> = ({
           <li key={t.id} className={s.item}>
             <div className={s.content}>
               <Tooltip title="Mark as done" color={"green"} placement="left">
-                <Checkbox onChange={() => handleDone(t.id)} />
+                <Checkbox
+                  onChange={() => handleDone(t.id)}
+                  disabled={actionLoading}
+                />
               </Tooltip>
 
               <div className={s.left}>
                 <span className={s.title}>{t.title}</span>
-                <span className={s.description}>{t.description}</span>
+                {t.description && (
+                  <span className={s.description}>{t.description}</span>
+                )}
               </div>
               <div className={s.right}>
                 <TaskInfoBadge status={t.status} priority={t.priority} />
@@ -60,6 +65,7 @@ const TasksList: FC<Props> = ({
                   content={
                     <div className={s.popover}>
                       <DatePicker
+                        disabled={actionLoading}
                         format="DD MMMM YYYY"
                         onChange={(date) => {
                           if (date) {
@@ -76,6 +82,7 @@ const TasksList: FC<Props> = ({
                             color={"blue"}
                           >
                             <button
+                              disabled={actionLoading}
                               onClick={() =>
                                 handleReschedule(
                                   t.id,
