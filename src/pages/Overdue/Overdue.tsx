@@ -63,14 +63,13 @@ const Overdue = () => {
     <div className={s.overdue}>
       <CustomHeader title="Your overdue tasks" />
       {overdueTasks.length === 0 ? (
-        <EmptyState image={Empty} description="No overdue tasks. nice work." />
+        <EmptyState image={Empty} description="No overdue tasks. Nice work!" />
       ) : (
         <>
           <div className={s.actions}>
             <Select
               className={s.select}
               value={sortOption}
-              defaultValue="due_date_asc"
               onChange={(value: SortBy) => setSortOption(value)}
               options={[
                 {
@@ -104,6 +103,7 @@ const Overdue = () => {
             />
             <button
               className={s.rescheduleAllBtn}
+              disabled={actionLoading}
               onClick={() =>
                 notify.modal.confirm(
                   "Reschedule all tasks",
