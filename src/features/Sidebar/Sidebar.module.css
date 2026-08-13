@@ -107,8 +107,12 @@
   transform: rotate(90deg);
 }
 
-.doneTasks,
-.todayTasks {
+.links {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebarLink {
   cursor: pointer;
   display: flex;
   justify-content: space-between;
@@ -121,8 +125,7 @@
   padding: 0 8px 0 8px;
 }
 
-.doneTasks:hover,
-.todayTasks:hover {
+.sidebarLink:hover {
   background-color: #322f2a;
 }
 

@@ -4,8 +4,6 @@ import useNotify from "./useNotify";
 import type { TasksWithProjects } from "../types/task";
 import { getTodayTasks } from "../api/task";
 import { useTasksContext } from "../context/TasksContext";
-import dayjs from "dayjs";
-import { nextMonday } from "../helpers/dates";
 
 const useTodayTasks = () => {
   const { user } = useAuth();
@@ -36,38 +34,9 @@ const useTodayTasks = () => {
     fetchTodayTasks();
   }, [user]);
 
-  // const handleUpdateDate = async (taskId: string, newDueDate: string) => {
-  //   setActionLoading(true);
-  //   const result = await editTask(taskId, { due_date: newDueDate });
-  //   if (result) {
-  //     const today = dayjs().format("YYYY-MM-DD");
-  //     if (newDueDate !== today) {
-  //       setTodayTasks((prev) => prev.filter((task) => task.id !== taskId));
-  //     } else {
-  //       setTodayTasks((prev) =>
-  //         prev.map((task) =>
-  //           task.id === taskId ? { ...task, due_date: newDueDate } : task,
-  //         ),
-  //       );
-  //     }
-  //   }
-  //   setActionLoading(false);
-  // }; need to think blablabla
-
-  const handleTomorrowUpdate = async (taskId: string) => {
+  const handleReschedule = async (taskId: string, newDate: string) => {
     setActionLoading(true);
-    const newDueDate = dayjs().add(1, "day").format("YYYY-MM-DD");
-    const result = await editTask(taskId, { due_date: newDueDate });
-    if (result) {
-      setTodayTasks((prev) => prev.filter((task) => task.id !== taskId));
-    }
-    setActionLoading(false);
-  };
-
-  const handleNextWeekUpdate = async (taskId: string) => {
-    setActionLoading(true);
-    const newDueDate = nextMonday(dayjs()).format("YYYY-MM-DD");
-    const result = await editTask(taskId, { due_date: newDueDate });
+    const result = await editTask(taskId, { due_date: newDate });
     if (result) {
       setTodayTasks((prev) => prev.filter((task) => task.id !== taskId));
     }
@@ -88,8 +57,7 @@ const useTodayTasks = () => {
     initialLoading,
     actionLoading,
     handleDoneTask,
-    handleTomorrowUpdate,
-    handleNextWeekUpdate,
+    handleReschedule,
   };
 };
 

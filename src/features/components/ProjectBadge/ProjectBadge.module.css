@@ -1,0 +1,29 @@
+.project {
+  min-width: 0;
+  display: flex;
+  justify-content: right;
+  padding: 4px 10px;
+  border-radius: 12px;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.project:hover {
+  filter: brightness(1.15);
+  cursor: pointer;
+}
+
+.project:active {
+  transform: scale(0.97);
+}
+
+.projectTitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

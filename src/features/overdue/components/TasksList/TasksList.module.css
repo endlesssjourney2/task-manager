@@ -1,0 +1,154 @@
+.list {
+  width: 90%;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 5px;
+}
+
+.item {
+  margin: 0 auto;
+  width: 95%;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #000;
+  padding: 5px 10px;
+  border-radius: 8px;
+}
+
+.item:hover {
+  background-color: #333;
+}
+
+.content {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.left {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: flex-start;
+}
+
+.title {
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--text-primary);
+}
+
+.description {
+  font-size: 14px;
+  color: var(--text-muted);
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+.right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.dateActions {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3.5px;
+  padding: 5px 10px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.dateActions:hover {
+  filter: brightness(1.15);
+}
+
+.dateActions:active {
+  transform: scale(0.97);
+}
+
+.date {
+  font-size: 14px;
+}
+
+.removeBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3.5px;
+  padding: 5px 10px;
+  font-family: "Poppins", sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--btn-remove-text);
+  background: var(--btn-remove-bg);
+  border: 1px solid var(--btn-remove-border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.removeBtn:active {
+  transform: scale(0.97);
+}
+
+.removeBtn:hover {
+  color: var(--btn-remove-hover-text);
+  background: var(--btn-remove-hover-bg);
+  border-color: var(--btn-remove-hover-border);
+}
+
+.popover {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.subtitle {
+  text-align: left;
+  font-size: 16px;
+  color: #8b949e;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.quickDates {
+  display: flex;
+  gap: 6px;
+}
+
+.quickDateBtn {
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background-color: #161b22;
+  border: 1px solid #30363d;
+  color: #f0f6fc;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.quickDateBtn:active {
+  transform: scale(0.97);
+}
+
+.quickDateBtn:hover {
+  border-color: #58a6ff;
+}

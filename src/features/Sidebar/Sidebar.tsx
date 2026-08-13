@@ -14,7 +14,11 @@ import AddModalTask from "../components/AddModalTask/AddModalTask";
 import SidebarSkeleton from "./components/SidebarSkeleton/SidebarSkeleton";
 import SidebarProfile from "./components/SidebarProfile/SidebarProfile";
 import ProjectsList from "./components/ProjectsList/ProjectsList";
-import { IconCalendarClock, IconCircleCheck } from "@tabler/icons-react";
+import {
+  IconCalendarClock,
+  IconCircleCheck,
+  IconClockExclamation,
+} from "@tabler/icons-react";
 
 const { Sider } = Layout;
 
@@ -163,21 +167,29 @@ const Sidebar: FC<Props> = ({ collapsed, setCollapsed }) => {
                 </div>
               )}
               <Divider />
+              <div className={s.links}>
+                <div
+                  onClick={() => navigate("/app/today")}
+                  className={s.sidebarLink}
+                >
+                  <span className={s.title}>Today's tasks</span>
+                  <IconCalendarClock stroke={1.3} />
+                </div>
 
-              <div
-                onClick={() => navigate("/app/today")}
-                className={s.todayTasks}
-              >
-                <span className={s.title}>Today's tasks</span>
-                <IconCalendarClock stroke={1.3} />
-              </div>
-
-              <div
-                onClick={() => navigate("/app/done")}
-                className={s.doneTasks}
-              >
-                <span className={s.title}>Done tasks </span>
-                <IconCircleCheck stroke={1.3} />
+                <div
+                  onClick={() => navigate("/app/done")}
+                  className={s.sidebarLink}
+                >
+                  <span className={s.title}>Done tasks </span>
+                  <IconCircleCheck stroke={1.3} />
+                </div>
+                <div
+                  onClick={() => navigate("/app/overdue")}
+                  className={s.sidebarLink}
+                >
+                  <span className={s.title}>Overdue tasks</span>
+                  <IconClockExclamation stroke={1.3} />
+                </div>
               </div>
             </>
           )}

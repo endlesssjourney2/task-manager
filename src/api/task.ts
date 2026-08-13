@@ -92,3 +92,20 @@ export const getTodayTasks = async (userId: string) => {
   }
   return [data, null];
 };
+
+export const getOverdueTasks = async (userId: string) => {
+  const today = dayjs().format("YYYY-MM-DD");
+
+  const { data, error } = await supabase
+    .from("tasks")
+    .select("*, projects(title, color)")
+    .lt("due_date", today)
+    .eq("user_id", userId)
+    .neq("status", "done");
+
+  if (error) {
+    console.error("Error fetching tasks", error.message);
+    return [null, error];
+  }
+  return [data, null];
+};

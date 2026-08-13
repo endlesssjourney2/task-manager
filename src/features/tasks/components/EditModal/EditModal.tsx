@@ -152,7 +152,7 @@ const EditModal: FC<Props> = ({
         <div className={s.dateContainer}>
           <span className={s.subtitle}>Due date</span>
           <DatePicker
-            format={"DD/MMM/YYYY"}
+            format="DD MMMM YYYY"
             value={date}
             onChange={(d) => setDate(d)}
             disabledDate={(curr) => curr.isBefore(dayjs(), "day")}
