@@ -1,22 +1,127 @@
-.addInline {
+.addProject {
   width: 100%;
-  margin: 5px auto;
   display: flex;
-  gap: 10px;
+  justify-content: flex-start;
+  margin: 0 auto;
+  padding: 5px 10px;
+  border: 1px dashed #333;
+  border-radius: 8px;
+}
+
+.addingContainer {
+  background-color: transparent;
+  width: 100%;
+  border: 1px solid #30363d;
+  margin: 0 auto;
+  padding: 10px 10px;
+  border-radius: 12px;
+}
+
+.titleInput {
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.titleInput {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.bottom {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid #30363d;
+  margin-top: 10px;
+  padding-top: 10px;
+}
+
+.color {
+  display: flex;
   justify-content: center;
   align-items: center;
-  border-bottom: 1px solid #555555;
-  padding: 5px 10px;
+  gap: 3.5px;
+  padding: 6px 10px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  transition: all 0.15s ease;
 }
 
-.inlineInput {
-  color: var(--text-primary);
-  font-size: 20px;
-  width: 100%;
-  border: none;
-  background-color: transparent;
+.color:active {
+  transform: scale(0.97);
 }
 
-.inlineInput:focus {
-  outline: none;
+.icon {
+  transition: all 0.15s;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3.5px;
+  padding: 6px 10px;
+  font-size: 14px;
+  border-radius: 8px;
+  transition: all 0.15s ease;
+  cursor: pointer;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.color,
+.btn {
+  line-height: 1;
+}
+
+.resetBtn {
+  color: var(--btn-edit-text);
+  background: var(--btn-edit-bg);
+  border: 1px solid var(--btn-edit-border);
+}
+
+.resetBtn:hover {
+  color: var(--btn-edit-hover-text);
+  background: var(--btn-edit-hover-bg);
+  border-color: var(--btn-edit-hover-border);
+}
+
+.cancelBtn {
+  color: var(--btn-remove-text);
+  background: var(--btn-remove-bg);
+  border: 1px solid var(--btn-remove-border);
+}
+
+.cancelBtn:hover {
+  color: var(--btn-remove-hover-text);
+  background: var(--btn-remove-hover-bg);
+  border-color: var(--btn-remove-hover-border);
+}
+
+.addBtn {
+  color: var(--btn-add-text);
+  background: var(--btn-add-bg);
+  border: 1px solid var(--btn-add-border);
+}
+
+.addBtn:hover {
+  color: var(--btn-add-hover-text);
+  background: var(--btn-add-hover-bg);
+  border-color: var(--btn-add-hover-border);
 }
